@@ -1,0 +1,226 @@
+#+TITLE: 10 wget command examples
+#+URL: https://www.rosehosting.com/blog/wget-command-examples/
+#+AUTHOR: lujun9972
+#+TAGS: examples
+#+DATE: [2017-10-26 四 16:22]
+#+LANGUAGE:  zh-CN
+#+OPTIONS:  H:6 num:nil toc:t \n:nil ::t |:t ^:nil -:nil f:t *:t <:nil
+
+
+我会向你展示10个 Wget 命令的实际案例. Wget 是一个用于下载文件的免费工具，它支持大多数常用的Internet协议，包括 HTTP, HTTPS, 以及 FTP.
+
+Wget这个名字来源于 World Wide Web + get. Wget 有很多功能，可以很方便地做到下载大型文件,递归下载,一次下载多个文件以及镜像web网站和FTP站点.
+
+Wget是非交互式的，但是使用起来相当的灵活. 你可以在脚本，cron任务，终端等地方调用它. 
+它可以在用户未登陆的情况下运行在后台. 也就是说你可以开始下载文件，然后退出系统，wget会在后台运行直到完成任务.
+
+在本文中，我将演示一些wget的使用例子, 这些例子都很常见,比如下载文件，比如镜像整个网站.
+
+在演示前,我们先在 [[https://www.rosehosting.com/ubuntu-vps.html][Ubuntu 16.04]] [[https://www.rosehosting.com/ubuntu-vps.html][VPS]] 上安装wget.
+
+请注意，虽然该演示是在 Ubuntu 16.04 上进行的, 但是这些命令在其他 [[https://www.rosehosting.com/linux-vps-hosting.html][Linux]] 发行版中同样适用.
+
+* Logging to your server and installing wget
+
+第一步是 [[https://www.rosehosting.com/blog/connect-to-your-linux-vps-via-ssh/][通过SSH登陆服务器]].
+
+使用下面命令更新你的服务器:
+
+#+BEGIN_SRC shell
+  apt-get update
+  apt-get upgrade
+#+END_SRC
+
+然后安装wget软件包:
+
+#+BEGIN_SRC shell
+  apt-get install wget
+#+END_SRC
+
+安装完成后，就可以开始使用wget命令了.
+
+* 1. Wget Command to Download a single file
+
+The most common and simple usage of wget is to download a single file and
+store it in your current directory.
+
+For example, to download the latest WordPress version you can use the
+following command:
+
+#+BEGIN_SRC shell
+  wget https://wordpress.org/latest.zip
+#+END_SRC
+
+This is the output you will get while the file is downloading:
+
+#+BEGIN_EXAMPLE
+  --2017-10-14 03:46:06-- https://wordpress.org/latest.zip
+  Resolving wordpress.org (wordpress.org)... 66.155.40.250, 66.155.40.249
+  Connecting to wordpress.org (wordpress.org)|66.155.40.250|:443... connected.
+  HTTP request sent, awaiting response... 200 OK
+  Length: 8912693 (8.5M) [application/zip]
+  Saving to: 'latest.zip'
+
+  latest.zip 100%[=====================================================================================================>] 8.50M 5.03MB/s in 1.7s
+
+  2017-10-14 03:46:07 (5.03 MB/s) - 'latest.zip' saved [8912693/8912693]
+#+END_EXAMPLE
+
+As you can see, it also shows you the download progress, current download
+speed, the size, date, time and the name of the file.
+
+In our case, this command will download the file and save it in your current
+directory under the “latest.zip” name.
+
+* 2. Wget Command to Download a file and save it under different name
+
+You may want to save the file under a different name. To do this, you can use
+the -O option like this:
+
+#+BEGIN_SRC shell
+  wget -O wordpress.zip https://wordpress.org/latest.zip
+#+END_SRC
+
+This will download and save the latest WordPress installation in your current
+directory under the name “wordpress.zip”.
+
+* 3. Wget Command to Download a file and save it in specific directory
+
+To download the file and save it in a different directory, you can use the -P
+option, for example:
+
+#+BEGIN_SRC shell
+  wget -P /opt/wordpress https://wordpress.org/latest.zip
+#+END_SRC
+
+This will download and store the file in the /opt/wordpress directory on your
+server.
+
+* 4. Wget Command to Set the download speed
+
+If you happen to download a huge file which takes longer to complete, you can
+also limit the download speed to prevent wget from using the full possible
+bandwidth of your connection.
+
+To limit the download speed to 300k, for example, you can use the following
+command:
+
+#+BEGIN_SRC shell
+  wget --limit-rate=300k https://wordpress.org/latest.zip
+#+END_SRC
+
+* 5. Wget Command to Continue interrupted download
+
+Sometimes, when you download a very big file which would take a longer time to
+complete, you may temporarily lose your internet connection and your download
+will get interrupted.
+
+To avoid starting the whole download again, you can continue from where it got
+interrupted using the -c option:
+
+#+BEGIN_SRC shell
+  wget -c https://wordpress.org/latest.zip
+#+END_SRC
+
+If the download is interrupted, and you start the whole download again without
+the -c option, wget will append “.1” to the end of the filename because the
+filename with the previous name already exists.
+
+* 6. Wget Command to Download in background
+
+For bigger files, you can also use the -b option, to download the file in the
+background.
+
+#+BEGIN_SRC shell
+  wget -b http://example.com/big-file.zip
+#+END_SRC
+
+The output will be written in the “wget-log” file in the same directory, and
+you can always check the status of the download with the following command:
+
+#+BEGIN_SRC shell
+  tail -f wget-log
+#+END_SRC
+
+* 7. Wget Command to Increase retry attempts
+
+If you are having issues with your internet connection, and your download is
+getting interrupted multiple times, you can increase the retry attempts to
+download the file with the -tries option:
+
+#+BEGIN_SRC shell
+  wget -tries=100 https://example.com/file.zip
+#+END_SRC
+
+* 8. Wget Command to Download multiple files
+
+If you want to download multiple files at the same time, you can create a text
+file (for example download.txt) where you place all the URLs of the files you
+wish to download. To create a text file do the following:
+
+#+BEGIN_SRC shell
+  touch download.txt
+#+END_SRC
+
+Then you can edit the file with nano, and enter all the URLs of all the files
+you want to download:
+
+#+BEGIN_SRC shell
+  nano download.txt
+
+  http://example.com/file1.zip
+
+  http://example.com/file2.zip
+
+  http://example.com/file3.zip
+#+END_SRC
+
+After you save the file, you can then use the -i option to download all the
+files stored in that text file:
+
+#+BEGIN_SRC shell
+  wget -i download.txt
+#+END_SRC
+
+* 9. Wget Command to Download through FTP
+
+You can also use wget to download a file directly through FTP using a set
+username and password, with the following command:
+
+#+BEGIN_SRC shell
+  wget --ftp-user=username --ftp-password=password ftp://url-to-ftp-file
+#+END_SRC
+
+* 10. Wget Command to Download entire website
+
+You can even use wget to download an entire website, which you can then view
+locally, offline, without the need of internet connection. To do this you can
+use the following comand:
+
+#+BEGIN_SRC shell
+  wget --mirror --convert-links --page-requisites ----no-parent -P /path/to/download https://example-domain.com
+#+END_SRC
+
+With —mirror, you turn on all the options required for mirroring.
+
+With –convert-links, you will convert all the links so they would work
+offline.
+
+With –page-requisites, you download all the necessary files such as CSS style
+sheets and images required to properly display the pages offline.
+
+With –no-parent, you can restrict the download only to a specific portion of
+the site.
+
+Additionally, you can set the path to where we want to download the files with
+the -P command followed by the path to the directory.
+
+We have covered some of the most common uses of wget command. To [[https://www.gnu.org/software/wget/manual/wget.html][learn more]]
+[[https://www.gnu.org/software/wget/manual/wget.html][about wget]], you can always check its man page with the man wget command.
+
+If you have a [[https://www.rosehosting.com/linux-vps-hosting.html][Linux VPS]] with us, all you have to do is ask our expert Linux
+admins to install wget on your server or to offer some advice on how to use
+the wget commands. They’re available 24/7, and will be able to help you solve
+this issue.
+PS. If you enjoy reading our blog, feel free to share it on social networks
+using the shortcuts below, or simply leave a comment.
