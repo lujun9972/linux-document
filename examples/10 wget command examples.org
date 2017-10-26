@@ -39,7 +39,7 @@ Wget是非交互式的，但是使用起来相当的灵活. 你可以在脚本�
 
 安装完成后，就可以开始使用wget命令了.
 
-* 1. Wget Command to Download a single file
+* 1. 下载单个文件
 
 wget最常用也是最简单的用法就是用来下载单个文件.
 
@@ -68,17 +68,15 @@ wget最常用也是最简单的用法就是用来下载单个文件.
 
 在我们的例子中, wget会下载文件并以"latest.zip"为名存放到当前目录中.zip” name.
 
-* 2. Wget Command to Download a file and save it under different name
+* 2. 下载文件并重命名
 
-You may want to save the file under a different name. To do this, you can use
-the -O option like this:
+若你想以其他名称保存下载的文件，可以使用 =-O= 选项:
 
 #+BEGIN_SRC shell
   wget -O wordpress.zip https://wordpress.org/latest.zip
 #+END_SRC
 
-This will download and save the latest WordPress installation in your current
-directory under the name “wordpress.zip”.
+wget会下载文件并以"wordpress.zip"为名存放到当前目录中.zip” name.
 
 * 3. Wget Command to Download a file and save it in specific directory
 
