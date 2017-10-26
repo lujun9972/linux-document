@@ -41,17 +41,15 @@ Wget是非交互式的，但是使用起来相当的灵活. 你可以在脚本�
 
 * 1. Wget Command to Download a single file
 
-The most common and simple usage of wget is to download a single file and
-store it in your current directory.
+wget最常用也是最简单的用法就是用来下载单个文件.
 
-For example, to download the latest WordPress version you can use the
-following command:
+你可以用下面命令想下载最新版的WordPress
 
 #+BEGIN_SRC shell
   wget https://wordpress.org/latest.zip
 #+END_SRC
 
-This is the output you will get while the file is downloading:
+你会看到如下输出:
 
 #+BEGIN_EXAMPLE
   --2017-10-14 03:46:06-- https://wordpress.org/latest.zip
@@ -66,11 +64,9 @@ This is the output you will get while the file is downloading:
   2017-10-14 03:46:07 (5.03 MB/s) - 'latest.zip' saved [8912693/8912693]
 #+END_EXAMPLE
 
-As you can see, it also shows you the download progress, current download
-speed, the size, date, time and the name of the file.
+从中可以看出，wget还会显示出下载的进度, 当前下载速度, 文件大小, 当前日期时间 以及待下载文件的名称.
 
-In our case, this command will download the file and save it in your current
-directory under the “latest.zip” name.
+在我们的例子中, wget会下载文件并以"latest.zip"为名存放到当前目录中.zip” name.
 
 * 2. Wget Command to Download a file and save it under different name
 
