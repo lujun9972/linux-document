@@ -1,4 +1,4 @@
-#+TITLE: 10 wget command examples
+#+TITLE: [译]10个wget命令的演示案例
 #+URL: https://www.rosehosting.com/blog/wget-command-examples/
 #+AUTHOR: lujun9972
 #+TAGS: examples
@@ -78,86 +78,70 @@ wget最常用也是最简单的用法就是用来下载单个文件.
 
 wget会下载文件并以"wordpress.zip"为名存放到当前目录中.zip” name.
 
-* 3. Wget Command to Download a file and save it in specific directory
+* 3. 指定下载目录
 
-To download the file and save it in a different directory, you can use the -P
-option, for example:
+使用 =-p= 选项指定下载目录:
 
 #+BEGIN_SRC shell
   wget -P /opt/wordpress https://wordpress.org/latest.zip
 #+END_SRC
 
-This will download and store the file in the /opt/wordpress directory on your
-server.
+就会把文件下载到 /opt/wordpress 目录中.
 
-* 4. Wget Command to Set the download speed
+* 4. 限制下载速度
 
-If you happen to download a huge file which takes longer to complete, you can
-also limit the download speed to prevent wget from using the full possible
-bandwidth of your connection.
+当你下载大型文件时,可能耗时很长,这事你可以限制wget的下载速度以防止它把整个带宽都占满了.
 
-To limit the download speed to 300k, for example, you can use the following
-command:
+下面命令就将下载速度限制在了每秒300k:
 
 #+BEGIN_SRC shell
   wget --limit-rate=300k https://wordpress.org/latest.zip
 #+END_SRC
 
-* 5. Wget Command to Continue interrupted download
+* 5. 断点续传
 
-Sometimes, when you download a very big file which would take a longer time to
-complete, you may temporarily lose your internet connection and your download
-will get interrupted.
+在下载大型文件时，可能会由于网络连接抖动造成下载中断.
 
-To avoid starting the whole download again, you can continue from where it got
-interrupted using the -c option:
+为了避免重新下载，可以使用 =-c= 选项进行断点续传:
 
 #+BEGIN_SRC shell
   wget -c https://wordpress.org/latest.zip
 #+END_SRC
 
-If the download is interrupted, and you start the whole download again without
-the -c option, wget will append “.1” to the end of the filename because the
-filename with the previous name already exists.
+若下载中断后你没有用 =-c= 进行断点续传，而是重新下载, wget 会在文件名后加上 “.1” 防止与前面下载的文件重名.
 
-* 6. Wget Command to Download in background
+* 6. 后台下载
 
-For bigger files, you can also use the -b option, to download the file in the
-background.
+当下载大型文件时, 可以使用 =-b= 选项让wget在后台下载文件.
 
 #+BEGIN_SRC shell
   wget -b http://example.com/big-file.zip
 #+END_SRC
 
-The output will be written in the “wget-log” file in the same directory, and
-you can always check the status of the download with the following command:
+输出内容会写入同目录下的 “wget-log” 文件, 这样你就可以用下面命令来检查下载状态了:
 
 #+BEGIN_SRC shell
   tail -f wget-log
 #+END_SRC
 
-* 7. Wget Command to Increase retry attempts
+* 7. 设置重试次数
 
-If you are having issues with your internet connection, and your download is
-getting interrupted multiple times, you can increase the retry attempts to
-download the file with the -tries option:
+若网络有问题导致下载时常中断,就可以使用 =-tries= 选项增加重试次数:
 
 #+BEGIN_SRC shell
   wget -tries=100 https://example.com/file.zip
 #+END_SRC
 
-* 8. Wget Command to Download multiple files
+* 8. 下载多文件
 
-If you want to download multiple files at the same time, you can create a text
-file (for example download.txt) where you place all the URLs of the files you
-wish to download. To create a text file do the following:
+若你想同时下载多个文件,你可以将要在的文件URL存放在一个文本文件中(假设该文件名为download.txt). 
 
+下面命令创建一个文本文件:
 #+BEGIN_SRC shell
   touch download.txt
 #+END_SRC
 
-Then you can edit the file with nano, and enter all the URLs of all the files
-you want to download:
+然后可以用 nano 编辑该文件，输入所有想下载的文件URL:
 
 #+BEGIN_SRC shell
   nano download.txt
@@ -169,17 +153,15 @@ you want to download:
   http://example.com/file3.zip
 #+END_SRC
 
-After you save the file, you can then use the -i option to download all the
-files stored in that text file:
+保存该文件, 然后使用 =-i= 选项下载文本文件中保存的所有文件:
 
 #+BEGIN_SRC shell
   wget -i download.txt
 #+END_SRC
 
-* 9. Wget Command to Download through FTP
+* 9. 下载FTP文件
 
-You can also use wget to download a file directly through FTP using a set
-username and password, with the following command:
+wget还支持下载FTP文件，可以为它设置用户名和密码，如下所示:
 
 #+BEGIN_SRC shell
   wget --ftp-user=username --ftp-password=password ftp://url-to-ftp-file
@@ -187,34 +169,23 @@ username and password, with the following command:
 
 * 10. Wget Command to Download entire website
 
-You can even use wget to download an entire website, which you can then view
-locally, offline, without the need of internet connection. To do this you can
-use the following comand:
+你甚至可以用wget下载完整的站点, 然后进行离线浏览. 方法是使用如下命令:
 
 #+BEGIN_SRC shell
-  wget --mirror --convert-links --page-requisites ----no-parent -P /path/to/download https://example-domain.com
+wget --mirror --convert-links --page-requisites ----no-parent -P /path/to/download https://example-domain.com
 #+END_SRC
 
-With —mirror, you turn on all the options required for mirroring.
+—mirror 会开启镜像所需要的所有选项.
 
-With –convert-links, you will convert all the links so they would work
-offline.
+–convert-links 会将所有链接转换成本地链接以便离线浏览.
 
-With –page-requisites, you download all the necessary files such as CSS style
-sheets and images required to properly display the pages offline.
+–page-requisites 表示下载包括CSS样式文件，图片等所有所需的文件，以便离线时能正确地现实页面.
 
-With –no-parent, you can restrict the download only to a specific portion of
-the site.
+–no-parent 用于限制只下载网站的某一部分内容.
 
-Additionally, you can set the path to where we want to download the files with
-the -P command followed by the path to the directory.
+此外, 你可以使用 =P= 设置下载路径.
 
-We have covered some of the most common uses of wget command. To [[https://www.gnu.org/software/wget/manual/wget.html][learn more]]
-[[https://www.gnu.org/software/wget/manual/wget.html][about wget]], you can always check its man page with the man wget command.
+以上例子覆盖了wget最常用的几个场景.[[https://www.gnu.org/software/wget/manual/wget.html][想更多地了解wget]], 你可以使用 =man wget= 查看它的帮助文档.
 
-If you have a [[https://www.rosehosting.com/linux-vps-hosting.html][Linux VPS]] with us, all you have to do is ask our expert Linux
-admins to install wget on your server or to offer some advice on how to use
-the wget commands. They’re available 24/7, and will be able to help you solve
-this issue.
-PS. If you enjoy reading our blog, feel free to share it on social networks
-using the shortcuts below, or simply leave a comment.
+若你跟我们一样有一台 [[https://www.rosehosting.com/linux-vps-hosting.html][Linux VPS]] , 那么你只需要让Linux管理员帮忙在你的服务器上安装一下wget命令或者为他们提供一些使用wget的建议. 
+他们是 24/7 在线的,会帮你解决这个问题.
