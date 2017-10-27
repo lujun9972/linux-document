@@ -5,7 +5,7 @@
 * examples
 读什么手册啊，跟着我来做就好了.
 
-+ [[https://github.com/lujun9972/linux-document/blob/master/examples/10 wget command examples.org][ 10个wget命令的演示案例]]		<2017-10-27>
++ [[https://github.com/lujun9972/linux-document/blob/master/examples/10 wget command examples.org][ 10个例子教你学会wget命令]]		<2017-10-27>
 * processing
 正在翻译的内容,别人的东西可不要抢哦~
 
