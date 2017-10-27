@@ -1,0 +1,62 @@
+#+TITLE: Linux中找出连上你Wifi的那些设备
+#+URL: http://www.linuxandubuntu.com/home/find-devices-connected-to-your-wifi-in-linux
+#+AUTHOR: lujun9972
+#+TAGS: raw
+#+DATE: [2017-10-27 五 14:12]
+#+LANGUAGE:  zh-CN
+#+OPTIONS:  H:6 num:nil toc:t \n:nil ::t |:t ^:nil -:nil f:t *:t <:nil
+
+通常来说,我们的互联网连接应该是私有的,能够隔绝坏家伙的.
+然而当今要获取连接网络的密钥太容易了，任何人只要有少许网络知识就能在几分钟之内入侵我们的网络,消耗我们的带宽,让我们的网络变得缓慢无比.
+当我们发现可疑行为时，最好检查一下连接到我们网络中的所有设备，验证他们的身份，并在发现未授权设备时采取相应的措施. 
+本文我们将会演示如何获取连接上我们网络的所有设备列表，从而找出是否有入侵者.                            
+                                                             
+最简单的方法莫过于登陆路由器的控制面板，查看"连接设备".
+                                                             
+然而，很多时候我们并没有权限登陆路由器，因此我们得采取其他方法代替.       
+                                                             
+* 在终端探测连接上本地网络的计算机
+                                                             
+第一步是获知我们网络IP的格式. 打开终端并输入:                       
+#+BEGIN_SRC shell
+  $ ifconfig
+#+END_SRC
+会显示类似下面的内容:                              
+[[http://www.linuxandubuntu.com/uploads/2/1/1/5/21152474/ipconfig_orig.jpg]]
+
+这里我们可以看到网络的格式形如 192.168.1.X 并且广播 IP (用于通知网络中的所有计算机) 为 192.168.1.255 (在 Bcast 后面).                                                          
+                                                             
+有了这些数据，我们可以这样做:
+#+BEGIN_SRC shell
+  $ ping  -b 192.168.1.255
+#+END_SRC
+这种方法不一定有用，因为有些计算机可能根本不会回应ping. 在我的本地网络中就没有收到任何回复.
+                                                             
+* 使用nmap探测网络上的计算机
+                                                             
+如果你想识别网络中的所有机器(当你的网络是无线wifi时，这特别的有用).                                            
+                                                             
+在终端中输入:
+#+BEGIN_SRC shell
+  # nmap -sP 
+#+END_SRC
+Nmap会显示类似下面的结果:               
+[[http://www.linuxandubuntu.com/uploads/2/1/1/5/21152474/nmap-command_orig.jpg]]
+#+BEGIN_SRC shell
+  # nmap -sP 192.168.0.0/24                                    
+  Starting Nmap 4.20 (http://insecure.org) at 2017-08-18 11:45 EST
+  Host Router (192.168.0.254) appears to be up.
+  Host pc (192.168.0.1) appears to be up.
+  Host mac (192.168.0.2) appears to be up.
+#+END_SRC
+我们可以看到，对于连接上网络的每个设备都有如下信息:                                                 
+[[http://www.linuxandubuntu.com/uploads/2/1/1/5/21152474/nmap-scan-report_orig.jpg]]
+
+其中显示了设备IP，MAC以及其他一些附加信息(在括号中显示的那些内容).    
+                                                             
+注意: 如果不是用sudo调用的，则不会显示 MAC 地址.                                      
+                                                             
+* 结语
+
+然而, 入侵者可以使用别的设备或者更改网卡的MAC地址后再次入侵我们的网络.
+为了防止这种情况再出现，我们可以改变MAC的过滤策略，让它只允许指定MAC的设备连接进来,这样网络会变得更加安全.
