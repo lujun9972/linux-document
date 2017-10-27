@@ -20,7 +20,7 @@ Wget是非交互式的，但是使用起来相当的灵活. 你可以在脚本�
 
 请注意，虽然该演示是在 Ubuntu 16.04 上进行的, 但是这些命令在其他 [[https://www.rosehosting.com/linux-vps-hosting.html][Linux]] 发行版中同样适用.
 
-* Logging to your server and installing wget
+* 登陆服务器并安装wget
 
 第一步是 [[https://www.rosehosting.com/blog/connect-to-your-linux-vps-via-ssh/][通过SSH登陆服务器]].
 
@@ -167,7 +167,7 @@ wget还支持下载FTP文件，可以为它设置用户名和密码，如下所�
   wget --ftp-user=username --ftp-password=password ftp://url-to-ftp-file
 #+END_SRC
 
-* 10. Wget Command to Download entire website
+* 10. 下载整个网站
 
 你甚至可以用wget下载完整的站点, 然后进行离线浏览. 方法是使用如下命令:
 
