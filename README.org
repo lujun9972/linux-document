@@ -1,0 +1,20 @@
+* Contributors
+感谢GitHub以及:
+
+感谢大家的热情参与,也欢迎更多的志愿者参与翻译
+* examples
+读什么手册啊，跟着我来做就好了.
+
++ [[https://github.com/lujun9972/emacs-document/blob/master/examples/10 wget command examples.org][ 10个wget命令的演示案例]]		<2017-10-27>
+* processing
+正在翻译的内容,别人的东西可不要抢哦~
+
+* raw
+未翻译的内容,欢迎大家领取
+
+* shell
+别不把shell当语言
+
+* tools
+又有什么新玩意?
+
