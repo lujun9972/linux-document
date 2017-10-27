@@ -41,7 +41,7 @@ function generate_links()
         modify_date=$(git log --date=short --pretty=format:"%cd" -n 1 $post) # 去除日期前的空格
         if [[ -n "$modify_date" ]];then # 没有修改日期的文件没有纳入仓库中,不予统计
             postname=$(grep '#+TITLE' $post|head -1|cut -c 9-)
-            echo "+ [[https://github.com/lujun9972/emacs-document/blob/master/$post][$postname]]		<$modify_date>"
+            echo "+ [[https://github.com/lujun9972/linux-document/blob/master/$post][$postname]]		<$modify_date>"
         fi
     done|sort -k 2
     IFS=$old_ifs
