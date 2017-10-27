@@ -1,4 +1,4 @@
-#+TITLE: [译]10个wget命令的演示案例
+#+TITLE: 10个wget命令的演示案例
 #+URL: https://www.rosehosting.com/blog/wget-command-examples/
 #+AUTHOR: lujun9972
 #+TAGS: examples
