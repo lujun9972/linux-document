@@ -1,0 +1,58 @@
+#+TITLE: How to Quickly Type Special Characters in Linux
+#+URL: https://www.maketecheasier.com/quickly-type-special-characters-linux/
+#+AUTHOR: lujun9972
+#+TAGS: raw
+#+DATE: [2017-10-28 六 16:56]
+#+LANGUAGE:  zh-CN
+#+OPTIONS:  H:6 num:nil toc:t \n:nil ::t |:t ^:nil -:nil f:t *:t <:nil
+
+
+有时你可能需要输入一些特殊字符,比如外国文字中的带音标字符或者数学中的公式符号.
+而这些符号在键盘上并没有按键对应,那该怎么办呢?
+
+你可以使用系统内建的字符映射程序或者类似 =GNOME Characters= 这样的第三方程序来查询出想要的字符,然后拷贝该字符并将之粘帖出来.
+但是这种方法很繁琐,尤其当你经常要输入特殊字符时,就特别的浪费时间了.
+
+本文演示两种在Linux中快速输入特定Unicode字符的方式,而且这两种方式都无需用到外部程序.
+
+* 1. 使用Unicode码点来输入
+
+每个 Unicode 字符都有一个码点与之对应. 比如, 美元符($)的表示法为 U+0024. 码点就是 =U+= 后面的那个 “0024.”
+
+如果你想插入一个键盘上没有的字符, 可以按下 =Ctrl + Shift + U= 然后输入4个子的码点, 再按下回车就行了.
+
+[[https://www.maketecheasier.com/assets/uploads/2017/10/special-characters-linux-unicode.gif]]
+
+该方法需要你记忆常用字符的Unicode码点. 你可以在这篇 [[https://en.wikipedia.org/wiki/List_of_Unicode_characters][Wikipedia article]] 中找到英文阅读者最常用的那些码点.
+
+相关资料: [[https://www.maketecheasier.com/use-emojis-in-linux/][How to Use Emojis in Linux]]
+
+* 2. 使用组合键输入
+
+另一个简单而快速地输入特殊字符的方法是使用 compose key 序列. 
+键盘上并没有一个叫做 compose key 的键; 你需要将一个键定义成这个 compose key.
+
+在GNOME中,你需要安装 =Gnome Tweak Tool= 来定义 compose key. 在Ubuntu中可以通过下面命令来安装:
+
+#+BEGIN_SRC shell
+  sudo apt install gnome-tweak-tool
+#+END_SRC
+
+安装好后, 运行它,然后在边栏上选择 “Keyboard & Mouse”, 在点击 =Compose Key= 设置后的 "Disabled" 按钮开启该功能并选择一个按键作为 Compose Key.
+
+[[https://www.maketecheasier.com/assets/uploads/2017/10/special-characters-linux-compose-1.jpg]]
+
+需要注意的是,设置为compose key的按键只能作为compose key来使用,而失去了原始的功能.
+
+设置好 compose key 后, 任何字符都能通过按下compose key并接着其他键序列的方式输入.
+
+你可以在 [[https://web.archive.org/web/20140412090608/http://www.hermit.org/Linux/ComposeKeys.html][这里]] 查看常用Unicode字符的 compose key sequences.
+比如, 商标字符  © 的序列是 =oc=. 那么按下 Compose Key再输入 =oc= 就会插入这个字符了.
+
+类似的,按下 Compose Key 再输入 =oo= 就是输入温度符号 °.
+
+注意到 compose key sequence 跟实际要插入的字符多少有点类似,而且最多只有两个字符,因此它很容易记忆.
+
+* 结尾
+
+我们演示了两个在Linux中输入特殊字符的方法. 如果你喜欢那种方法呢?或者你有什么其他方法么?请一定告诉我们. 
