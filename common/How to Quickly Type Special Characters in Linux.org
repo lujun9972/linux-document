@@ -1,4 +1,4 @@
-#+TITLE: How to Quickly Type Special Characters in Linux
+#+TITLE: Linux下如何快速输入特殊字符
 #+URL: https://www.maketecheasier.com/quickly-type-special-characters-linux/
 #+AUTHOR: lujun9972
 #+TAGS: raw
