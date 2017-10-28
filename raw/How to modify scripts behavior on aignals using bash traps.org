@@ -1,0 +1,159 @@
+#+TITLE: How to modify scripts behavior on aignals using bash traps
+#+URL: https://linuxconfig.org/how-to-modify-scripts-behavior-on-signals-using-bash-traps
+#+AUTHOR: lujun9972
+#+TAGS: raw
+#+DATE: [2017-10-28 六 20:20]
+#+LANGUAGE:  zh-CN
+#+OPTIONS:  H:6 num:nil toc:t \n:nil ::t |:t ^:nil -:nil f:t *:t <:nil
+
+
+* Introduction
+
+                                                                                                                                           bash scr
+When writing scripts that are meant to run for a considerable time, it's very important to increase their robustness by making them able to react
+to system signals, executing specific actions when some of them are received. We can accomplish this task by using the bash trap builtin.
+
+* What are traps?
+
+A trap is a bash mechanism which allows to customize a script behavior when it receives a signal. This is very useful, for example, to make sure
+that the system is always in a consistent state. Imagine you have written a script which during its runtime needs to create some directories: if,
+for example a SIGINT signal is sent to it, the script will be interrupted, leaving behind the directories it created. Using traps we can handle
+situations like this.
+
+* Trap syntax
+
+Trap syntax is very simple and easy to understand: first we must call the trap builtin, followed by the action(s) to be executed, then we must
+specify the signal(s) we want to react to:
+
+#+BEGIN_SRC shell
+  trap [-lp] [[arg] sigspec]
+#+END_SRC
+
+Let's see what the possible trap options are for.
+
+When used with the -l flag, the trap command will just display a list of signals associated with their numbers. It's the same output you can obtain
+running the kill -l command:
+
+#+BEGIN_EXAMPLE
+  $ trap -l
+  1) SIGHUP  2) SIGINT   3) SIGQUIT  4) SIGILL   5) SIGTRAP
+  6) SIGABRT   7) SIGBUS   8) SIGFPE   9) SIGKILL 10) SIGUSR1
+  11) SIGSEGV 12) SIGUSR2 13) SIGPIPE 14) SIGALRM 15) SIGTERM
+  16) SIGSTKFLT 17) SIGCHLD 18) SIGCONT 19) SIGSTOP 20) SIGTSTP
+  21) SIGTTIN 22) SIGTTOU 23) SIGURG  24) SIGXCPU 25) SIGXFSZ
+  26) SIGVTALRM 27) SIGPROF 28) SIGWINCH  29) SIGIO 30) SIGPWR
+  31) SIGSYS  34) SIGRTMIN  35) SIGRTMIN+1  36) SIGRTMIN+2  37) SIGRTMIN+3
+  38) SIGRTMIN+4  39) SIGRTMIN+5  40) SIGRTMIN+6  41) SIGRTMIN+7  42) SIGRTMIN+8
+  43) SIGRTMIN+9  44) SIGRTMIN+10 45) SIGRTMIN+11 46) SIGRTMIN+12 47) SIGRTMIN+13
+  48) SIGRTMIN+14 49) SIGRTMIN+15 50) SIGRTMAX-14 51) SIGRTMAX-13 52) SIGRTMAX-12
+  53) SIGRTMAX-11 54) SIGRTMAX-10 55) SIGRTMAX-9  56) SIGRTMAX-8  57) SIGRTMAX-7
+  58) SIGRTMAX-6  59) SIGRTMAX-5  60) SIGRTMAX-4  61) SIGRTMAX-3  62) SIGRTMAX-2
+  63) SIGRTMAX-1  64) SIGRTMAX
+#+END_EXAMPLE
+
+It's really important to specify that it's possible to react only to signals which allows the script to respond: the SIGKILL and SIGSTOP signals
+cannot be caught, blocked or ignored.
+
+Apart from signals, traps can also react to some pseudo-signal such as EXIT, ERR or DEBUG, but we will see them in detail later. For now just
+remember that a signal can be specified either by its number or by its name, even without the SIG prefix.
+
+About the -p option now. This option has sense only when a command is not provided (otherwise it will produce an error). When trap is used with it,
+a list of the previously set traps will be displayed. If the signal name or number is specified, only the trap set for that specific signal will be
+displayed, otherwise no distinctions will be made, and all the traps will be displayed:
+
+#+BEGIN_SRC shell
+  $ trap 'echo "SIGINT caught!"' SIGINT
+#+END_SRC
+
+We set a trap to catch the SIGINT signal: it will just display the "SIGINT caught" message onscreen when given signal will be received by the
+shell. If we now use trap with the -p option, it will display the trap we just defined:
+
+#+BEGIN_EXAMPLE
+  $ trap -p
+  trap -- 'echo "SIGINT caught!"' SIGINT
+#+END_EXAMPLE
+
+By the way, the trap is now "active", so if we send a SIGINT signal, either using the kill command, or with the CTRL-c shortcut, the associated
+command in the trap will be executed (^C is just printed because of the key combination):
+
+#+BEGIN_EXAMPLE
+  ^CSIGINT caught!
+#+END_EXAMPLE
+
+* Trap in action
+
+We now will write a simple script to show trap in action, here it is:
+
+#+BEGIN_SRC shell
+  #!/usr/bin/env bash
+  #
+  # A simple script to demonstrate how trap works
+  #
+  set -e
+  set -u
+  set -o pipefail
+
+  trap 'echo "signal caught, cleaning..."; rm -i linux_tarball.tar.xz' SIGINT SIGTERM
+
+  echo "Downloading tarball..."
+  wget -O linux_tarball.tar.xz https://cdn.kernel.org/pub/linux/kernel/v4.x/linux-4.13.5.tar.xz &> /dev/null
+#+END_SRC
+
+The above script just tries to download the latest linux kernel tarball into the directory from what it is launched using wget. During the task, if
+the SIGINT or SIGTERM signals are received (notice how you can specify more than one signal on the same line), the partially downloaded file will
+be deleted.
+
+In this case the command are actually two: the first is the echo which prints the message onscreen, and the second is the actual rm command (we
+provided the -i option to it, so it will ask user confirmation before removing), and they are separated by a semicolon. Instead of specifying
+commands this way, you can also call functions: this would give you more re-usability. Notice that if you don't provide any command the signal(s)
+will just be ignored!
+
+This is the output of the script above when it receives a SIGINT signal:
+
+#+BEGIN_EXAMPLE
+  $ ./fetchlinux.sh
+  Downloading tarball...
+  ^Csignal caught, cleaning...
+  rm: remove regular file 'linux_tarball.tar.xz'?
+
+#+END_EXAMPLE
+
+A very important thing to remember is that when a script is terminated by a signal, like above, its exist status will be the result of 128 + the
+signal number. As you can see, the script above, being terminated by a SIGINT, has an exit status of 130:
+
+#+BEGIN_EXAMPLE
+  $ echo $?
+  130
+#+END_EXAMPLE
+
+Lastly, you can disable a trap just by calling trap followed by the - sign, followed by the signal(s) name or number:
+
+#+BEGIN_EXAMPLE
+  trap - SIGINT SIGTERM
+#+END_EXAMPLE
+
+The signals will take back the value they had upon the entrance to shell.
+
+* Pseudo-signals
+
+As already mentioned above, trap can be set not only for signals which allows the script to respond but also to what we can call "pseudo-signals".
+They are not technically signals, but correspond to certain situations that can be specified:
+
+** EXIT
+
+When EXIT is specified in a trap, the command of the trap will be execute on exit from the shell.
+
+** ERR
+
+This will cause the argument of the trap to be executed when a command returns a non-zero exit status, with some exceptions (the same of the shell
+errexit option): the command must not be part of a while or until loop; it must not be part of an if construct, nor part of a && or || list, and
+its value must not be inverted by using the ! operator.
+
+** DEBUG
+
+This will cause the argument of the trap to be executed before every simple command, for, case or select commands, and before the first command in
+shell functions
+
+** RETURN
+
+The argument of the trap is executed after a function or a script sourced by using source or the . command.
