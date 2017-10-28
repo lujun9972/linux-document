@@ -5,6 +5,8 @@
 * common
 未分类的内容
 
++ [[https://github.com/lujun9972/linux-document/blob/master/common/How to Quickly Type Special Characters in Linux.org][ Linux下如何快速输入特殊字符]]		<2017-10-28>
++ [[https://github.com/lujun9972/linux-document/blob/master/common/Find Devices Connected To Your Wifi In Linux.org][ Linux中找出连上你Wifi的那些设备]]		<2017-10-27>
 * examples
 读什么手册啊，跟着我来做就好了.
 
@@ -15,6 +17,7 @@
 * raw
 未翻译的内容,欢迎大家领取
 
++ [[https://github.com/lujun9972/linux-document/blob/master/raw/how to reset sudo password.org][ how to reset sudo password]]		<2017-10-27>
 * shell
 别不把shell当语言
 
