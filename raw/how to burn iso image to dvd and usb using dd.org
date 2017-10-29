@@ -1,5 +1,5 @@
 #+TITLE: how to burn iso image to dvd and usb using dd
-#+URL: http://www.linuxandubuntu.com/home/how-to-burn-iso-image-to-dvd-and-usb-using-dd                                                          
+#+URL: http://www.linuxandubuntu.com/home/how-to-burn-iso-image-to-dvd-and-usb-using-dd
 #+AUTHOR: lujun9972
 #+TAGS: raw
 #+DATE: [2017-10-29 日 18:04]
