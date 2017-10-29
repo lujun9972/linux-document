@@ -21,6 +21,7 @@
 * shell
 别不把shell当语言
 
++ [[https://github.com/lujun9972/linux-document/blob/master/shell/How to modify scripts behavior on signals using bash traps.org][ 使用bash trap修改脚本应对信号的行为]]		<2017-10-29>
 * system
 系统管理相关内容
 
