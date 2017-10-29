@@ -7,32 +7,28 @@
 #+OPTIONS:  H:6 num:nil toc:t \n:nil ::t |:t ^:nil -:nil f:t *:t <:nil
 
 
-* Introduction
+* 简介
 
-                                                                                                                                           bash scr
-When writing scripts that are meant to run for a considerable time, it's very important to increase their robustness by making them able to react
-to system signals, executing specific actions when some of them are received. We can accomplish this task by using the bash trap builtin.
+在编写长期运行的脚本时, 保证它的鲁棒性是很有必要的,这就需要能对系统信号产生反应执行特定的操作. 
+我们可以使用bash内置的 =trap= 来做到这一点.
 
-* What are traps?
+* 什么是trap?
 
-A trap is a bash mechanism which allows to customize a script behavior when it receives a signal. This is very useful, for example, to make sure
-that the system is always in a consistent state. Imagine you have written a script which during its runtime needs to create some directories: if,
-for example a SIGINT signal is sent to it, the script will be interrupted, leaving behind the directories it created. Using traps we can handle
-situations like this.
+trap 是bash提供的一种机制,它允许你自定义脚本在收到信号时的行为. 这项能力十分实用, 比如, 可以用它来保证系统的一致性(consistent state).
+假设一个脚本在运行期间需要创建某些目录: 那么当发送 =SIGINT= 信号到该脚本后,该脚本会终止执行, 留下创建的目录没有被清理掉. 
+而 =trap= 可以用来解决这样的问题.
 
-* Trap syntax
+* Trap语法
 
-Trap syntax is very simple and easy to understand: first we must call the trap builtin, followed by the action(s) to be executed, then we must
-specify the signal(s) we want to react to:
+Trap 语法很简单易懂: 首先是 trap , 然后是要执行的动作, 然后指定要监听的信号:
 
 #+BEGIN_SRC shell
   trap [-lp] [[arg] sigspec]
 #+END_SRC
 
-Let's see what the possible trap options are for.
+现在让我们来看看 =trap= 有哪些选项.
 
-When used with the -l flag, the trap command will just display a list of signals associated with their numbers. It's the same output you can obtain
-running the kill -l command:
+ -l 选项会让 =trap= 命令显示出一个信号以及对应编号的列表. 它看起来跟 =kill -l= 命令的执行结果类似:
 
 #+BEGIN_EXAMPLE
   $ trap -l
@@ -51,38 +47,35 @@ running the kill -l command:
   63) SIGRTMAX-1  64) SIGRTMAX
 #+END_EXAMPLE
 
-It's really important to specify that it's possible to react only to signals which allows the script to respond: the SIGKILL and SIGSTOP signals
-cannot be caught, blocked or ignored.
+一定要记住, =trap= 只能对那些允许捕获的信号设置触发动作: SIGKILL 和 SIGSTOP 这两个信号则既不能捕获也不能忽略.
 
-Apart from signals, traps can also react to some pseudo-signal such as EXIT, ERR or DEBUG, but we will see them in detail later. For now just
-remember that a signal can be specified either by its number or by its name, even without the SIG prefix.
+除了真实的信号之外, trap 还支持某些伪信号比如 EXIT, ERR 和 DEBUG, 具体细节我们后面再说. 
+现在只需要记住,指定信号时既可以用信号的编号也可以用信号的名称来指定,而且用名称来指定信号时甚至可以省略前面的 =SIG=.
 
-About the -p option now. This option has sense only when a command is not provided (otherwise it will produce an error). When trap is used with it,
-a list of the previously set traps will be displayed. If the signal name or number is specified, only the trap set for that specific signal will be
-displayed, otherwise no distinctions will be made, and all the traps will be displayed:
+现在来说说 =-p= 选项. 该选项不能与出发信号后执行的命令一起使用(否则会报错). 它的作用是显示之前的trap设置. 
+若指定了信号名称或者信号编号,则只会显示指定信号的相关设置,否则会显示所有的trap设置:
 
 #+BEGIN_SRC shell
   $ trap 'echo "SIGINT caught!"' SIGINT
 #+END_SRC
 
-We set a trap to catch the SIGINT signal: it will just display the "SIGINT caught" message onscreen when given signal will be received by the
-shell. If we now use trap with the -p option, it will display the trap we just defined:
+我们就为 =SIGINT= 信号设置了一个trap: 当脚本接受道指定信号时会在屏幕上显示出一条 "SIGINT caught" 信息. 
+若我们现在使用 =-p= 参数调用trap, 则会显示刚才我们定义的那条trap信息:
 
 #+BEGIN_EXAMPLE
   $ trap -p
   trap -- 'echo "SIGINT caught!"' SIGINT
 #+END_EXAMPLE
 
-By the way, the trap is now "active", so if we send a SIGINT signal, either using the kill command, or with the CTRL-c shortcut, the associated
-command in the trap will be executed (^C is just printed because of the key combination):
+而且,该trap现在是有效的, 若我们通过kill命令或者按下 =Ctrl-c= 发送一个 =SIGINT= 信号, 就会触发相关的命令:
 
 #+BEGIN_EXAMPLE
   ^CSIGINT caught!
 #+END_EXAMPLE
 
-* Trap in action
+* Trap实战
 
-We now will write a simple script to show trap in action, here it is:
+我们现在来写一个简单的脚本来演示一下trap的用法:
 
 #+BEGIN_SRC shell
   #!/usr/bin/env bash
@@ -99,16 +92,13 @@ We now will write a simple script to show trap in action, here it is:
   wget -O linux_tarball.tar.xz https://cdn.kernel.org/pub/linux/kernel/v4.x/linux-4.13.5.tar.xz &> /dev/null
 #+END_SRC
 
-The above script just tries to download the latest linux kernel tarball into the directory from what it is launched using wget. During the task, if
-the SIGINT or SIGTERM signals are received (notice how you can specify more than one signal on the same line), the partially downloaded file will
-be deleted.
+上面脚本会尝试用wget下载最新的linux kernel tarball到本地目录. 在任务期间, 若收到了 SIGINT 或者 SIGTERM 信号(你可以在统一行指定不止一个信号), 则未下载完成的文件会被删除掉.
 
-In this case the command are actually two: the first is the echo which prints the message onscreen, and the second is the actual rm command (we
-provided the -i option to it, so it will ask user confirmation before removing), and they are separated by a semicolon. Instead of specifying
-commands this way, you can also call functions: this would give you more re-usability. Notice that if you don't provide any command the signal(s)
-will just be ignored!
+在这个例子中,信号触发的命令有两个: 第一个是 =echo= 命令将一段信息输出,第二个是 =rm= 命令 (我们带了 =-i= 选项, 因此在实际删除前rm会要求我们确认删除), 这两条命令之间用分号区分.
+除了用这种方式指定多个命令外,你还可以调用函数: 这样可读性更强一些.
+注意,如果你没有提供任何信号触发的命令,就表示忽略该信号!
 
-This is the output of the script above when it receives a SIGINT signal:
+该脚本运行期间收到 =SIGINT= 信号后会有如下输出:
 
 #+BEGIN_EXAMPLE
   $ ./fetchlinux.sh
@@ -118,42 +108,38 @@ This is the output of the script above when it receives a SIGINT signal:
 
 #+END_EXAMPLE
 
-A very important thing to remember is that when a script is terminated by a signal, like above, its exist status will be the result of 128 + the
-signal number. As you can see, the script above, being terminated by a SIGINT, has an exit status of 130:
+还有很重要的一点要注意,当脚本像上面那样被信号终止时, 它的退出码为128 + 信号编号的合. 
+如你所见, 上面脚本被 =SIGINT= 终止后,其退出码为130:
 
 #+BEGIN_EXAMPLE
   $ echo $?
   130
 #+END_EXAMPLE
 
-Lastly, you can disable a trap just by calling trap followed by the - sign, followed by the signal(s) name or number:
+最后, 你可以通过 =trap= 后跟 =-= 符号, 再跟上信号名称或编号的方式来禁用trap:
 
 #+BEGIN_EXAMPLE
   trap - SIGINT SIGTERM
 #+END_EXAMPLE
 
-The signals will take back the value they had upon the entrance to shell.
+会回复这两个信号最开始的作用.
 
-* Pseudo-signals
+* 伪信号
 
-As already mentioned above, trap can be set not only for signals which allows the script to respond but also to what we can call "pseudo-signals".
-They are not technically signals, but correspond to certain situations that can be specified:
+如前所述, trap不仅可以为可捕获的信号设置触发动作,还支持一些所谓的"伪信号". 严格来说他们并不是真正的信号,而是表示某种特定的状态:
 
 ** EXIT
 
-When EXIT is specified in a trap, the command of the trap will be execute on exit from the shell.
+在 =trap= 中指定 =EXIT=, 则trap中的命令会在退出shell时执行.
 
 ** ERR
 
-This will cause the argument of the trap to be executed when a command returns a non-zero exit status, with some exceptions (the same of the shell
-errexit option): the command must not be part of a while or until loop; it must not be part of an if construct, nor part of a && or || list, and
-its value must not be inverted by using the ! operator.
+当有命令返回非0状态码时触发, 但不包括以下几种情况(与shell的errexit选项一样): 检查的命令不能是 =until= 或 =while= 循环的一部分,不能使 =if= 语句的一部分,不能是 =&&= 和 =⎪⎪= 序列的一部分, 不能时命令的返回值由 =!= 翻转得到.
 
 ** DEBUG
 
-This will cause the argument of the trap to be executed before every simple command, for, case or select commands, and before the first command in
-shell functions
+在执行简单命令, =for=, =case=, =select= 命令, 执行函数的第一条命令之前触发操作.
 
 ** RETURN
 
-The argument of the trap is executed after a function or a script sourced by using source or the . command.
+当使用 =source= 或 =.= 命令执行函数或脚本后触发操作.
