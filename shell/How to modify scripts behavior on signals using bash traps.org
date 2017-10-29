@@ -1,4 +1,4 @@
-#+TITLE: How to modify scripts behavior on aignals using bash traps
+#+TITLE: 使用bash trap修改脚本应对信号的行为
 #+URL: https://linuxconfig.org/how-to-modify-scripts-behavior-on-signals-using-bash-traps
 #+AUTHOR: lujun9972
 #+TAGS: raw
