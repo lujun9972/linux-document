@@ -1,0 +1,54 @@
+#+TITLE: how to burn iso image to dvd and usb using dd
+#+URL: http://www.linuxandubuntu.com/home/how-to-burn-iso-image-to-dvd-and-usb-using-dd                                                          
+#+AUTHOR: lujun9972
+#+TAGS: raw
+#+DATE: [2017-10-29 日 18:04]
+#+LANGUAGE:  zh-CN
+#+OPTIONS:  H:6 num:nil toc:t \n:nil ::t |:t ^:nil -:nil f:t *:t <:nil
+
+
+As a Linux enthusiast and a [[http://www.linuxandubuntu.com/home/category/distros][distro]] hopper, I am always checking out new distros or newly released of distros I already know about. There are a few handy tools available on
+Linux for writing ISO images to disks or USBs. Some of these tools include [[http://www.linuxandubuntu.com/home/how-to-install-linux-mint-from-usb][Unetbootin]] and [[http://www.linuxandubuntu.com/home/etcher-burn-images-to-sd-card-make-bootable-usb][Etcher]] amongst others. 
+Most of these tools use a GUI that can guide users to easily write their downloaded ISO images to disks or USB storage devices. Then also, there is dd, which is a command
+line utility that can be used to accomplish the same task from terminal. So how does one go about using dd to write a downloaded ISO image to a DVD or USB? Let’s take a
+look at the few steps it takes to accomplish the task. 
+
+* Procedure
+
+To write an ISO image file to a drive involves a few simple steps. Please know that using dd to write an ISO to a disk can be devastating if you are not careful. Even though the
+steps below are straightforward, I recommend that if you are in any way not comfortable with the terminal, go in for Etcher or Rufus on Windows. Now let’s go ahead and use
+dd to write to a USB. 
+
+** 1 - Find out the storage devices already attached to your PC
+
+The first step is to identify the storage devices (apart from your target device) that are already attached to your PC. This is to ensure that you make no error in selecting your
+target disk as such an error can cause you to lose all your data on your hard disk. Run the following command - 
+ls /dev/sd* 
+[[http://www.linuxandubuntu.com/uploads/2/1/1/5/21152474/burn-usb_orig.png]]
+As you can see from the output above, these are the drives that I DO NOT want to write my ISO file to. 
+
+** 2 - Insert your target USB and locate its location
+
+Now insert your target storage device and rerun the above command - 
+ls /dev/sd* 
+[[http://www.linuxandubuntu.com/uploads/2/1/1/5/21152474/burn-usb_1_orig.png]]
+From the output above, we can see some two new entries /dev/sdb /dev/sdb1 which represent our new device and its only partition. In this case, /dev/sdb represents the
+target device we wish to write our ISO to. 
+
+** 3 - Navigate to the location of your source ISO
+
+Now that we know our target device location, we will have to navigate to the folder that contains our source ISO. So we go to Downloads in our case. 
+[[http://www.linuxandubuntu.com/uploads/2/1/1/5/21152474/burn-usb_2_orig.png]]
+
+** 4 - Run dd command to copy files from ISO to disk
+
+The last thing to do is to finally use the dd command to write the ISO image to the target device. Please note that dd will delete all files from your target device. Run the
+command as below -
+sudo dd if=archlinux-2017.iso of=/dev/sdb 
+[[http://www.linuxandubuntu.com/uploads/2/1/1/5/21152474/burn-usb_3_orig.png]]
+Depending on the size of the ISO, it is going to take a while for the process to complete. Do not panic as dd does not show any progress feedback so just wait patiently.
+
+* Conclusion
+
+This is a simple tutorial on how to use dd to write an ISO image to a DVD or USB drive. Once again, you can use [[http://www.linuxandubuntu.com/home/how-to-make-a-multiboot-usb-in-linux-and-windows][ImageWriter]], [[http://www.linuxandubuntu.com/home/etcher-burn-images-to-sd-card-make-bootable-usb][Etcher]] or any other available tool on Linux if
+you are not comfortable with the [[http://www.linuxandubuntu.com/home/10-best-linux-terminals-for-ubuntu-and-fedora][Linux terminal]]. I hope you find it useful. Thanks for reading and kindly share your thoughts with us in the comments section below. 
