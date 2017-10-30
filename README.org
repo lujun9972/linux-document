@@ -5,6 +5,7 @@
 * common
 未分类的内容
 
++ [[https://github.com/lujun9972/linux-document/blob/master/common/how to burn iso image to dvd and usb using dd.org][ 如何使用dd将ISO镜像烧录入DVD和USB中]]		<2017-10-30>
 + [[https://github.com/lujun9972/linux-document/blob/master/common/How to Quickly Type Special Characters in Linux.org][ Linux下如何快速输入特殊字符]]		<2017-10-28>
 + [[https://github.com/lujun9972/linux-document/blob/master/common/Find Devices Connected To Your Wifi In Linux.org][ Linux中找出连上你Wifi的那些设备]]		<2017-10-27>
 * examples
@@ -17,7 +18,6 @@
 * raw
 未翻译的内容,欢迎大家领取
 
-+ [[https://github.com/lujun9972/linux-document/blob/master/raw/how to burn iso image to dvd and usb using dd.org][ how to burn iso image to dvd and usb using dd]]		<2017-10-29>
 * shell
 别不把shell当语言
 
