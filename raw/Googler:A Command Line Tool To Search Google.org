@@ -1,0 +1,138 @@
+#+TITLE: Googler:A Command Line Tool To Search Google
+#+URL: http://www.linuxandubuntu.com/home/googler-a-command-line-tool-to-search-google
+#+AUTHOR: lujun9972
+#+TAGS: tools google
+#+DATE: [2017-10-30 一 17:34]
+#+LANGUAGE:  zh-CN
+#+OPTIONS:  H:6 num:nil toc:t \n:nil ::t |:t ^:nil -:nil f:t *:t <:nil
+
+Looking for information on the web has become something that we do day in and day out. Whether it is support you are looking for, looking for a product or news
+about a particular topic, all you have to do is search on the web. 
+As a result, search engines have been designed so they can help us sift through or the garbage in order to get the information we seek. There are Google, Bing,
+and DuckDuckGo just to mention a few. But what do all these have in common, well, to use these you need a browser such as Firefox or Chromium first. Well does
+no problem at all; except when all you have is a terminal and no GUI and browser. Also, you may have a GUI and a browser but you wish you did not have to leave
+the terminal just for that quick search, and thus comes Googler. 
+Note: googler isn't affiliated with Google in any way. 
+[[http://www.linuxandubuntu.com/uploads/2/1/1/5/21152474/googler_orig.png]]
+
+* What is googler?
+
+googler is a tiny but powerful utility that allows you the power of Google (Web & News) and Google Site Search right from the command-line. googler was initially
+for users who wanted to use google on headless servers without X. You can integrate it with a text-based browser such as lynx or links in order to open your results
+right from the command line. However, it has grown into a very handy and flexible utility that delivers much more. 
+
+* How to install Googler?
+
+googler requires Python 3.3 or later. Only the latest patch release of each minor version is supported. Users of Ubuntu and ubuntu based distros can install it via
+PPA with the following commands:
+#+BEGIN_SRC shell
+  sudo add-apt-repository ppa:twodopeshaggy/jarun
+  sudo apt-get update
+  sudo apt-get install googler 
+#+END_SRC
+Or in a more easier way, Googler is a single standalone script, so you could download just a single file if you'd like to.
+#+BEGIN_SRC shell
+  sudo curl -o /usr/local/bin/googler https://raw.githubusercontent.com/jarun/googler/v3.3/googler && sudo chmod +x /usr/local/bin/googler 
+#+END_SRC
+
+[[http://www.linuxandubuntu.com/uploads/2/1/1/5/21152474/googler-installation_orig.png]]
+
+#+BEGIN_SRC shell
+  sudo googler -u 
+#+END_SRC
+
+* How does it work?
+
+Googler will show the title, URL and abstract for each result, which can be directly opened in a browser from or within the terminal. Results are fetched in pages
+with page navigation. And you can do sequential searches in a single googler instance.
+
+You can fetch a specific number of results, limit your search bt duration and so much more, and all of this in a very clean interface without ads or stray URLs. The
+shell completion scripts make sure you don't need to remember any options.
+
+#+BEGIN_EXAMPLE
+  usage: googler [-h] [-s N] [-n N] [-N] [-c TLD] [-l LANG] [-x] [-C]
+  [--colors COLORS] [-j] [-t dN] [-w SITE] [--unfilter]
+  [-p PROXY] [--noua] [--notweak] [--json] [--show-browser-logs]
+  [--np] [-u] [--include-git] [-v] [-d]
+  [KEYWORD [KEYWORD ...]]
+#+END_EXAMPLE
+
+Let us look at googler in action.
+
+You can search for any string with googler. For example, over here I am searching for the best website for [[http://www.linuxandubuntu.com/home.html][Linux and Ubuntu news]]. 
+[[http://www.linuxandubuntu.com/uploads/2/1/1/5/21152474/googler-installation_1_orig.png]]
+And more 
+[[http://www.linuxandubuntu.com/uploads/2/1/1/5/21152474/googler-installation_2_orig.png]]
+Better still, you can search for a particular query within a website such as ‘kde’ with the -w modifier in the screenshot below. I have also specified that only 3
+(default is 10) results should be displayed per page. 
+[[http://www.linuxandubuntu.com/uploads/2/1/1/5/21152474/googler-installation_3_orig.png]]
+Alternatively, I can do a google search to look for news items related to kde with the -N modifier. See the screenshot below.
+[[http://www.linuxandubuntu.com/uploads/2/1/1/5/21152474/googler-installation_4_orig.png]]
+
+* Some more examples
+
++ Google hello world: 
+
+  #+BEGIN_SRC shell
+    $ googler hello world 
+  #+END_SRC
+
++ Fetch 15 results updated within the last 14 months, starting from the 3rd result for the keywords jungle book in site imdb.com: 
+
+  #+BEGIN_SRC shell
+    $ googler -n 15 -s 3 -t m14 -w imdb.com jungle book 
+  #+END_SRC
+
++ Read recent news on gadgets: 
+
+  #+BEGIN_SRC shell
+    ​$ googler -N gadgets 
+  #+END_SRC
+
++ For more help: 
+
+  #+BEGIN_SRC shell
+    $ googler -h
+  #+END_SRC
+
+  Or
+
+  #+BEGIN_SRC shell
+    $ man googler 
+  #+END_SRC
+
+* Features at a glance
+
+** 1 - Text-based browser integration
+
+googler works out of the box with several text-based browsers if the BROWSER environment variable is set. For instance,
+#+BEGIN_SRC shell
+  $ export BROWSER=w3m 
+#+END_SRC
+or for one-time use,
+#+BEGIN_SRC shell
+  $ BROWSER=w3m googler query 
+#+END_SRC
+
+** 2 - Terminal Reading Mode or Reader View
+
+You can easily integrate googler with some equally awesome utilities to enjoy your daily dose of news in a completely distraction-free environment. 
+
+** 3 - Colors
+
+googler allows you to customize the color scheme via a six-letter string, reminiscent of BSD LSCOLORS. Find out more from [[https://github.com/jarun/googler/wiki/Terminal-Reading-Mode-or-Reader-View][here]]. 
+
+** 4 - And more
+
++ Fast and clean (no ads, stray URLs or clutter), custom color 
++ Support for Google keywords 
++ Open the first result directly in browser 
++ Comprehensive documentation, man page with handy usage examples 
++ Non-stop searches: fire new searches at omniprompt without exiting 
+
+* Conclusion
+
+​googler is not for everyone, but if you prefer to work within the terminal, it is a rather nifty tool to have in your arsenal. I love googler although I won’t be using all
+the time, I will surely be keeping it around. For more information on googler, visit the [[https://github.com/jarun/googler#installation][github page]].
+
+​Thanks for reading and share your thoughts and comments with us in the section below. 
