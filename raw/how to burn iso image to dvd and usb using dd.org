@@ -1,54 +1,53 @@
-#+TITLE: how to burn iso image to dvd and usb using dd
+#+TITLE: 如何使用dd将ISO镜像烧录入DVD和USB中
 #+URL: http://www.linuxandubuntu.com/home/how-to-burn-iso-image-to-dvd-and-usb-using-dd
 #+AUTHOR: lujun9972
-#+TAGS: raw
+#+TAGS: dd common
 #+DATE: [2017-10-29 日 18:04]
 #+LANGUAGE:  zh-CN
 #+OPTIONS:  H:6 num:nil toc:t \n:nil ::t |:t ^:nil -:nil f:t *:t <:nil
 
 
-As a Linux enthusiast and a [[http://www.linuxandubuntu.com/home/category/distros][distro]] hopper, I am always checking out new distros or newly released of distros I already know about. There are a few handy tools available on
-Linux for writing ISO images to disks or USBs. Some of these tools include [[http://www.linuxandubuntu.com/home/how-to-install-linux-mint-from-usb][Unetbootin]] and [[http://www.linuxandubuntu.com/home/etcher-burn-images-to-sd-card-make-bootable-usb][Etcher]] amongst others. 
-Most of these tools use a GUI that can guide users to easily write their downloaded ISO images to disks or USB storage devices. Then also, there is dd, which is a command
-line utility that can be used to accomplish the same task from terminal. So how does one go about using dd to write a downloaded ISO image to a DVD or USB? Let’s take a
-look at the few steps it takes to accomplish the task. 
+作为一名Linux狂热爱好者，我总是在尝试各式各样的 [[http://www.linuxandubuntu.com/home/category/distros][linux发行版]]. Linux上有一些方便的工具可以将ISO镜像写入到磁盘和USB中,比如[[http://www.linuxandubuntu.com/home/how-to-install-linux-mint-from-usb][Unetbootin]] 和 [[http://www.linuxandubuntu.com/home/etcher-burn-images-to-sd-card-make-bootable-usb][Etcher]]. 
+大多数的工具都有一个图形界面来引导用户方便地将下载下来的ISO镜像写入到磁盘和USB存储设备中. =dd= 则是一款在终端上完成相同任务的命令行工作. 
+那么，如何用 =dd= 来讲下载的ISO镜像写入DVD和USB呢? 让我们拭目以待. 
 
-* Procedure
+* 过程
 
-To write an ISO image file to a drive involves a few simple steps. Please know that using dd to write an ISO to a disk can be devastating if you are not careful. Even though the
-steps below are straightforward, I recommend that if you are in any way not comfortable with the terminal, go in for Etcher or Rufus on Windows. Now let’s go ahead and use
-dd to write to a USB. 
+步骤很简单. 但请注意，使用 =dd= 将ISO写入磁盘会破坏原磁盘的数据. 虽然后面的步骤都很简单，但我依然建议你，如果不习惯操作终端的话，还是去Windows上使用Etcher 或者 Rufus吧. 
+现在我们就开始了. 
 
-** 1 - Find out the storage devices already attached to your PC
+** 1 - 找出PC已经有的存储设备
 
-The first step is to identify the storage devices (apart from your target device) that are already attached to your PC. This is to ensure that you make no error in selecting your
-target disk as such an error can cause you to lose all your data on your hard disk. Run the following command - 
-ls /dev/sd* 
+第一步是确定PC上已经有的存储设备有哪些(不包括你要被写入ISO镜像的目标磁盘). 
+这一步是为了保证你不会选错目标磁盘,如果你选错了磁盘，那么你磁盘上的所有数据都会被抹掉.
+运行命令 =ls /dev/sd*=
 [[http://www.linuxandubuntu.com/uploads/2/1/1/5/21152474/burn-usb_orig.png]]
-As you can see from the output above, these are the drives that I DO NOT want to write my ISO file to. 
 
-** 2 - Insert your target USB and locate its location
+上图的结果列出了那些我不希望SO文件写入的磁盘.
 
-Now insert your target storage device and rerun the above command - 
-ls /dev/sd* 
+** 2 - 插入目标U盘并确定它的地址
+
+现在插入目标存储设备，然后运行命令 =ls /dev/sd*=
 [[http://www.linuxandubuntu.com/uploads/2/1/1/5/21152474/burn-usb_1_orig.png]]
-From the output above, we can see some two new entries /dev/sdb /dev/sdb1 which represent our new device and its only partition. In this case, /dev/sdb represents the
-target device we wish to write our ISO to. 
 
-** 3 - Navigate to the location of your source ISO
+从上图中, 我们发现多了两项 =/dev/sdb= 和 =/dev/sdb1= 分别表示新的设备和设备上唯一的分区. 
+这里, =/dev/sdb= 表示我们想将ISO写入的目标磁盘. 
 
-Now that we know our target device location, we will have to navigate to the folder that contains our source ISO. So we go to Downloads in our case. 
+** 3 - 进入ISO文件所在地址
+
+知道目标磁盘地址后, 我们进入源ISO文件所在的目录. 本例中为 =Downloads= 目录. 
 [[http://www.linuxandubuntu.com/uploads/2/1/1/5/21152474/burn-usb_2_orig.png]]
 
-** 4 - Run dd command to copy files from ISO to disk
+** 4 - 运行 dd 命令将文件从ISO拷贝到磁盘中
 
-The last thing to do is to finally use the dd command to write the ISO image to the target device. Please note that dd will delete all files from your target device. Run the
-command as below -
-sudo dd if=archlinux-2017.iso of=/dev/sdb 
+最后是使用 dd 命令将ISO镜像写入目标磁盘. 请注意，dd会删掉目标磁盘中的所有文件. 运行下面命令:
+=sudo dd if=archlinux-2017.iso of=/dev/sdb=
 [[http://www.linuxandubuntu.com/uploads/2/1/1/5/21152474/burn-usb_3_orig.png]]
-Depending on the size of the ISO, it is going to take a while for the process to complete. Do not panic as dd does not show any progress feedback so just wait patiently.
 
-* Conclusion
+根据ISO文件的大小不同, 完成的时间也不同. 请不要因为dd没有回馈任何进度信息而慌张,耐心点等待便是了.
 
-This is a simple tutorial on how to use dd to write an ISO image to a DVD or USB drive. Once again, you can use [[http://www.linuxandubuntu.com/home/how-to-make-a-multiboot-usb-in-linux-and-windows][ImageWriter]], [[http://www.linuxandubuntu.com/home/etcher-burn-images-to-sd-card-make-bootable-usb][Etcher]] or any other available tool on Linux if
-you are not comfortable with the [[http://www.linuxandubuntu.com/home/10-best-linux-terminals-for-ubuntu-and-fedora][Linux terminal]]. I hope you find it useful. Thanks for reading and kindly share your thoughts with us in the comments section below. 
+* 结论
+
+这是一个关于如何使用 =dd= 将ISO镜像写入DVD和USB磁盘的简单教程. 
+再一次提醒你，若你不习惯操作 [[http://www.linuxandubuntu.com/home/10-best-linux-terminals-for-ubuntu-and-fedora][Linux终端]], 你可以使用 [[http://www.linuxandubuntu.com/home/how-to-make-a-multiboot-usb-in-linux-and-windows][ImageWriter]], [[http://www.linuxandubuntu.com/home/etcher-burn-images-to-sd-card-make-bootable-usb][Etcher]] 之类的工具.
+希望本文对你有用. 谢谢阅读，欢迎留言.
