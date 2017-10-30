@@ -17,7 +17,7 @@
 * raw
 未翻译的内容,欢迎大家领取
 
-+ [[https://github.com/lujun9972/linux-document/blob/master/raw/how to reset sudo password.org][ how to reset sudo password]]		<2017-10-27>
++ [[https://github.com/lujun9972/linux-document/blob/master/raw/how to burn iso image to dvd and usb using dd.org][ how to burn iso image to dvd and usb using dd]]		<2017-10-29>
 * shell
 别不把shell当语言
 
@@ -25,6 +25,7 @@
 * system
 系统管理相关内容
 
++ [[https://github.com/lujun9972/linux-document/blob/master/system/how to reset sudo password.org][ 如何重置sudo密码]]		<2017-10-30>
 * tools
 又有什么新玩意?
 
