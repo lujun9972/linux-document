@@ -76,25 +76,25 @@ Googler会显示出搜索结果的标题,URL以及摘要,你可以直接从终�
     $ googler hello world 
   #+END_SRC
 
-+ Fetch 15 results updated within the last 14 months, starting from the 3rd result for the keywords jungle book in site imdb.com: 
++ 在站点 =imdb.com= 中搜索关键字 =jungle book=,搜索的结果要在最近14个月内更新过的. 从第3个结果开始显示15个结果: 
 
   #+BEGIN_SRC shell
     $ googler -n 15 -s 3 -t m14 -w imdb.com jungle book 
   #+END_SRC
 
-+ Read recent news on gadgets: 
++ 阅读关于 =gadgets= 相关的最新消息: 
 
   #+BEGIN_SRC shell
     ​$ googler -N gadgets 
   #+END_SRC
 
-+ For more help: 
++ 查看更多帮助: 
 
   #+BEGIN_SRC shell
     $ googler -h
   #+END_SRC
 
-  Or
+  或者
 
   #+BEGIN_SRC shell
     $ man googler 
