@@ -6,31 +6,30 @@
 #+LANGUAGE:  zh-CN
 #+OPTIONS:  H:6 num:nil toc:t \n:nil ::t |:t ^:nil -:nil f:t *:t <:nil
 
-Looking for information on the web has become something that we do day in and day out. Whether it is support you are looking for, looking for a product or news
-about a particular topic, all you have to do is search on the web. 
-As a result, search engines have been designed so they can help us sift through or the garbage in order to get the information we seek. There are Google, Bing,
-and DuckDuckGo just to mention a few. But what do all these have in common, well, to use these you need a browser such as Firefox or Chromium first. Well does
-no problem at all; except when all you have is a terminal and no GUI and browser. Also, you may have a GUI and a browser but you wish you did not have to leave
-the terminal just for that quick search, and thus comes Googler. 
-Note: googler isn't affiliated with Google in any way. 
+我们每天都要在网上寻找信息. 你也可以在网上找到任何信息. 因此搜索引擎也被设计成能够帮助我们从垃圾中快速筛选出有用信息的样子.
+常用的搜索引擎有 Google, Bing, 和 DuckDuckGo. 不过它们都有一个共同点,那就是需要用浏览器(比如Firefox和Chromium)来访问. 
+一般情况下这都不是什么问题; 但是如果你只有终端环境而没有GUI和浏览器怎么办呢, 如果你有GUI和浏览器但是你只想在不离开终端的情况下做一个快速搜索怎么办呢.
+为此,Googler诞生了.
+注意: googler 并不隶属于 Google . 
 [[http://www.linuxandubuntu.com/uploads/2/1/1/5/21152474/googler_orig.png]]
 
-* What is googler?
+* 什么是googler?
 
-googler is a tiny but powerful utility that allows you the power of Google (Web & News) and Google Site Search right from the command-line. googler was initially
-for users who wanted to use google on headless servers without X. You can integrate it with a text-based browser such as lynx or links in order to open your results
-right from the command line. However, it has grown into a very handy and flexible utility that delivers much more. 
+googler是一个让你在命令行使用Google (Web & News) 和 Google Site Search 的小工具,它虽然小巧但功能强大. 
+googler 最初是为想在无X环境下使用google的人所设计的. 你可以将它与像lynx或links这样的基于文本的浏览器整合,以便在命令行直接打开搜索结果. 
+但是现在它已经发展成为一个非常方便,非常灵活的工具了. 其功能也有了大大的扩展. 
 
-* How to install Googler?
+* 如何安装 Googler?
 
-googler requires Python 3.3 or later. Only the latest patch release of each minor version is supported. Users of Ubuntu and ubuntu based distros can install it via
-PPA with the following commands:
+googler 需要3.3及之后的 Python. 且仅支持每个次要版本的最新补丁版本(Only the latest patch release of each minor version is supported).
+Ubuntu用户以及使用基于Ubuntu发行版的用户可以通过PPA来安装,命令为:
 #+BEGIN_SRC shell
   sudo add-apt-repository ppa:twodopeshaggy/jarun
   sudo apt-get update
   sudo apt-get install googler 
 #+END_SRC
-Or in a more easier way, Googler is a single standalone script, so you could download just a single file if you'd like to.
+
+还有一个简单得多的方法, Googler只是一个独立的脚本, 你只需要下载这个文件就行了.
 #+BEGIN_SRC shell
   sudo curl -o /usr/local/bin/googler https://raw.githubusercontent.com/jarun/googler/v3.3/googler && sudo chmod +x /usr/local/bin/googler 
 #+END_SRC
@@ -41,13 +40,12 @@ Or in a more easier way, Googler is a single standalone script, so you could dow
   sudo googler -u 
 #+END_SRC
 
-* How does it work?
+* 怎么用?
 
-Googler will show the title, URL and abstract for each result, which can be directly opened in a browser from or within the terminal. Results are fetched in pages
-with page navigation. And you can do sequential searches in a single googler instance.
+Googler会显示出搜索结果的标题,URL以及摘要,你可以直接从终端调用浏览器访问这些搜索结果. 搜索结果以页的形式组织,你可以上下进行翻页. 
+同时你还可以在同一个googler实例上进行连续的搜索.
 
-You can fetch a specific number of results, limit your search bt duration and so much more, and all of this in a very clean interface without ads or stray URLs. The
-shell completion scripts make sure you don't need to remember any options.
+你可以指定搜索结果的数量, 限制所述 bt duration 等等, 而且搜索结果非常清爽,没有那些广告和流氓网址. shell补全脚本使得你无需记忆任何参数.
 
 #+BEGIN_EXAMPLE
   usage: googler [-h] [-s N] [-n N] [-N] [-c TLD] [-l LANG] [-x] [-C]
@@ -57,21 +55,22 @@ shell completion scripts make sure you don't need to remember any options.
   [KEYWORD [KEYWORD ...]]
 #+END_EXAMPLE
 
-Let us look at googler in action.
+让我们看一些实际的例子.
 
-You can search for any string with googler. For example, over here I am searching for the best website for [[http://www.linuxandubuntu.com/home.html][Linux and Ubuntu news]]. 
+你可以使用googler搜索任意字符串. 例如这里我尝试搜索最匹配 [[http://www.linuxandubuntu.com/home.html][Linux and Ubuntu news]] 的网站. 
 [[http://www.linuxandubuntu.com/uploads/2/1/1/5/21152474/googler-installation_1_orig.png]]
-And more 
+还有更多
 [[http://www.linuxandubuntu.com/uploads/2/1/1/5/21152474/googler-installation_2_orig.png]]
-Better still, you can search for a particular query within a website such as ‘kde’ with the -w modifier in the screenshot below. I have also specified that only 3
-(default is 10) results should be displayed per page. 
+
+更厉害的是, 你可以使用 =-w= 限制在某个特定的网站中执行搜索(比如我要搜索kde). 我这里同时指定每页只显示3个结果 (默认为10个结果). 
 [[http://www.linuxandubuntu.com/uploads/2/1/1/5/21152474/googler-installation_3_orig.png]]
-Alternatively, I can do a google search to look for news items related to kde with the -N modifier. See the screenshot below.
+
+你还可以使用 =-N= 选项来搜索与kde相关的新项目. 如下图所示(译者注:下面的图原作者应该是放错了...).
 [[http://www.linuxandubuntu.com/uploads/2/1/1/5/21152474/googler-installation_4_orig.png]]
 
-* Some more examples
+* 更多的例子
 
-+ Google hello world: 
++ Google搜索hello world: 
 
   #+BEGIN_SRC shell
     $ googler hello world 
