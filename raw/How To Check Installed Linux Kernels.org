@@ -1,0 +1,126 @@
+#+TITLE: How To Check Installed Linux Kernels
+#+URL: https://www.ostechnix.com/check-installed-linux-kernels/
+#+AUTHOR: lujun9972
+#+TAGS: raw
+#+DATE: [2017-11-02 四 20:53]
+#+LANGUAGE:  zh-CN
+#+OPTIONS:  H:6 num:nil toc:t \n:nil ::t |:t ^:nil -:nil f:t *:t <:nil
+
+
+
+Ever wondered how many Linux Kernels you have installed in your Linux box? No? Well, this brief tutorial will teach you how to view or check
+installed Linux Kernels on different Linux operating systems. It’s not that difficult as you may think. Read on.
+
+* Check installed Linux Kernels
+
+** On Arch Linux:
+
+In Arch Linux, and its derivatives, you can find the list of installed Kernels using the following command:
+
+#+BEGIN_SRC shell
+  $ pacman -Q linux
+#+END_SRC
+
+Or,
+
+#+BEGIN_SRC shell
+  $ pacman -Q | grep linux
+#+END_SRC
+
+Sample output:
+
+#+BEGIN_EXAMPLE
+  archlinux-keyring 20171013-1
+  lib32-util-linux 2.30.1-1
+  libutil-linux 2.30.2-1
+  linux 4.13.8-1
+  linux-api-headers 4.12.7-1
+  linux-firmware 20170907.a61ac5c-1
+  syslinux 6.03-7
+  util-linux 2.30.2-1
+#+END_EXAMPLE
+
+[[http://www.ostechnix.com/wp-content/uploads/2016/03/Check-Installed-Linux-Kernels.png]]
+
+As you see in the above output, my Arch Linux box is running with Kernel 4.13.8-1.
+
+* On RHEL / CentOS / Scientific Linux / Fedora:
+
+Open up your Terminal, and run the following command to view the installed Linux Kernels:
+
+#+BEGIN_SRC shell
+  # rpm -qa kernel
+#+END_SRC
+
+Or,
+
+#+BEGIN_SRC shell
+  # rpm -qa | grep -i kernel
+#+END_SRC
+
+Sample output:
+
+#+BEGIN_EXAMPLE
+  kernel-tools-libs-3.10.0-123.9.3.el7.x86_64
+  kernel-3.10.0-123.9.3.el7.x86_64
+  kernel-3.10.0-123.el7.x86_64
+  kernel-tools-3.10.0-123.9.3.el7.x86_64
+  kernel-ml-4.4.5-1.el7.elrepo.x86_64
+#+END_EXAMPLE
+
+** On Debian / Ubuntu / Linux Mint:
+
+To view the list of installed Linux Kernels in DEB based systems such as Debian, Ubuntu, Linux Mint, Elementary OS, run the following command from
+the Terminal:
+
+#+BEGIN_SRC shell
+  $ dpkg --list | grep linux-image
+#+END_SRC
+
+Sample output:
+
+#+BEGIN_EXAMPLE
+  rc linux-image-4.2.0-16-generic 4.2.0-16.19 amd64 Linux kernel image for version 4.2.0 on 64 bit x86 SMP
+  ii linux-image-4.2.0-30-generic 4.2.0-30.35 amd64 Linux kernel image for version 4.2.0 on 64 bit x86 SMP
+  ii linux-image-4.4.0-7-generic 4.4.0-7.22 amd64 Linux kernel image for version 4.4.0 on 64 bit x86 SMP
+  ii linux-image-4.5.0-040500-generic 4.5.0-040500.201603140130 amd64 Linux kernel image for version 4.5.0 on 64 bit x86 SMP
+  rc linux-image-extra-4.2.0-16-generic 4.2.0-16.19 amd64 Linux kernel extra modules for version 4.2.0 on 64 bit x86 SMP
+  ii linux-image-extra-4.2.0-30-generic 4.2.0-30.35 amd64 Linux kernel extra modules for version 4.2.0 on 64 bit x86 SMP
+  ii linux-image-extra-4.4.0-7-generic 4.4.0-7.22 amd64 Linux kernel extra modules for version 4.4.0 on 64 bit x86 SMP
+  ii linux-image-generic 4.4.0.7.8 amd64 Generic Linux kernel image
+#+END_EXAMPLE
+
+** On SUSE / openSUSE:
+
+On SUSE and openSUSE, you can get the list of installed Linux kernels using command:
+
+#+BEGIN_SRC shell
+  # rpm -qa | grep -i kernel
+#+END_SRC
+
+Sample output:
+
+#+BEGIN_EXAMPLE
+  kernel-firmware-20160112git-120.1.noarch
+  kernel-default-4.1.15-8.1.x86_64
+  kernel-default-devel-4.5.0-1.1.g3c4edc5.x86_64
+  kernel-devel-4.5.0-1.1.g3c4edc5.noarch
+  kernel-default-4.5.0-1.1.g3c4edc5.x86_64
+  kernel-macros-4.5.0-1.1.g3c4edc5.noarch
+#+END_EXAMPLE
+
+That’s it. You know now how to find out all installed kernels in your Linux system.
+
+To view the currently running Kernel, run:
+
+#+BEGIN_SRC shell
+  $ uname -r
+  4.13.8-1-ARCH
+#+END_SRC
+
+Or,
+
+#+BEGIN_SRC shell
+  $ uname -mrs
+  Linux 4.13.8-1-ARCH x86_64
+#+END_SRC
