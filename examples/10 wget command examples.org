@@ -80,7 +80,7 @@ wget会下载文件并以"wordpress.zip"为名存放到当前目录中.zip” na
 
 * 3. 指定下载目录
 
-使用 =-p= 选项指定下载目录:
+使用 =-P= 选项指定下载目录:
 
 #+BEGIN_SRC shell
   wget -P /opt/wordpress https://wordpress.org/latest.zip
