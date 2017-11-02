@@ -1,4 +1,4 @@
-#+TITLE: play hearthstone-on-ubuntu-linux
+#+TITLE: 如何在Ubuntu linux上玩炉石传说
 #+URl: https://www.maketecheasier.com/play-hearthstone-on-ubuntu-linux/
 #+AUTHOR: lujun9972
 #+TAGS: game hearthstone ubuntu
