@@ -1,4 +1,4 @@
-#+TITLE: How To Check Installed Linux Kernels
+#+TITLE: 如何查看已安装的Linux Kernels
 #+URL: https://www.ostechnix.com/check-installed-linux-kernels/
 #+AUTHOR: lujun9972
 #+TAGS: raw
@@ -8,26 +8,26 @@
 
 
 
-Ever wondered how many Linux Kernels you have installed in your Linux box? No? Well, this brief tutorial will teach you how to view or check
-installed Linux Kernels on different Linux operating systems. It’s not that difficult as you may think. Read on.
+想知道你的Linux上安装了那些Linux Kernel? 这篇简易指南将会告诉你在不同Linux操作系统上查看已安装Linux Kernel的方法. 
+方法其实没有你想象的那么复杂. 请往下看.
 
 * Check installed Linux Kernels
 
 ** On Arch Linux:
 
-In Arch Linux, and its derivatives, you can find the list of installed Kernels using the following command:
+在 Arch Linux 及其派生版本中,使用下面命令查找已安装的Kernel:
 
 #+BEGIN_SRC shell
   $ pacman -Q linux
 #+END_SRC
 
-Or,
+或者
 
 #+BEGIN_SRC shell
   $ pacman -Q | grep linux
 #+END_SRC
 
-Sample output:
+输出为:
 
 #+BEGIN_EXAMPLE
   archlinux-keyring 20171013-1
@@ -42,23 +42,23 @@ Sample output:
 
 [[http://www.ostechnix.com/wp-content/uploads/2016/03/Check-Installed-Linux-Kernels.png]]
 
-As you see in the above output, my Arch Linux box is running with Kernel 4.13.8-1.
+从上面输出可以看出, 我的 Arch Linux 运行内核为 4.13.8-1.
 
 * On RHEL / CentOS / Scientific Linux / Fedora:
 
-Open up your Terminal, and run the following command to view the installed Linux Kernels:
+打开终端, 运行下面命令来查看已安装的 Linux Kernels:
 
 #+BEGIN_SRC shell
   # rpm -qa kernel
 #+END_SRC
 
-Or,
+或者
 
 #+BEGIN_SRC shell
   # rpm -qa | grep -i kernel
 #+END_SRC
 
-Sample output:
+输出为:
 
 #+BEGIN_EXAMPLE
   kernel-tools-libs-3.10.0-123.9.3.el7.x86_64
@@ -70,14 +70,13 @@ Sample output:
 
 ** On Debian / Ubuntu / Linux Mint:
 
-To view the list of installed Linux Kernels in DEB based systems such as Debian, Ubuntu, Linux Mint, Elementary OS, run the following command from
-the Terminal:
+在 Debian, Ubuntu, Linux Mint, Elementary OS 等基于 DEB 的系统中查看已安装的Linux Kernels,在终端中运行下面命令:
 
 #+BEGIN_SRC shell
   $ dpkg --list | grep linux-image
 #+END_SRC
 
-Sample output:
+输出为:
 
 #+BEGIN_EXAMPLE
   rc linux-image-4.2.0-16-generic 4.2.0-16.19 amd64 Linux kernel image for version 4.2.0 on 64 bit x86 SMP
@@ -92,13 +91,13 @@ Sample output:
 
 ** On SUSE / openSUSE:
 
-On SUSE and openSUSE, you can get the list of installed Linux kernels using command:
+在SUSE 和 openSUSE 上, 运行命令:
 
 #+BEGIN_SRC shell
   # rpm -qa | grep -i kernel
 #+END_SRC
 
-Sample output:
+输出:
 
 #+BEGIN_EXAMPLE
   kernel-firmware-20160112git-120.1.noarch
@@ -109,16 +108,16 @@ Sample output:
   kernel-macros-4.5.0-1.1.g3c4edc5.noarch
 #+END_EXAMPLE
 
-That’s it. You know now how to find out all installed kernels in your Linux system.
+就这些了. 你已经知道怎么找出Linux系统中已安装的那些Kernel了.
 
-To view the currently running Kernel, run:
+想查看当前正在运行的Kernel,则运行:
 
 #+BEGIN_SRC shell
   $ uname -r
   4.13.8-1-ARCH
 #+END_SRC
 
-Or,
+或者
 
 #+BEGIN_SRC shell
   $ uname -mrs
