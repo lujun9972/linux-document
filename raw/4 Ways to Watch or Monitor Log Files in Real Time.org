@@ -1,0 +1,124 @@
+#+TITLE: 4 Ways to Watch or Monitor Log Files in Real Time
+#+URL: https://www.tecmint.com/watch-or-monitor-linux-log-files-in-real-time/
+#+AUTHOR: lujun9972
+#+TAGS: log common
+#+DATE: [2017-11-02 四 22:00]
+#+LANGUAGE:  zh-CN
+#+OPTIONS:  H:6 num:nil toc:t \n:nil ::t |:t ^:nil -:nil f:t *:t <:nil
+
+
+How can I see the content of a log file in real time in Linux? Well there are a lot of utilities out there that can help a user to output the
+content of a file while the file is changing or continuously updating. Some of the most known and heavily used utility to display a file content in
+real time in Linux is the [[https://www.tecmint.com/view-contents-of-file-in-linux/][tail command]] (manage files effectively).
+
+Read Also: [[https://www.tecmint.com/best-linux-log-monitoring-and-management-tools/][4 Good Open Source Log Monitoring and Management Tools for Linux]]
+
+* 1. tail Command – Monitor Logs in Real Time
+
+As said, tail command is the most common solution to display a log file in real time. However, the command to display the file has two versions, as
+illustrated in the below examples.
+
+In the first example the command tail needs the -f argument to follow the content of a file.
+
+#+BEGIN_SRC shell
+  $ sudo tail -f /var/log/apache2/access.log
+#+END_SRC
+
+[[https://www.tecmint.com/wp-content/uploads/2017/10/Monitor-Apache-Logs-in-Real-Time.png]]
+
+
+The second version of the command is actually a command itself: tailf. You won’t need to use the -f switch because the command is built-in with the
+-f argument.
+
+#+BEGIN_SRC shell
+  $ sudo tailf /var/log/apache2/access.log
+#+END_SRC
+
+[[https://www.tecmint.com/wp-content/uploads/2017/10/Apache-Logs-Monitoring.png]]
+
+Usually, the log files are rotated frequently on a Linux server by the logrotate utility. To watch log files that get rotated on a daily base you
+can use the -F flag to tail command.
+
+Read Also: [[https://www.tecmint.com/manage-linux-system-logs-using-rsyslogd-and-logrotate/][How to Manage System Logs (Configure, Rotate and Import Into Database) in Linux]]
+
+The tail -F will keep track if new log file being created and will start following the new file instead of the old file.
+
+#+BEGIN_SRC shell
+  $ sudo tail -F /var/log/apache2/access.log
+#+END_SRC
+
+However, by default, tail command will display the last 10 lines of a file. For instance, if you want to watch in real time only the last two lines
+of the log file, use the -n file combined with the -f flag, as shown in the below example.
+
+#+BEGIN_SRC shell
+  $ sudo tail -n2 -f /var/log/apache2/access.log
+#+END_SRC
+
+[[https://www.tecmint.com/wp-content/uploads/2017/10/Watch-Last-Two-Lines-of-Log.png]]
+                                                                                      
+
+* 2. Multitail Command – Monitor Multiple Log Files in Real Time
+
+Another interesting command to display log files in real time is [[https://www.tecmint.com/view-multiple-files-in-linux/][multitail command]]. The name of the command implies that multitail utility can
+monitor and keep track of multiple files in real time. Multitail also lets you navigate back and forth in the monitored file.
+
+To install mulitail utility in Debian and RedHat based systems issue the below command.
+
+#+BEGIN_SRC shell
+  $ sudo apt install multitail   [On Debian & Ubuntu]
+  $ sudo yum install multitail   [On RedHat & CentOS]
+  $ sudo dnf install multitail   [On Fedora 22+ version]
+#+END_SRC
+
+To display the output of two log file simultaneous, execute the command as shown in the below example.
+
+#+BEGIN_SRC shell
+  $ sudo multitail /var/log/apache2/access.log /var/log/apache2/error.log
+#+END_SRC
+
+[[https://www.tecmint.com/wp-content/uploads/2017/10/Multitail-Monitor-Logs.png]]
+
+* 3. lnav Command – Monitor Multiple Log Files in Real Time
+
+Another interesting command, similar to multitail command is the [[https://www.tecmint.com/lnav-watch-and-analyze-apache-logs-in-linux/][lnav command]]. Lnav utility can also watch and follow multiple files and display
+their content in real time.
+
+To install lnav utility in Debian and RedHat based Linux distributions by issuing the below command.
+
+#+BEGIN_SRC shell
+  $ sudo apt install lnav   [On Debian & Ubuntu]
+  $ sudo yum install lnav   [On RedHat & CentOS]
+  $ sudo dnf install lnav   [On Fedora 22+ version]
+#+END_SRC
+
+Watch the content of two log files simultaneously by issuing the command as shown in the below example.
+
+#+BEGIN_SRC shell
+  $ sudo lnav /var/log/apache2/access.log /var/log/apache2/error.log
+#+END_SRC
+
+[[https://www.tecmint.com/wp-content/uploads/2017/10/Lnav-Real-Time-Logs-Monitoring.png]]
+
+* 4. less Command – Display Real Time Output of Log Files
+
+Finally, you can display the live output of a file with [[https://www.tecmint.com/linux-more-command-and-less-command-examples/][less command]] if you type Shift+F.
+
+As with tail utility, pressing Shift+F in a opened file in less will start following the end of the file. Alternatively, you can also start less
+with less +F flag to enter to live watching of the file.
+
+#+BEGIN_SRC shell
+  $ sudo less +F  /var/log/apache2/access.log
+#+END_SRC
+
+[[https://www.tecmint.com/wp-content/uploads/2017/10/Watch-Logs-Using-Less-Command.png]]
+
+That’s It! You may read these following articles on Log monitoring and management.
+
+ 1. [[https://www.tecmint.com/view-contents-of-file-in-linux/][Manage Files Effectively using head, tail and cat Commands in Linux]]
+ 2. [[https://www.tecmint.com/install-logrotate-to-manage-log-rotation-in-linux/][How to Setup and Manage Log Rotation Using Logrotate in Linux]]
+ 3. [[https://www.tecmint.com/petiti-log-analysis-tool-for-linux-sysadmins/][Petiti – An Open Source Log Analysis Tool for Linux SysAdmins]]
+ 4. [[https://www.tecmint.com/query-audit-logs-using-ausearch-tool-on-centos-rhel/][How to Query Audit Logs Using ‘ausearch’ Tool on CentOS/RHEL]]
+ 5. [[https://www.tecmint.com/manage-systemd-logs-using-journalctl/][Manage Log Messages Under Systemd Using Journalctl {Comprehensive Guide}]]
+
+In this article, we showed how to watch data being appended in log files in real-time on the terminal in Linux. You can ask any questions or share
+your thoughts concerning this guide via the comment form below.
