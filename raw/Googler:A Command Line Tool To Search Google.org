@@ -1,4 +1,4 @@
-#+TITLE: Googler:A Command Line Tool To Search Google
+#+TITLE: Googler:搜索Google的命令行工具
 #+URL: http://www.linuxandubuntu.com/home/googler-a-command-line-tool-to-search-google
 #+AUTHOR: lujun9972
 #+TAGS: tools google
@@ -45,7 +45,7 @@ Ubuntu用户以及使用基于Ubuntu发行版的用户可以通过PPA来安装,�
 Googler会显示出搜索结果的标题,URL以及摘要,你可以直接从终端调用浏览器访问这些搜索结果. 搜索结果以页的形式组织,你可以上下进行翻页. 
 同时你还可以在同一个googler实例上进行连续的搜索.
 
-你可以指定搜索结果的数量, 限制所述 bt duration 等等, 而且搜索结果非常清爽,没有那些广告和流氓网址. shell补全脚本使得你无需记忆任何参数.
+你可以指定搜索结果的数量, 限制所述 bt duration 等等, 而且搜索结果非常清爽,没有那些广告和流氓网址. shell补全功能使得你无需记忆任何参数.
 
 #+BEGIN_EXAMPLE
   usage: googler [-h] [-s N] [-n N] [-N] [-c TLD] [-l LANG] [-x] [-C]
@@ -100,38 +100,37 @@ Googler会显示出搜索结果的标题,URL以及摘要,你可以直接从终�
     $ man googler 
   #+END_SRC
 
-* Features at a glance
+* 功能一览
 
-** 1 - Text-based browser integration
+** 1 - 与文本浏览器实现整合
 
-googler works out of the box with several text-based browsers if the BROWSER environment variable is set. For instance,
+googler天然与文本浏览器相适应,只需要设置一下 =BROWSER= 环境变量即可. 像这样:
 #+BEGIN_SRC shell
   $ export BROWSER=w3m 
 #+END_SRC
-or for one-time use,
+若只是临时设置，可以这样
 #+BEGIN_SRC shell
   $ BROWSER=w3m googler query 
 #+END_SRC
 
-** 2 - Terminal Reading Mode or Reader View
+** 2 - 终端阅读模式或者说阅读者视图(Terminal Reading Mode or Reader View)
 
-You can easily integrate googler with some equally awesome utilities to enjoy your daily dose of news in a completely distraction-free environment. 
+googler可以很方便地与其他工具整合, 给你提供一个无干扰的阅读环境.  详细信息请参见 [[https://github.com/jarun/googler/wiki/Terminal-Reading-Mode-or-Reader-View][这里]]. 
 
-** 3 - Colors
+** 3 - 配色
 
-googler allows you to customize the color scheme via a six-letter string, reminiscent of BSD LSCOLORS. Find out more from [[https://github.com/jarun/googler/wiki/Terminal-Reading-Mode-or-Reader-View][here]]. 
+googler允许你通过一个留个字符的字符串来自定义配色方案, 其格式与 BSD =LSCOLORS= 一至.
 
-** 4 - And more
+** 4 - 以及
 
-+ Fast and clean (no ads, stray URLs or clutter), custom color 
-+ Support for Google keywords 
-+ Open the first result directly in browser 
-+ Comprehensive documentation, man page with handy usage examples 
-+ Non-stop searches: fire new searches at omniprompt without exiting 
++ 快速，纯净(没有广告， 流氓网址(stray URL)以及其他乱七八糟的东西), 可以自定义配色
++ 支持Google关键字
++ 直接在浏览器中打开排名第一的搜索结果
++ 文档齐全, man 页面中包含很多案例演示
++ 连续搜索: 可以在不退出的情况下开始新的搜索
 
-* Conclusion
+* 结论
 
-​googler is not for everyone, but if you prefer to work within the terminal, it is a rather nifty tool to have in your arsenal. I love googler although I won’t be using all
-the time, I will surely be keeping it around. For more information on googler, visit the [[https://github.com/jarun/googler#installation][github page]].
-
-​Thanks for reading and share your thoughts and comments with us in the section below. 
+​googler的受众范围有限,但如果你更喜欢终端,它是一个不错的好工具. 
+虽然用的不多，但是我很喜欢 googler,我会一直留着它. 
+想了解更多关于 googler 的信息, 请访问它的 [[https://github.com/jarun/googler#installation][github page]].
