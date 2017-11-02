@@ -1,7 +1,7 @@
 #!/bin/bash
 
 declare -A catalog_comment_dict
-catalog_comment_dict=([examples]="读什么手册啊，跟着我来做就好了." [tools]="又有什么新玩意?"  [shell]="别不把shell当语言" [system]="系统管理相关内容" [common]="未分类的内容" [raw]="未翻译的内容,欢迎大家领取"  [processing]="正在翻译的内容,别人的东西可不要抢哦~")
+catalog_comment_dict=([examples]="读什么手册啊，跟着我来做就好了." [tools]="又有什么新玩意?"  [shell]="别不把shell当语言" [system]="系统管理相关内容" [game]="Linux好游戏" [common]="未分类的内容" [raw]="未翻译的内容,欢迎大家领取"  [processing]="正在翻译的内容,别人的东西可不要抢哦~")
 
 catalogs=$(for catalog in ${!catalog_comment_dict[*]};do
                echo $catalog
