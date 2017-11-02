@@ -7,18 +7,16 @@
 #+OPTIONS:  H:6 num:nil toc:t \n:nil ::t |:t ^:nil -:nil f:t *:t <:nil
 
 
-Hearthstone is probably the most popular digital card game. The Warcraft-themed game from Blizzard has seen quite a bit of growth over its
-lifetime, and it’s even a major e-sport.
+炉石传说可能是最流行的电子卡牌游戏了. Blizzard出品的这款以魔兽为主题的游戏十分的火爆，甚至成为了主要的电子竞技游戏之一.
 
-Even though Hearthstone was released for a wide array of platforms, including mobile devices running Android, it has never seen official
-Linux support. Thankfully, Hearthstone is a lightweight game that can be run on Linux systems through Wine.
+虽然炉石在很多平台上都有发布, 甚至包括手机上的Android平台, 但它却从未出过官方的Linux版本. 
+好在炉石是一款轻量级的游戏，我们可以通过Wine在Linux上玩到它.
 
-* Install Wine Staging
+* 安装 Wine Staging
 
-The staging patches for Wine are necessary. Blizzard updates Hearthstone frequently, and those updates do occasionally break Wine
-gameplay. Having the latest patches does help.
+必须给Wine打上staging补丁. 炉石更新十分频繁, 有些更新可能会造成Wine的不兼容. 使用最新的补丁有助于减少这种情况.
 
-Enable the Wine Staging PPA on Ubuntu. You’ll need the release key first, so wget that, and add it.
+在Ubuntu上启用 Wine Staging PPA. 你首先需要倒入证书.
 
 #+BEGIN_SRC shell
   cd ~/Downloads
@@ -26,7 +24,7 @@ Enable the Wine Staging PPA on Ubuntu. You’ll need the release key first, so w
   sudo apt-key add Release.key
 #+END_SRC
 
-Add the repository to Apt, update, and install Wine Staging.
+添加仓库，更新然后安装 Wine Staging.
 
 #+BEGIN_SRC shell
   sudo apt-add-repository 'https://dl.winehq.org/wine-builds/ubuntu/'
@@ -34,64 +32,59 @@ Add the repository to Apt, update, and install Wine Staging.
   sudo apt install --install-recommends winehq-staging
 #+END_SRC
 
-* Configure Wine
+* 配置 Wine
 
-Now that you have the latest version of Wine Staging installed, you need to configure it a bit. Open a terminal and run =winecfg=.
+现在你安装好了最新版的 Wine Staging 了, 还需要做一些配置. 打开终端然后运行 =winecfg=.
 
 [[https://www.maketecheasier.com/assets/uploads/2017/10/hs-wine-staging.jpg]]
 
-In the window that opens, click on the “Staging” tab. Check the boxes to enable CSMT, VAAPI, and EAX.
+在打开的窗口中, 点击 “Staging” 选项卡. 点击复选框选中 =CSMT=, =VAAPI=, 和 =EAX=.
 
 [[https://www.maketecheasier.com/assets/uploads/2017/10/hs-libraries.jpg]]
 
-Click back to “Libraries,” and in the search box type d3d11. Add it. Click on the entry and disable it. Repeat the process with
-locationapi. After that’s done, close winecfg.
+回到 “Libraries” 选项卡，在搜索框中输入 =d3d11=. 添加它. 然后点击那一栏来禁用它. 对 =locationapi= 也重复这一动作. 
+完成后，关闭 =winecfg=.
 
 * Winetricks
 
-You’re going to need the winetricks script, too, if you want the Battle.net launcher to perform properly. You can grab the latest version
-of the script with wget.
+我们还会用到 =winetricks= 脚本. 使用wget下载最新版本的脚本.
 
 #+BEGIN_SRC shell
   wget  https://raw.githubusercontent.com/Winetricks/winetricks/master/src/winetricks
   chmod +x winetricks
 #+END_SRC
 
-Run the script. If you’re not familiar, Winetricks will open a graphical application that lets you download Windows components and tools
-to make your Wine applications run more smoothly (or at all).
+运行该脚本. Winetricks 会打开一个图形程序来让你下载Windows组件和工具来让你的Wine程序运行的更顺畅.
 
 #+BEGIN_SRC shell
   ./winetricks
 #+END_SRC
 
-On the first screen “Use default Wine prefix” is selected. Leave it selected, and click the “OK” button. On the following screen select
-the “Install DLL” option. Find ie8 and install it.
+请保证第一屏中的 “Use default Wine prefix” 是选中的. 然后点击 “OK” 按钮. 在下一屏选中 “Install DLL” 选项. 找到 =ie8= 并安装它.
 
 [[https://www.maketecheasier.com/assets/uploads/2017/10/hs-corefonts.jpg]]
 
-When the install finishes, it’ll drop you back where you were. Click “Cancel” to go up one level. Select “Fonts.” Check off corefonts and
-install it. When that finishes, click “Cancel” until you exit Winetricks.
+安装完成后，它会回到刚才的位置. 点击 “Cancel” 回到上一层. 选择“Fonts”. 选中 =corefonts= 并安装. 
+安装完成后，不断点击 “Cancel”,退出 Winetricks.
 
-* Install Battle.net
+* 安装 Battle.net
 
-You’re ready to install the Battle.net client. Head over to [[http://us.battle.net/en/app/][Blizzard’s download page]] and get the latest version.
+现在可以开始安装 Battle.net 客户端了. 去 [[http://us.battle.net/en/app/][Blizzard的下载页面]] 下载最新版的客户端.
 
-You can just click on the resulting .exe file to launch it with Wine. Follow the instructions as though you are doing the exact same thing
-on Windows. The install process is the same, and you can just click through the installer.
+点击 =resulting.exe= 文件会自动通过wine来运行. 然后跟Windows上一样，按照指示往下走就好了. 
 
 [[https://www.maketecheasier.com/assets/uploads/2017/10/hs-bnet.jpg]]
 
-When it finishes, it should just launch the Battle.net client. If it doesn’t, click on the icon that it created (if it did), or find the
-actual path at “~/.wine/drive_c/Program Files (x86)/Battle.net/Battle.net Launcher.exe.”
+安装完成后, 应该会自动运行 Battle.net 客户端. 如果没有自动运行, 那么可以点击其所创建的图表(如果创建了的话), 或者直接去行“~/.wine/drive_c/Program Files (x86)/Battle.net/Battle.net Launcher.exe.”
 
-* Install and Launch Hearthstone
+* 安装并运行炉石
 
-The hard part is out of the way. Click on the Hearthstone icon in the Battle.net app, and click the “Install” button at the bottom of the
-screen. Wait for the client to download and install Hearthstone. It will all happen automatically.
+最艰难的时刻来到了. 在 Battle.net 应用中点击炉石的图表, 然后点击屏幕底部的 “Install” 按钮. 
+客户端会自动下载并安装炉石.
 
-When the install process is finished, the “Install” button will turn into a “Play” button. Click it to launch the game.
+安装完成后, “Install” 按钮应该会变成 “Play” 按钮. 点击它就能运行游戏了.
 
-Once the game is open, click on the gear icon in the lower-right corner. That’s the settings menu. It’s recommended that you run the game
-in “Windowed” mode for best performance. You can adjust the rest to set your needs.
+游戏运行后, 点击右下方的齿轮图标进入设置菜单. 推荐你在 “Windowed” 模式下运行游戏，能优化你的性能. 
+你也可以任意修改其他配置.
 
-Some of this may change as Blizzard updates the game. For the latest updates in case of breakage, check the [[https://appdb.winehq.org/objectManager.php?sClass=version&iId=30038][Wine Appdb page]].
+该教程可能会在Blizzard某次升级游戏后失效. 万一出现这种情况, 可以查一下[[https://appdb.winehq.org/objectManager.php?sClass=version&iId=30038][Wine Appdb page]].
