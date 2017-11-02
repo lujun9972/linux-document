@@ -1,0 +1,97 @@
+#+TITLE: play hearthstone-on-ubuntu-linux
+#+URl: https://www.maketecheasier.com/play-hearthstone-on-ubuntu-linux/
+#+AUTHOR: lujun9972
+#+TAGS: game hearthstone ubuntu
+#+DATE: [2017-11-02 四 14:40]
+#+LANGUAGE:  zh-CN
+#+OPTIONS:  H:6 num:nil toc:t \n:nil ::t |:t ^:nil -:nil f:t *:t <:nil
+
+
+Hearthstone is probably the most popular digital card game. The Warcraft-themed game from Blizzard has seen quite a bit of growth over its
+lifetime, and it’s even a major e-sport.
+
+Even though Hearthstone was released for a wide array of platforms, including mobile devices running Android, it has never seen official
+Linux support. Thankfully, Hearthstone is a lightweight game that can be run on Linux systems through Wine.
+
+* Install Wine Staging
+
+The staging patches for Wine are necessary. Blizzard updates Hearthstone frequently, and those updates do occasionally break Wine
+gameplay. Having the latest patches does help.
+
+Enable the Wine Staging PPA on Ubuntu. You’ll need the release key first, so wget that, and add it.
+
+#+BEGIN_SRC shell
+  cd ~/Downloads
+  wget -nc https://repos.wine-staging.com/wine/Release.key
+  sudo apt-key add Release.key
+#+END_SRC
+
+Add the repository to Apt, update, and install Wine Staging.
+
+#+BEGIN_SRC shell
+  sudo apt-add-repository 'https://dl.winehq.org/wine-builds/ubuntu/'
+  sudo apt update
+  sudo apt install --install-recommends winehq-staging
+#+END_SRC
+
+* Configure Wine
+
+Now that you have the latest version of Wine Staging installed, you need to configure it a bit. Open a terminal and run =winecfg=.
+
+[[https://www.maketecheasier.com/assets/uploads/2017/10/hs-wine-staging.jpg]]
+
+In the window that opens, click on the “Staging” tab. Check the boxes to enable CSMT, VAAPI, and EAX.
+
+[[https://www.maketecheasier.com/assets/uploads/2017/10/hs-libraries.jpg]]
+
+Click back to “Libraries,” and in the search box type d3d11. Add it. Click on the entry and disable it. Repeat the process with
+locationapi. After that’s done, close winecfg.
+
+* Winetricks
+
+You’re going to need the winetricks script, too, if you want the Battle.net launcher to perform properly. You can grab the latest version
+of the script with wget.
+
+#+BEGIN_SRC shell
+  wget  https://raw.githubusercontent.com/Winetricks/winetricks/master/src/winetricks
+  chmod +x winetricks
+#+END_SRC
+
+Run the script. If you’re not familiar, Winetricks will open a graphical application that lets you download Windows components and tools
+to make your Wine applications run more smoothly (or at all).
+
+#+BEGIN_SRC shell
+  ./winetricks
+#+END_SRC
+
+On the first screen “Use default Wine prefix” is selected. Leave it selected, and click the “OK” button. On the following screen select
+the “Install DLL” option. Find ie8 and install it.
+
+[[https://www.maketecheasier.com/assets/uploads/2017/10/hs-corefonts.jpg]]
+
+When the install finishes, it’ll drop you back where you were. Click “Cancel” to go up one level. Select “Fonts.” Check off corefonts and
+install it. When that finishes, click “Cancel” until you exit Winetricks.
+
+* Install Battle.net
+
+You’re ready to install the Battle.net client. Head over to [[http://us.battle.net/en/app/][Blizzard’s download page]] and get the latest version.
+
+You can just click on the resulting .exe file to launch it with Wine. Follow the instructions as though you are doing the exact same thing
+on Windows. The install process is the same, and you can just click through the installer.
+
+[[https://www.maketecheasier.com/assets/uploads/2017/10/hs-bnet.jpg]]
+
+When it finishes, it should just launch the Battle.net client. If it doesn’t, click on the icon that it created (if it did), or find the
+actual path at “~/.wine/drive_c/Program Files (x86)/Battle.net/Battle.net Launcher.exe.”
+
+* Install and Launch Hearthstone
+
+The hard part is out of the way. Click on the Hearthstone icon in the Battle.net app, and click the “Install” button at the bottom of the
+screen. Wait for the client to download and install Hearthstone. It will all happen automatically.
+
+When the install process is finished, the “Install” button will turn into a “Play” button. Click it to launch the game.
+
+Once the game is open, click on the gear icon in the lower-right corner. That’s the settings menu. It’s recommended that you run the game
+in “Windowed” mode for best performance. You can adjust the rest to set your needs.
+
+Some of this may change as Blizzard updates the game. For the latest updates in case of breakage, check the [[https://appdb.winehq.org/objectManager.php?sClass=version&iId=30038][Wine Appdb page]].
