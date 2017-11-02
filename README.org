@@ -15,6 +15,7 @@
 * game
 Linux好游戏
 
++ [[https://github.com/lujun9972/linux-document/blob/master/game/play hearthstone-on-ubuntu-linux.org][ 如何在Ubuntu linux上玩炉石传说]]		<2017-11-02>
 * processing
 正在翻译的内容,别人的东西可不要抢哦~
 
@@ -28,6 +29,7 @@ Linux好游戏
 * system
 系统管理相关内容
 
++ [[https://github.com/lujun9972/linux-document/blob/master/system/How To Check Installed Linux Kernels.org][ 如何查看已安装的Linux Kernels]]		<2017-11-02>
 + [[https://github.com/lujun9972/linux-document/blob/master/system/how to reset sudo password.org][ 如何重置sudo密码]]		<2017-10-30>
 * tools
 又有什么新玩意?
