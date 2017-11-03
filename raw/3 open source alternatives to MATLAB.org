@@ -1,0 +1,73 @@
+#+TITLE: 3 open source alternatives to MATLAB
+#+URL: https://opensource.com/alternatives/matlab
+#+AUTHOR: lujun9972
+#+TAGS: raw
+#+DATE: [2017-11-03 五 14:44]
+#+LANGUAGE:  zh-CN
+#+OPTIONS:  H:6 num:nil toc:t \n:nil ::t |:t ^:nil -:nil f:t *:t <:nil
+
+
+For many students in mathematics, physical sciences, engineering, economics, and other fields with a heavy numeric component, MATLAB is
+their first introduction to programming or scientific computing in general.
+
+It can be a good tool for learning, although (in my experience) many of the things that students and researchers use MATLAB for are not
+particularly demanding calculations; rather they could easily be conducted with any number of basic scripting tools, with or without
+statistical or math-oriented packages. However, it does have a near ubiquity in many academic settings, bringing with it a large community
+of users familiar with the language, plugins, and capabilities in general.
+
+But MATLAB is a proprietary tool. Without access to its source code, you have limited understanding of how it works and how you can modify
+it. It is also prohibitively expensive for many people outside of an academic setting, where license fees for a single copy can reach into
+the thousands of dollars.
+
+Fortunately, there are many great open source alternatives. Depending on your exact objective, you may find one or another will better fit
+your specific needs. Here are three to consider:
+
+ GNU Octave
+
+[[https://www.gnu.org/software/octave/][GNU Octave]] may be the best-known alternative to MATLAB. In active development for almost three decades, Octave runs on Windows, Mac, and
+Linux—and is packaged for most major distributions. If you're looking for a project that is as close to the actual MATLAB language as
+possible, Octave may be a good fit for you; it strives for exact compatibility, so many of your projects developed for MATLAB may run in
+Octave with no modification necessary.
+
+Octave has many different choices available for a front-end interaction outside of the default that now ships with version 4; some
+resemble MATLAB's interface more than others. Octave's [[https://en.wikipedia.org/wiki/GNU_Octave][Wikipedia page]] lists several options.
+
+Octave is licensed under the [[http://www.gnu.org/copyleft/gpl.html][GPL]], and its source code can be found on the GNU [[ftp://ftp.gnu.org/gnu/octave][FTP site]].
+
+ Scilab
+
+[[http://www.scilab.org/][Scilab]] is another open source option for numerical computing that runs across all the major platforms: Windows, Mac, and Linux included.
+Scilab is perhaps the best known alternative outside of Octave, and (like Octave) it is very similar to MATLAB in its implementation,
+although exact compatibility is not a goal of the project's developers.
+
+Scilab is distributed as open source under the GPL-compatible [[http://www.scilab.org/scilab/license][CeCILL]] license, and its [[http://www.scilab.org/development/sources/stable][source code]] is available on the project website.
+
+ Sage
+
+[[http://www.sagemath.org/index.html][SageMath]] is another open source mathematics software system that might be a good option for those seeking a MATLAB alternative. It's built
+on top of a variety of well-known Python-based scientific computing libraries, and its own language is syntactically similar to Python. It
+has many features including a command-line interface, browser-based notebooks, tools for embedding formulas in other documents, and of
+course, many mathematical libraries.
+
+SageMath is available under a [[http://www.gnu.org/copyleft/gpl.html][GPL]] license, and its source code can be found on the [[http://www.sagemath.org/download-source.html][project website]].
+
+------------------------------------------------------------------------------------------------------------------------------------------
+
+This list only scratches the surface of tools that researchers and students may choose to use as open source alternatives to MATLAB. R,
+Julia, Python, and other standard programming languages might be a good fit for you, depending on your exact needs. Some other open
+source tools you may want to consider include: 
+
+  * [[http://freemat.sourceforge.net/][FreeMat]], a [[http://www.gnu.org/copyleft/gpl.html][GPL]]-licensed environment for rapid engineering, scientific prototyping, and data processing. It's available for Linux, OS
+    X, and Windows, though it may be dated as the latest version was released in 2013.
+  * [[http://www.jirka.org/genius.html][Genius Mathematic Tool]], an actively developed calculator program and research tool. It is written in Genius Extension Language for
+    Linux and Unix computers and is available under the [[https://www.gnu.org/licenses/gpl.html][GPL GNU]] license.
+  * [[http://maxima.sourceforge.net/][Maxima]], another frequently updated alternative to MATLAB. It's based on Macsyma, a "legendary computer algebra system" developed at
+    MIT in the 1960s, can be compiled on Linux, Mac OS X, and Windows, and is available under [[https://sourceforge.net/directory/license:gpl/][GPLv2]].
+  * [[http://www.numpy.org/][NymPy]], the main package for scientific computing with Python (as its name suggests). It's also the fundamental data-array structure
+    for the SciPy Stack, an ecosystem of Python-based math, science, and engineering software. NymPy is licensed under the [[http://www.numpy.org/license.html#license][BSD license]],
+    and packages are available for Windows, Mac OS X, and Linux.
+  * [[http://www.sympy.org/en/index.html][SymPy]], another [[https://github.com/sympy/sympy/blob/master/LICENSE][BSD]]-licensed Python library for symbolic mathematics. It can be installed on any computer running Python 2.7 or above.
+    It aims to become a full computer algebra system; has an active development community with regular releases; and is used in many other
+    projects (including SageMath, above). 
+
+Have you used any of these or other tools as alternatives to MATLAB? Which one do you prefer and why? Let us know in the comments below.
