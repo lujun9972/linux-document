@@ -7,9 +7,8 @@
 #+OPTIONS:  H:6 num:nil toc:t \n:nil ::t |:t ^:nil -:nil f:t *:t <:nil
 
 
-How can I see the content of a log file in real time in Linux? Well there are a lot of utilities out there that can help a user to output the
-content of a file while the file is changing or continuously updating. Some of the most known and heavily used utility to display a file content in
-real time in Linux is the [[https://www.tecmint.com/view-contents-of-file-in-linux/][tail command]] (manage files effectively).
+在Linux下如何才能实时查看日志内容呢? 有很多工具可以帮助我们在文件持续修改的同时输出文件内容. 
+最常用的莫过于 [[https://www.tecmint.com/view-contents-of-file-in-linux/][tail命令]] 了.
 
 Read Also: [[https://www.tecmint.com/best-linux-log-monitoring-and-management-tools/][4 Good Open Source Log Monitoring and Management Tools for Linux]]
 
