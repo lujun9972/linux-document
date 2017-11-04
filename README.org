@@ -23,7 +23,7 @@ Linux好游戏
 * raw
 未翻译的内容,欢迎大家领取
 
-+ [[https://github.com/lujun9972/linux-document/blob/master/raw/4 Ways to Watch or Monitor Log Files in Real Time.org][ 4 Ways to Watch or Monitor Log Files in Real Time]]		<2017-11-02>
++ [[https://github.com/lujun9972/linux-document/blob/master/raw/3 open source alternatives to MATLAB.org][ 3 open source alternatives to MATLAB]]		<2017-11-03>
 * shell
 别不把shell当语言
 
