@@ -6,6 +6,7 @@
 * common
 未分类的内容
 
++ [[https://github.com/lujun9972/linux-document/blob/master/common/4 Ways to Watch or Monitor Log Files in Real Time.org][ 实时监控日志文件的4中方法]]		<2017-11-04>
 + [[https://github.com/lujun9972/linux-document/blob/master/common/how to burn iso image to dvd and usb using dd.org][ 如何使用dd将ISO镜像烧录入DVD和USB中]]		<2017-10-30>
 + [[https://github.com/lujun9972/linux-document/blob/master/common/How to Quickly Type Special Characters in Linux.org][ Linux下如何快速输入特殊字符]]		<2017-10-28>
 + [[https://github.com/lujun9972/linux-document/blob/master/common/Find Devices Connected To Your Wifi In Linux.org][ Linux中找出连上你Wifi的那些设备]]		<2017-10-27>
@@ -23,7 +24,6 @@ Linux好游戏
 * raw
 未翻译的内容,欢迎大家领取
 
-+ [[https://github.com/lujun9972/linux-document/blob/master/raw/3 open source alternatives to MATLAB.org][ 3 open source alternatives to MATLAB]]		<2017-11-03>
 * shell
 别不把shell当语言
 
@@ -36,4 +36,5 @@ Linux好游戏
 * tools
 又有什么新玩意?
 
++ [[https://github.com/lujun9972/linux-document/blob/master/tools/3 open source alternatives to MATLAB.org][ 3个MATLAB的开源替代]]		<2017-11-05>
 + [[https://github.com/lujun9972/linux-document/blob/master/tools/Googler:A Command Line Tool To Search Google.org][ Googler:搜索Google的命令行工具]]		<2017-11-02>
