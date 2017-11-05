@@ -1,73 +1,57 @@
-#+TITLE: 3 open source alternatives to MATLAB
+#+TITLE: 3个MATLAB的开源替代
 #+URL: https://opensource.com/alternatives/matlab
 #+AUTHOR: lujun9972
-#+TAGS: raw
+#+TAGS: tools matlab
 #+DATE: [2017-11-03 五 14:44]
 #+LANGUAGE:  zh-CN
 #+OPTIONS:  H:6 num:nil toc:t \n:nil ::t |:t ^:nil -:nil f:t *:t <:nil
 
 
-For many students in mathematics, physical sciences, engineering, economics, and other fields with a heavy numeric component, MATLAB is
-their first introduction to programming or scientific computing in general.
+对于学数学,物理,工程,经济等需要经常与数字打交道的学生来说, MATLAB 基本上是他们接触编程和科学计算的首要途径.
 
-It can be a good tool for learning, although (in my experience) many of the things that students and researchers use MATLAB for are not
-particularly demanding calculations; rather they could easily be conducted with any number of basic scripting tools, with or without
-statistical or math-oriented packages. However, it does have a near ubiquity in many academic settings, bringing with it a large community
-of users familiar with the language, plugins, and capabilities in general.
+MATLAB是一款用于学习的好工具, 不过(按我的经验来说) 很多时候学生和研究人员使用MATLAB的场景并没有对计算有那么高的要求; 
+这些任务完全可以使用其他脚本工具来完成,甚至可能都不用用到统计等其他数学相关的包.
+不过话说回来, 由于MATLAB在学术界中几乎无处不在, 带来了大量熟悉该语言,插件和功能的用户群体.
 
-But MATLAB is a proprietary tool. Without access to its source code, you have limited understanding of how it works and how you can modify
-it. It is also prohibitively expensive for many people outside of an academic setting, where license fees for a single copy can reach into
-the thousands of dollars.
+然而 MATLAB 是一款专利工具. 你无法接触到它的源代码, 你很难理解它的运行机制也很难对它作出修改. 
+而且对于那些非学术界的人来说,它也特别的昂贵, 单拷贝的版权费能达到数千美元.
 
-Fortunately, there are many great open source alternatives. Depending on your exact objective, you may find one or another will better fit
-your specific needs. Here are three to consider:
+好在, 存在很多开源的替代品. 根据你的具体目标, 总会有一个或多个替代品能够满足你的要求.
+下面是三个可以考虑的替代品:
 
- GNU Octave
+GNU Octave
 
-[[https://www.gnu.org/software/octave/][GNU Octave]] may be the best-known alternative to MATLAB. In active development for almost three decades, Octave runs on Windows, Mac, and
-Linux—and is packaged for most major distributions. If you're looking for a project that is as close to the actual MATLAB language as
-possible, Octave may be a good fit for you; it strives for exact compatibility, so many of your projects developed for MATLAB may run in
-Octave with no modification necessary.
+[[https://www.gnu.org/software/octave/][GNU Octave]] 恐怕是最出名的 MATLAB 替代品了吧. 经过近三十年的发展, Octave已经可以运行在Windows, Mac, 以及 Linux 上—而且在大多数Linux发行版上都有打包.
+如果你想要一款尽可能与 MATLAB 语言接近的项目,那么 Octave 就很适合你; 它致力于确保兼容性, 很多为 MATLAB 开发的项目都可以直接在 Octave 中运行而无需进行任何修改.
 
-Octave has many different choices available for a front-end interaction outside of the default that now ships with version 4; some
-resemble MATLAB's interface more than others. Octave's [[https://en.wikipedia.org/wiki/GNU_Octave][Wikipedia page]] lists several options.
+Octave 4自带了一个默认的前端交互程序,但除此之外你也还有很多其他的选择; 有些界面跟MATLAB很接近. Octave的 [[https://en.wikipedia.org/wiki/GNU_Octave][Wikipedia 页]] 中罗列了很多选择.
 
-Octave is licensed under the [[http://www.gnu.org/copyleft/gpl.html][GPL]], and its source code can be found on the GNU [[ftp://ftp.gnu.org/gnu/octave][FTP site]].
+Octave 基于 [[http://www.gnu.org/copyleft/gpl.html][GPL]] 发布, 你可以从 GNU [[ftp://ftp.gnu.org/gnu/octave][FTP site]] 上下载到它的源代码.
 
- Scilab
+Scilab
 
-[[http://www.scilab.org/][Scilab]] is another open source option for numerical computing that runs across all the major platforms: Windows, Mac, and Linux included.
-Scilab is perhaps the best known alternative outside of Octave, and (like Octave) it is very similar to MATLAB in its implementation,
-although exact compatibility is not a goal of the project's developers.
+[[http://www.scilab.org/][Scilab]] 是另一款数值计算的开源替代品,它支持所有的主流平台: Windows, Mac, 和 Linux.
+Scilab 可能是除了 Octave 之外最知名的替代品了, 而且 (跟 Octave 一样) 它的实现也与MATLAB很接近, 不过它并不保证完全的兼容性.
 
-Scilab is distributed as open source under the GPL-compatible [[http://www.scilab.org/scilab/license][CeCILL]] license, and its [[http://www.scilab.org/development/sources/stable][source code]] is available on the project website.
+Scilab 基于 与GPL兼容的 [[http://www.scilab.org/scilab/license][CeCILL]] license 发布, 他的 [[http://www.scilab.org/development/sources/stable][源代码]] 可以在项目网站上找到.
 
- Sage
+Sage
 
-[[http://www.sagemath.org/index.html][SageMath]] is another open source mathematics software system that might be a good option for those seeking a MATLAB alternative. It's built
-on top of a variety of well-known Python-based scientific computing libraries, and its own language is syntactically similar to Python. It
-has many features including a command-line interface, browser-based notebooks, tools for embedding formulas in other documents, and of
-course, many mathematical libraries.
+[[http://www.sagemath.org/index.html][SageMath]] 是另一款不错的替代品. 它基于大量知名的Python科学计算库所构建, 而且它的语言在语法上也跟Python很接近.
+它有很多功能,包括一个命令行接口, 基于浏览器的 notebooks, 用于编写内嵌于其他文档中公式的工具, 以及相当多的数学库.
 
-SageMath is available under a [[http://www.gnu.org/copyleft/gpl.html][GPL]] license, and its source code can be found on the [[http://www.sagemath.org/download-source.html][project website]].
+SageMath 基于 [[http://www.gnu.org/copyleft/gpl.html][GPL]] license 发布, 它的源代码可以在 [[http://www.sagemath.org/download-source.html][项目网站]] 上找到.
 
 ------------------------------------------------------------------------------------------------------------------------------------------
 
-This list only scratches the surface of tools that researchers and students may choose to use as open source alternatives to MATLAB. R,
-Julia, Python, and other standard programming languages might be a good fit for you, depending on your exact needs. Some other open
-source tools you may want to consider include: 
+这份清单仅仅罗列了很少的一些研究人员和学生可用于作为MATLAB的开源替代品. 
+根据你的具体需求R, Julia, Python, 以及其他标准编程语言也可以是很不错的选择. 
+你也可以考虑以下这些开源工具:
 
-  * [[http://freemat.sourceforge.net/][FreeMat]], a [[http://www.gnu.org/copyleft/gpl.html][GPL]]-licensed environment for rapid engineering, scientific prototyping, and data processing. It's available for Linux, OS
-    X, and Windows, though it may be dated as the latest version was released in 2013.
-  * [[http://www.jirka.org/genius.html][Genius Mathematic Tool]], an actively developed calculator program and research tool. It is written in Genius Extension Language for
-    Linux and Unix computers and is available under the [[https://www.gnu.org/licenses/gpl.html][GPL GNU]] license.
-  * [[http://maxima.sourceforge.net/][Maxima]], another frequently updated alternative to MATLAB. It's based on Macsyma, a "legendary computer algebra system" developed at
-    MIT in the 1960s, can be compiled on Linux, Mac OS X, and Windows, and is available under [[https://sourceforge.net/directory/license:gpl/][GPLv2]].
-  * [[http://www.numpy.org/][NymPy]], the main package for scientific computing with Python (as its name suggests). It's also the fundamental data-array structure
-    for the SciPy Stack, an ecosystem of Python-based math, science, and engineering software. NymPy is licensed under the [[http://www.numpy.org/license.html#license][BSD license]],
-    and packages are available for Windows, Mac OS X, and Linux.
-  * [[http://www.sympy.org/en/index.html][SymPy]], another [[https://github.com/sympy/sympy/blob/master/LICENSE][BSD]]-licensed Python library for symbolic mathematics. It can be installed on any computer running Python 2.7 or above.
-    It aims to become a full computer algebra system; has an active development community with regular releases; and is used in many other
-    projects (including SageMath, above). 
++ [[http://freemat.sourceforge.net/][FreeMat]],一套发布于 [[http://www.gnu.org/copyleft/gpl.html][GPL]] 协议下的用于快速开发,探索科学原型和数据处理的环境. 它可以运行于 Linux, OS X, 和 Windows 上, 不过它可能会有些落伍,因为其最新版本是发布于2013年.
++ [[http://www.jirka.org/genius.html][Genius Mathematic Tool]], 一款积极开发的计算器程序和研究工具. 它由 Genius Extension 语言编写而成,可以跑在 Linux 和 Unix 计算机上, 而且基于 [[https://www.gnu.org/licenses/gpl.html][GPL GNU]] license 发布.
++ [[http://maxima.sourceforge.net/][Maxima]],另一款MATLAB的替代品,其更新非常频繁. 它构建于 Macsyma(一款由MIT于20世纪60年代开发的"传奇计算机代数系统") 之上, 可以在 Linux, Mac OS X, 和 Windows 上编译, 而且基于  [[https://sourceforge.net/directory/license:gpl/][GPLv2]] 协议发布.
++ [[http://www.numpy.org/][NymPy]],Python上用于科学计算的主要package. 它也为SciPy Stack提供了基础的数据结构, 它提供了一个基于Python的数学生态圈, 同时还是一款用于科学和工程上的软件. NymPy 基于 [[http://www.numpy.org/license.html#license][BSD license]] 协议发布, 支持 Windows, Mac OS X, 以及 Linux 平台.
++ [[http://www.sympy.org/en/index.html][SymPy]], 另一款基于 [[https://github.com/sympy/sympy/blob/master/LICENSE][BSD]] 协议发布的用于符号数学的Python库. 它可以安装在任何运行了 Python 2.7 及以上版本的电脑上. 它的目标是成为一个完整的计算机代数系统; 它拥有一个很活跃的开发团队,发布也很稳定;而且它也被用在很多其他项目中(包括上面提到的 SageMath).
 
-Have you used any of these or other tools as alternatives to MATLAB? Which one do you prefer and why? Let us know in the comments below.
+你还有什么其他的MATLAB替代品码? 你比较喜欢哪个呢?理由是什么? 欢迎留言.
