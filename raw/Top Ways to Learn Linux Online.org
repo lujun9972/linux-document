@@ -1,0 +1,102 @@
+#+TITLE: Top Ways to Learn Linux Online
+#+URL: http://www.linuxandubuntu.com/home/top-ways-to-learn-linux-online
+#+AUTHOR: lujun9972
+#+TAGS: raw
+#+DATE: [2017-11-06 一 16:36]
+#+LANGUAGE:  zh-CN
+#+OPTIONS:  H:6 num:nil toc:t \n:nil ::t |:t ^:nil -:nil f:t *:t <:nil
+
+
+Diving into the world of Linux can sometimes appear to be overwhelming to the newcomer. While anything browser-based is essentially the same as it is in
+Windows, there are some stark differences once you take the plunge and [[http://www.linuxandubuntu.com/home/how-to-install-linux-mint-from-usb][install Linux for the first time]]. 
+While, in this author’s opinion, the best way to learn Linux is by simply using it as your daily driver, you may prefer to take a more structured approach by learning
+from an online course. With online education becoming ubiquitous in today’s world, there is no shortage of online resources that offer courses to take you from
+beginner to power user before you know it. Here are some of our favorites. 
+
+* Free Learning
+
+** edX
+
+​Founded by Harvard University and MIT in 2012, [[https://www.edx.org/][edX]] is a great source for not only learning Linux, but a huge variety of other subjects including programming and
+computer science. Prestigious universities from all over the world offer courses in one of the most popular Massive Open Online Course ([[http://mooc.org/][MOOC]]) sites on the
+Internet. You can “audit” courses for free, or pay for an official certificate of completion for your course(s) of choice, which could potentially be valuable to a future
+employer. As for the Linux world, you may find the following courses to be quite beneficial and educational.
+
++ [[https://www.edx.org/course/introduction-linux-linuxfoundationx-lfs101x-1][Introduction to Linux from The Linux Foundation]] 
++ [[https://www.edx.org/course/fundamentals-red-hat-enterprise-linux-red-hat-rh066x][Fundamentals of Red Hat Enterprise Linux (RHEL) from Red Hat]] 
+
+[[http://www.linuxandubuntu.com/uploads/2/1/1/5/21152474/edx_orig.png]]
+
+** YouTube
+
+​It may come as a bit of a shock to some, but YouTube actually has quite a bit more to offer than reaction videos and vloggers begging for likes and subs. Quite a
+bit of educational material is available on YouTube free-of-charge. So you could take all that time you’ve been spending watching cat videos and arguing about
+politics in the comments, and instead put it towards learning something! One of this author’s favorite YouTube Linux channels is [[https://www.youtube.com/user/JtheLinuxguy][LearnLinux.tv]], ran by [[https://plus.google.com/+JayLaCroix][Jay LaCroix]].
+He covers everything Linux related, including beginner and advanced tutorials, distro reviews, and even hardware reviews. He’s even written a few books! His
+tutorials in particular are definitely worth the watch, especially if you’re just learning your way around Linux. Check out the [[https://www.youtube.com/user/JtheLinuxguy/playlists][playlists]] on his channel to see all that
+he has to offer. 
+[[http://www.linuxandubuntu.com/uploads/2/1/1/5/21152474/learnlinux_orig.png]]
+​Another YouTube channel that this author has found useful is [[https://www.youtube.com/user/elithecomputerguy/featured][Eli the Computer Guy]]. His channel covers a wide variety of computer and IT topics, but his [[https://www.youtube.com/watch?v=_gCwCOhMcog&list=PLD6B6473ACF32C59D][Linux]]
+playlist, in particular, is what you’re looking for. And while you’re there, maybe you can pick up a new set of skills along the way. 
+[[http://www.linuxandubuntu.com/uploads/2/1/1/5/21152474/eli-the-computer-guy_orig.png]]
+​Of course, you can always just do a YouTube search for “learn Linux” and see what you can find. 
+​Once you get the basics of Linux down and you want to move on to learning more about the command line and scripting, there’s a great YouTube series from [[https://www.youtube.com/user/madhurbhatia89][The]]
+[[https://www.youtube.com/user/madhurbhatia89][Bad Tutorials]] on [[https://www.youtube.com/playlist?list=PL7B7FA4E693D8E790][Shell Scripting]], meaning writing automated scripts using the default Linux bash shell. 
+[[http://www.linuxandubuntu.com/uploads/2/1/1/5/21152474/shell-scripting_orig.png]]
+
+** Cybrary
+
+A largely unknown yet super useful site, [[https://www.cybrary.it][Cybrary]] contains a “cyber library” of all kinds of IT courses. The main focus of Cybrary is for IT Professionals who are
+seeking to expand their skill sets and obtain industry certifications. While Cybrary usually focuses on more advanced topics like Networking and Security, there are
+a few Linux courses available. They even offer training for the CompTIA Linux+ certification. These courses may not necessarily be geared towards the Linux
+newbie, but you may be able to come back here after getting the basics down to expand your knowledge further: 
+
++ [[https://www.cybrary.it/course/comptia-linux-plus/][CompTIA Linux+]] 
++ [[https://www.cybrary.it/skill-certification-course/fundamental-linux-administration-certification-training-course][Fundamental Linux Administration Certification Course]] 
++ [[https://www.cybrary.it/skill-certification-course/ethical-hacking-and-penetration-testing-with-kali-linux-certification-training-course][Ethical Hacking and Penetration Testing with Kali Linux]] 
+
+** The Linux Foundation
+
+​The Linux Foundation provides all kinds of Linux pieces of training, from online training courses, in person at training centers in various locations around the world,
+or even at Linux Foundation events. They also offer Corporate Linux Training for companies who want to bring the experts to you. If you poke around The Linux
+Foundation’s [[https://training.linuxfoundation.org][website]] you’ll find some free training materials, specifically their [[https://training.linuxfoundation.org/free-linux-training/linux-training-videos][training videos]]. They have other listings for [[https://training.linuxfoundation.org/free-linux-training][free online learning]], one of which
+includes an aforementioned edX course. 
+[[http://www.linuxandubuntu.com/uploads/2/1/1/5/21152474/linuxfoundation_orig.png]]
+
+** Linux Survival
+
+​[[https://linuxsurvival.com/][Linux Survival]] by Guy Hummel is another free online tutorial for learning the basics of Linux, and it even includes some quizzes for testing your comprehension of
+the topics after reading. He also offers a guide to becoming a Linux Administrator, if you’re looking to take your Linux knowledge into the professional realm. 
+[[http://www.linuxandubuntu.com/uploads/2/1/1/5/21152474/linuxsurvival_orig.png]]
+
+** Vim Adventures
+
+While not actually Linux itself, Vim is a powerful and widely used terminal based text editor (although GUI versions are available, even for Windows) that is
+practically ubiquitous on Linux, regardless of distribution. However, despite it’s popularity and power, it is a bit quirky and has a bit of a learning curve. Once you
+get used to it, you’ll likely grow to thoroughly enjoy it, but the learning curve can be off putting to those who would rather just use something similar to Notepad.
+Learning Vim, or at least the basic operation of Vim, can be super useful when you need to create or edit configuration files, write some code, or even just write
+your own personal notes. Enter [[https://vim-adventures.com/][Vim Adventures]], a browser-based game that teaches you how to use Vim by having you navigate your character through the 2D
+world using only the keys and functions of Vim. If only everything in life could be taught through educational games! 
+[[http://www.linuxandubuntu.com/uploads/2/1/1/5/21152474/vimadventures_orig.png]]
+
+** Codecademy
+
+​While more geared towards aspiring programmers, [[https://www.codecademy.com/][Codecademy]] does have a course on the Linux command line that the newcomer to Linux could definitely find
+useful. Most of the free courses on Codecademy just offer the basics of each subject while their paid courses go into more depth and detail, but the Command Line
+course is perfect for anyone who just wants to get a basic handle on how to Linux command line works. You’ll likely find it to be far more enjoyable than the
+Windows command line or even [[http://www.linuxandubuntu.com/home/microsoft-powershell-is-now-available-for-linux][PowerShell]]. Just sign in with your existing Google account and start learning. 
+[[http://www.linuxandubuntu.com/uploads/2/1/1/5/21152474/codeacademy_orig.png]]
+
+** The Bash Academy
+
+Again more aimed at teaching the [[https://www.gnu.org/software/bash/manual/html_node/What-is-Bash_003f.html][Bash shell]] rather than Linux itself (similar to the aforementioned Shell Scripting course from The Bad Tutorials), Bash is the
+default shell used in most Linux distributions, so learning it and becoming proficient in it could be quite useful, especially in the professional realm where Scripting
+and Automation is king. [[http://www.bash.academy/][The Bash Academy]] offers two different flavors of learning: the traditional textbook way called [[http://guide.bash.academy/][The Bash Guide]], or another educational game
+aptly titled [[http://play.bash.academy/][The Bash Game]]. 
+[[http://www.linuxandubuntu.com/uploads/2/1/1/5/21152474/bashacademy_orig.png]]
+
+* Conclusion
+
+​One of the most beneficial, if not underutilized, aspects of the internet is the wealth of free educational materials available. If your operating system was free, why
+pay money to learn how to use it? Although of course, donations to your organizations of choice are always helpful. In addition to all of the above mentioned
+educational resources, one final tip is to keep reading Linux blogs like [[http://www.linuxandubuntu.com/home.html][LinuxAndUbuntu]], as you never know what sorts of Linux tricks and tips you’ll come across. 
