@@ -1,0 +1,72 @@
+#+TITLE: How to replicate SELinux policies among Linux machines
+#+URL: http://linuxtechlab.com/replicate-selinux-policies-among-linux-machines/
+#+AUTHOR: lujun9972
+#+TAGS: system SELinux
+#+DATE: [2017-11-06 一 16:56]
+#+LANGUAGE:  zh-CN
+#+OPTIONS:  H:6 num:nil toc:t \n:nil ::t |:t ^:nil -:nil f:t *:t <:nil
+
+
+
+SELinux or Security Enhaced Linux, is a set of kernel modification & user-space tools, that implements access policies called MAC
+(Mandatory access controls). It reduces privileges for any server or service to minimum required to work, thus eliminating problems due to
+unchecked privileges.
+
+With SELinux, there is no concept for root user or super user & also does not have short comings of Linux security mechanism, for ex
+dependence on setuid/setgid. We have already discussed SELinux in detail in our article [[http://linuxtechlab.com/beginners-guide-to-selinux/][Beginner’s guide to SELinux]]. Please refer the
+article to learn about SELinux in detail.
+
+In this tutorial, we are going to discuss how we can replicate SELinux policies of one system to another system. But before we do that
+let’s discuss pre-requisite,
+
+(Also Read:[[http://linuxtechlab.com/linux-disk-cloning-using-dd-cat-commands/][Cloning Disks using dd & cat commands for Linux systems)]]
+
+* Pre-requisite
+
+In order to copy the SELinux policies of one system to another, we require ‘semange’ command. To check if ‘semange’ command is installed
+on your CentOS machine, run
+
+#+BEGIN_SRC shell
+  $ semanage –help
+#+END_SRC
+
+& if you get the following error, than its not installed on your machine,
+
+#+BEGIN_EXAMPLE
+  -bash: semanage: command not found
+#+END_EXAMPLE
+
+To install ‘semanage’ command on your machine, install the following package,
+
+#+BEGIN_SRC shell
+  $ sudo yum install policycoreutils-python
+#+END_SRC
+
+This command will install ‘semange’ command along with some other dependencies.
+
+* Replicate SELinux policies
+
+We will firstly create a file with all the SELinux customization/settings, to create it execute the following command,
+
+#+BEGIN_SRC shell
+  $ sudo semanage -o /root/local.selinux
+#+END_SRC
+
+Now transfer this file the second system on which we want same SELinux policies as the first system,
+
+  $ scp -rv /root/local.selinux [[http://linuxtechlab.com/cdn-cgi/l/email-protection][{email protected}]]:/root
+
+After the file has been copied to second machine, we now need to restore that file. So, ssh into the second machine,
+
+$ ssh [[http://linuxtechlab.com/cdn-cgi/l/email-protection][{email protected}]]
+
+After we have accessed the system, restore file using the following command,
+
+# semanage -i /root/local.selinux
+
+That’s it , this will restore the SELinux policies of first machine onto the second machine.
+
+Note:- This works fine on CentOS 6 & up, CentOS 5 lacks the feature to export the SELinux customization to a file.
+
+Also we need to make sure that the target machine should either be on same or higher version of SELinux as source machine as the SELinux
+modules are not backward compatible.
