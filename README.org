@@ -24,6 +24,7 @@ Linux好游戏
 * raw
 未翻译的内容,欢迎大家领取
 
++ [[https://github.com/lujun9972/linux-document/blob/master/raw/Top Ways to Learn Linux Online.org][ Top Ways to Learn Linux Online]]		<2017-11-06>
 * shell
 别不把shell当语言
 
@@ -36,5 +37,6 @@ Linux好游戏
 * tools
 又有什么新玩意?
 
++ [[https://github.com/lujun9972/linux-document/blob/master/tools/Packup - A Script To Quickly Share Updates Via USB Drive In Arch Linux.org][ Packup - 一款通过U盘快速共享Arch Linux升级包的脚本]]		<2017-11-06>
 + [[https://github.com/lujun9972/linux-document/blob/master/tools/3 open source alternatives to MATLAB.org][ 3个MATLAB的开源替代]]		<2017-11-05>
 + [[https://github.com/lujun9972/linux-document/blob/master/tools/Googler:A Command Line Tool To Search Google.org][ Googler:搜索Google的命令行工具]]		<2017-11-02>
