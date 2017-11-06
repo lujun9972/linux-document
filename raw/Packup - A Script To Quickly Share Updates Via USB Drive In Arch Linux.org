@@ -1,0 +1,127 @@
+#+TITLE: Packup - A Script To Quickly Share Updates Via USB Drive In Arch Linux
+#+URL: https://www.ostechnix.com/install-packages-offline-arch-linux/
+#+AUTHOR: lujun9972
+#+TAGS: raw
+#+DATE: [2017-11-06 一 12:59]
+#+LANGUAGE:  zh-CN
+#+OPTIONS:  H:6 num:nil toc:t \n:nil ::t |:t ^:nil -:nil f:t *:t <:nil
+
+
+A while ago, we have written a guide that described how to [[https://www.ostechnix.com/install-softwares-offline-ubuntu-16-04/][install packages offline in Ubuntu]] and its derivatives. Today, we are going to
+do the same in Arch Linux. This method will help you to install packages on any offline Arch Linux systems. By doing this, you can save
+your Internet bandwidth greatly if you have lot of Arch Linux systems. You don’t need to repetitively download packages on or update all
+Arch Linux systems on your network. Just update one Arch Linux system (let us call it as a main or server system) and pass the downloaded
+updates from the main system to all other Arch systems in the network. It doesn’t matter whether the other systems must have Internet
+connection or not. This is where Packup comes in handy. It is a simple script that allows you share the updates via USB stick or external
+hard disk. The main goal of Packup utility is to reduce internet bandwidth or to allow any offline systems in a possible manner using 
+pacman and pacaur as package managers. This brief tutorial describes how to quickly share updates via USB or External drive to any offline
+Arch Linux systems.
+
+Packup – A Script To Quickly Share Updates Via USB Drive In Arch Linux
+
+For the demonstration purpose of this guide, we will be using two Arch Linux systems, one with Internet connection and another without
+Internet connection. And, we also a need a USB stick or external HDD with sufficient space available.
+
+* Steps to do on both systems (Offline and Online systems)
+
+Install NodeJS on all systems. NodeJS is available on default repositories, so you can install it using Pacman as shown below.
+
+sudo pacman -S nodejs npm
+
+If you want to transfer AUR packages, you must have Pacaur installed on your Arch Linux system. Refer the following link to install
+Pacaur.
+
++ [[https://www.ostechnix.com/install-pacaur-arch-linux/][How To Install Pacaur In Arch Linux]]
+
+* Steps to do on Internet-enabled (Online) system
+
+Go to the your Internet-connected system, and plug-in your USB or External drive. Change to your USB drive and clone the Packup project.
+
+#+BEGIN_SRC shell
+  cd /run/media/sk/bce5f14a-097a-41c5-88ec-c38e20410182/
+
+  git clone https://github.com/cookiengineer/packup;
+#+END_SRC
+
+The contents of Packup GitHub repository will be cloned in a directory called “Packup” in your USB or external drive.
+
+Switch to the “Packup” directory:
+
+#+BEGIN_SRC shell
+  cd packup/
+#+END_SRC
+
+Run the following command to backup both all available local packages and the package index to your USB drive.
+
+#+BEGIN_SRC shell
+  ./backup.js;
+#+END_SRC
+
+This will take a while depending upon the number packages available in your system.
+
+Finally, run the following command:
+
+#+BEGIN_SRC shell
+  sync;
+#+END_SRC
+
+You must run the above command before removing the USB drive.
+
+Now, safely remove the USB drive and go to your offline system.
+
+* Steps to do on offline system
+
+Plug-in the USB drive and go to the “Packup” directory in your USB drive. I have mounted my USB drive under /mnt.
+
+#+BEGIN_SRC shell
+  cd /mnt/packup/
+#+END_SRC
+
+Next, update the index for pacman using command:
+
+#+BEGIN_SRC shell
+  sudo cp ./sync/*.db /var/lib/pacman/sync/;
+#+END_SRC
+
+Then, run the following command:
+
+#+BEGIN_SRC shell
+  ./upgrade.js;
+#+END_SRC
+
+This command will display the pacman command to manually update from the local packages (using pacman -U).
+
+#+BEGIN_SRC shell
+  :: Execute this to upgrade from local package cache:
+
+  cd "/run/.../packup"; sudo pacman -U gcc-7.1.1-4-x86_64.pkg.tar.xz gdb-common-8.0-1-x86_64.pkg.tar.xz
+#+END_SRC
+
+Additionally, if you have missing packages that need to be downloaded from main computer (Internet-enabled system), it will display the
+command that you need to execute on the other computer (using “pacman -Sw –cachedir”).
+
+#+BEGIN_SRC shell
+  :: Execute this to download upgrades into local package cache:
+
+  cd "/run/.../packup"; sudo pacman -Sw --cachedir "/run/.../packup" geoip ghostscript;
+#+END_SRC
+
+So, you can use the above command on an Internet-connected system and download the missing packages and execute them again in the offline
+system to update the packages. Sounds, great? Indeed!
+
+Once you done with Packup, you can clean up the old packages from your USB drive as shown below.
+
+#+BEGIN_SRC shell
+  cd /path/to/usb/drive/packup/
+
+  ./clean.js;
+
+  sync;
+#+END_SRC
+
+Don’t forget to run “sync” command before removing USB drive.
+
+And, that’s all for now. As you can see, Packup is simple, yet very useful utility that needs to be keep in your arsenal. If you have a
+lot of Arch Linux systems, you can use this tool to save Internet bandwidth greatly.
+
+Cheers!
