@@ -32,6 +32,7 @@ Linux好游戏
 * system
 系统管理相关内容
 
++ [[https://github.com/lujun9972/linux-document/blob/master/system/How to replicate SELinux policies among Linux machines.org][ 如何在Linux机器之间复制SELinux策略]]		<2017-11-06>
 + [[https://github.com/lujun9972/linux-document/blob/master/system/How To Check Installed Linux Kernels.org][ 如何查看已安装的Linux Kernels]]		<2017-11-02>
 + [[https://github.com/lujun9972/linux-document/blob/master/system/how to reset sudo password.org][ 如何重置sudo密码]]		<2017-10-30>
 * tools
