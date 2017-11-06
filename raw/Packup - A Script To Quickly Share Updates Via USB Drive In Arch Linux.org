@@ -1,41 +1,39 @@
-#+TITLE: Packup - A Script To Quickly Share Updates Via USB Drive In Arch Linux
+#+TITLE: Packup - 一款通过U盘快速共享Arch Linux升级包的脚本
 #+URL: https://www.ostechnix.com/install-packages-offline-arch-linux/
 #+AUTHOR: lujun9972
-#+TAGS: raw
+#+TAGS: archlinux tools
 #+DATE: [2017-11-06 一 12:59]
 #+LANGUAGE:  zh-CN
 #+OPTIONS:  H:6 num:nil toc:t \n:nil ::t |:t ^:nil -:nil f:t *:t <:nil
 
 
-A while ago, we have written a guide that described how to [[https://www.ostechnix.com/install-softwares-offline-ubuntu-16-04/][install packages offline in Ubuntu]] and its derivatives. Today, we are going to
-do the same in Arch Linux. This method will help you to install packages on any offline Arch Linux systems. By doing this, you can save
-your Internet bandwidth greatly if you have lot of Arch Linux systems. You don’t need to repetitively download packages on or update all
-Arch Linux systems on your network. Just update one Arch Linux system (let us call it as a main or server system) and pass the downloaded
-updates from the main system to all other Arch systems in the network. It doesn’t matter whether the other systems must have Internet
-connection or not. This is where Packup comes in handy. It is a simple script that allows you share the updates via USB stick or external
-hard disk. The main goal of Packup utility is to reduce internet bandwidth or to allow any offline systems in a possible manner using 
-pacman and pacaur as package managers. This brief tutorial describes how to quickly share updates via USB or External drive to any offline
-Arch Linux systems.
+不久前, 我们发布了一片关于如何 [[https://www.ostechnix.com/install-softwares-offline-ubuntu-16-04/][在Ubuntu及其衍生版中离线安装package]] 的文章. 今天我们要来聊聊在Arch Linux上如何实现同样的事情. 
+若你拥有大量的Arch Linux系统，通过这种方式可以节省大量的互联网带宽. 你无需重复地通过网络下载package和升级系统. 
+只需要升级一台Arch Linux系统 (假设我们称之为主系统或者服务段系统) 然后将下载的更新包分发给其他Arch系统就行了.
+其他系统是否有互联网连接并不重要. 这就是 Packup 的方便之处. 它是一个能让你通过U盘/外置硬盘分享更新的脚本
+其主要目的在于减少互联网带宽的消耗并且让那些离线的系统也能用pacman或pacaur作为包管理器.
+本教程简要描述一下如何通过U盘和外部磁盘将升级包共享给离线的 Arch Linux 系统.
 
 Packup – A Script To Quickly Share Updates Via USB Drive In Arch Linux
 
-For the demonstration purpose of this guide, we will be using two Arch Linux systems, one with Internet connection and another without
-Internet connection. And, we also a need a USB stick or external HDD with sufficient space available.
+为了方便展示, 我们使用两个 Arch Linux 系统, 一个有互联网连接，一个没有互联网连接.
+同时我们还需要一个空间足够U盘或者外置硬盘.
 
-* Steps to do on both systems (Offline and Online systems)
+* 共同的步骤（在两台Arch Linux上都要操作）
 
-Install NodeJS on all systems. NodeJS is available on default repositories, so you can install it using Pacman as shown below.
+在所有系统上都安装 =NodeJS=. NodeJS在默认的仓库中就有, 因此你可以使用如下Pacman命令安装.
 
-sudo pacman -S nodejs npm
+#+BEGIN_SRC shell
+  sudo pacman -S nodejs npm
+#+END_SRC
 
-If you want to transfer AUR packages, you must have Pacaur installed on your Arch Linux system. Refer the following link to install
-Pacaur.
+如果你想要传输AUR package, 你还需要安装 Pacaur. 具体方法请查看以下链接.
 
 + [[https://www.ostechnix.com/install-pacaur-arch-linux/][How To Install Pacaur In Arch Linux]]
 
-* Steps to do on Internet-enabled (Online) system
+* 在线系统上的步骤
 
-Go to the your Internet-connected system, and plug-in your USB or External drive. Change to your USB drive and clone the Packup project.
+将U盘或外置硬盘接入在线系统. 切换到U盘挂载目录并克隆 Packup 项目.
 
 #+BEGIN_SRC shell
   cd /run/media/sk/bce5f14a-097a-41c5-88ec-c38e20410182/
@@ -43,53 +41,53 @@ Go to the your Internet-connected system, and plug-in your USB or External drive
   git clone https://github.com/cookiengineer/packup;
 #+END_SRC
 
-The contents of Packup GitHub repository will be cloned in a directory called “Packup” in your USB or external drive.
+Packup GitHub 仓库内容就会克隆到你的U盘或外置硬盘的一个名为 “Packup” 的目录中.
 
-Switch to the “Packup” directory:
+进入 “Packup” 目录:
 
 #+BEGIN_SRC shell
   cd packup/
 #+END_SRC
 
-Run the following command to backup both all available local packages and the package index to your USB drive.
+运行下面命令来悲愤所有本地可用的package以及package索引到U盘中.
 
 #+BEGIN_SRC shell
   ./backup.js;
 #+END_SRC
 
-This will take a while depending upon the number packages available in your system.
+根据可用package的数量，这个步骤可能会花一点时间.
 
-Finally, run the following command:
+最后运行命令:
 
 #+BEGIN_SRC shell
   sync;
 #+END_SRC
 
-You must run the above command before removing the USB drive.
+在拔出U盘之前，请一定记得运行上面这条命令.
 
-Now, safely remove the USB drive and go to your offline system.
+现在可以拔出U盘了，然后开始操作离线那台系统.
 
-* Steps to do on offline system
+* 离线系统草操作步骤
 
-Plug-in the USB drive and go to the “Packup” directory in your USB drive. I have mounted my USB drive under /mnt.
+插入U盘，并进入 “Packup” 目录. 这里我把U盘挂载到 /mnt 中.
 
 #+BEGIN_SRC shell
   cd /mnt/packup/
 #+END_SRC
 
-Next, update the index for pacman using command:
+下一步，更新pacman的索引信息:
 
 #+BEGIN_SRC shell
   sudo cp ./sync/*.db /var/lib/pacman/sync/;
 #+END_SRC
 
-Then, run the following command:
+然后, 运行下面命令:
 
 #+BEGIN_SRC shell
   ./upgrade.js;
 #+END_SRC
 
-This command will display the pacman command to manually update from the local packages (using pacman -U).
+该命令会现实用于手工从本地更新package的pacman命令(使用pacman -U).
 
 #+BEGIN_SRC shell
   :: Execute this to upgrade from local package cache:
@@ -97,8 +95,7 @@ This command will display the pacman command to manually update from the local 
   cd "/run/.../packup"; sudo pacman -U gcc-7.1.1-4-x86_64.pkg.tar.xz gdb-common-8.0-1-x86_64.pkg.tar.xz
 #+END_SRC
 
-Additionally, if you have missing packages that need to be downloaded from main computer (Internet-enabled system), it will display the
-command that you need to execute on the other computer (using “pacman -Sw –cachedir”).
+另外, 如果你有缺失的package需要从主系统上下载(在线系统), 它还会现实你需要在另一台机上要执行的命令(使用 “pacman -Sw –cachedir”).
 
 #+BEGIN_SRC shell
   :: Execute this to download upgrades into local package cache:
@@ -106,10 +103,9 @@ command that you need to execute on the other computer (using “pacman -Sw –c
   cd "/run/.../packup"; sudo pacman -Sw --cachedir "/run/.../packup" geoip ghostscript;
 #+END_SRC
 
-So, you can use the above command on an Internet-connected system and download the missing packages and execute them again in the offline
-system to update the packages. Sounds, great? Indeed!
+你可以在在线系统上执行上面输出的命令,就会下载缺失的包，然后在离线系统上再次运行一次更新命令来更新package. 很不错吧!
 
-Once you done with Packup, you can clean up the old packages from your USB drive as shown below.
+完了之后, 你可以按下面方法清理U盘上的旧package.
 
 #+BEGIN_SRC shell
   cd /path/to/usb/drive/packup/
@@ -119,9 +115,8 @@ Once you done with Packup, you can clean up the old packages from your USB drive
   sync;
 #+END_SRC
 
-Don’t forget to run “sync” command before removing USB drive.
+在拔出U盘前别忘了运行 “sync” 命令.
 
-And, that’s all for now. As you can see, Packup is simple, yet very useful utility that needs to be keep in your arsenal. If you have a
-lot of Arch Linux systems, you can use this tool to save Internet bandwidth greatly.
+就是这样. 如你所见, Packup 非常简单, 但却非常有用，值得常备身边. 如果你有很多的 Arch Linux 系统, 这个工具会帮你节省大量的互联网带宽.
 
-Cheers!
+真赞!
