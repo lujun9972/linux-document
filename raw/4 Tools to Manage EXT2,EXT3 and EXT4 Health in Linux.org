@@ -7,37 +7,31 @@
 #+OPTIONS:  H:6 num:nil toc:t \n:nil ::t |:t ^:nil -:nil f:t *:t <:nil
 
 
-A filesystem is a data structure that helps to control how data is stored and retrieved on a computer system. A filesystem can also be
-considered as a physical (or extended) partition on a disk. If not well maintained and regularly monitored, it can become damaged or
-corrupted in the long run, in so many different ways.
+文件系统就是一种帮你决定数据如何存取的数据结构. 文件系统也可以看成是磁盘上的物理分区. 
+在长时间的运行期间，如果缺乏妥善的维护和持续的监控, 可能会慢慢的被损坏.
 
-There are several factors that can cause a filesystem to become unhealthy: system crashes, hardware or software malfunctions, buggy
-drivers and programs, tunning it incorrectly, overloading it with excessive data plus other minor glitches.
+造成文件系统损坏的因素有很多: 系统崩溃，硬件和软件的缺陷, 充满漏洞的驱动程序和应用程序, 不正确的调整, 大量数据的过载等等.
 
-Any of these issues can cause the Linux not to mount (or unmount) a filesystem gracefully, thus bringing about system failure.
+所有这些问题都可能导致Linux无法正确挂载（或者卸载）文件系统, 导致系统故障.
 
 Read Also: [[https://www.tecmint.com/find-linux-filesystem-type/][7 Ways to Determine the File System Type in Linux (Ext2, Ext3 or Ext4)]]
 
-In addition, running your system with an impaired filesystem may give rise to other runtime errors in operating system components or in
-user applications, which could escalate to severe data loss. To avoid suffering filesystem corruption or damage, you need to keep an eye
-on its health.
+而且, 让你的操作系统运行在受损的文件系统上可能导致其他运行时的错误,从而造成更多的数据损失. 
+为了防止文件系统损坏，你需要关注它的健康状态.
 
-In this article, we will cover tools to monitor and maintain a ext2, ext3 and ext4 filesystems health. All the tools described here
-require root user privileges, therefore use the [[https://www.tecmint.com/su-vs-sudo-and-how-to-configure-sudo-in-linux/][sudo command]] to run them.
+本文中, 我们将会涉及到监控和维护 ext2, ext3 以及 ext4 文件系统的工具. 所有这些工具都需要root权限，因此请使用 [[https://www.tecmint.com/su-vs-sudo-and-how-to-configure-sudo-in-linux/][sudo命令]] 来运行它们.
 
-* How to View EXT2/EXT3/EXT4 Filesystem Information
+* 查看 EXT2/EXT3/EXT4 文件系统的信息
 
-dumpe2fs is a command line tool used to dump ext2/ext3/ext4 filesystem information, mean it displays super block and blocks group
-information for the filesystem on device.
+dumpe2fs 是一个导出ext2/ext3/ext4文件系统信息的命令行工具,它会现实磁盘中文件系统的超级块以及块组的信息.
 
-Before running dumpe2fs, make sure to run [[https://www.tecmint.com/how-to-check-disk-space-in-linux/][df -hT]] command to know the filesystem device names.
+在运行 dumpe2fs 前, 请先运行 [[https://www.tecmint.com/how-to-check-disk-space-in-linux/][df -hT]] 命令来获取文件系统磁盘名.
 
 #+BEGIN_SRC shell
   $ sudo dumpe2fs /dev/sda10
 #+END_SRC
 
-Sample Output
-
+输出：
 #+BEGIN_EXAMPLE
   dumpe2fs 1.42.13 (17-May-2015)
   Filesystem volume name:   
@@ -91,14 +85,14 @@ Sample Output
   Journal start:            12055
 #+END_EXAMPLE
 
-You can pass the -b flag to display any blocks reserved as bad in the filesystem (no output implies to badblocks):
+=-b= 参数会让dumpe2fs显示出文件系统中的保留块:
 
 $ dumpe2fs -b
 
 * Checking EXT2/EXT3/EXT4 Filesystems For Errors
 
-e2fsck is used to examine ext2/ext3/ext4 filesystems for errors and fsck checks and can optionally [[https://www.tecmint.com/defragment-linux-system-partitions-and-directories/][repair a Linux filesystem]]; it is
-basically a front-end for a range of filesystem checkers (fsck.fstype for example fsck.ext3, fsck.sfx etc) offered under Linux.
+e2fsck 用于检查 ext2/ext3/ext4 文件系统是否有错误,并进行fsck检查,甚至可以 [[https://www.tecmint.com/defragment-linux-system-partitions-and-directories/][修复Linux文件系统]]; 
+它基本上就是一系列文件系统检查器(fsck.fstype for example fsck.ext3, fsck.sfx 等)的一个前端界面.
 
 Remember that Linux runs e2fack/fsck automatically at system boot on partitions that are labeled for checking in /etc/fstab configuration
 file. This is normally done after a filesystem has not been unmounted cleanly.
