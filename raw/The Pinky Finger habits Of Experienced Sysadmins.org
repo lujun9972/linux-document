@@ -1,11 +1,11 @@
 #+TITLE: 系统管理老手教你小指的妙用
+#+URL: ttps://bash-prompt.net/guides/habits-sysadmin/
 #+AUTHOR: lujun9972
-#+TAGS: raw
+#+TAGS: common bash bash-completion
 #+DATE: [2017-11-07 二 10:21]
 #+LANGUAGE:  zh-CN
 #+OPTIONS:  H:6 num:nil toc:t \n:nil ::t |:t ^:nil -:nil f:t *:t <:nil
 
-#+URL: ttps://bash-prompt.net/guides/habits-sysadmin/
 
 在我的系统管理员生涯中, 凭借着丰富的经验,我总结出了一些在命令行下提高效率的习惯.
 
