@@ -1,0 +1,194 @@
+#+TITLE: 系统管理老手教你小指的妙用
+#+AUTHOR: lujun9972
+#+TAGS: raw
+#+DATE: [2017-11-07 二 10:21]
+#+LANGUAGE:  zh-CN
+#+OPTIONS:  H:6 num:nil toc:t \n:nil ::t |:t ^:nil -:nil f:t *:t <:nil
+
+#+URL: ttps://bash-prompt.net/guides/habits-sysadmin/
+
+在我的系统管理员生涯中, 凭借着丰富的经验,我总结出了一些在命令行下提高效率的习惯.
+
+其中两个习惯跟我的小指头有关，因为两个小指头一个按 [ENTER] 一个按 [TAB] 键.
+
+* Hit the enter key between every command
+
+这个习惯很简单, 只是在命令与命令之间多按几次 [ENTER] 而已. 为什么要这样呢？看看下面两个终端大的输出就能理解了，这两个终端输入的命令都是一样的:
+
+首先是没有 [ENTER] 的输出:
+
+#+BEGIN_EXAMPLE
+  root@server:~# apt-get update
+  Hit:1 http://mirror.memset.com/ubuntu xenial InRelease
+  Get:2 http://mirror.memset.com/ubuntu xenial-updates InRelease [102 kB]
+  Get:3 http://mirror.memset.com/ubuntu xenial-security InRelease [102 kB]
+  Fetched 204 kB in 0s (433 kB/s)
+  Reading package lists... Done
+  root@server:~# apt-get upgrade
+  Reading package lists... Done
+  Building dependency tree
+  Reading state information... Done
+  Calculating upgrade... Done
+  The following packages have been kept back:
+    libgl1-mesa-dri sysstat
+  0 upgraded, 0 newly installed, 0 to remove and 2 not upgraded.
+  root@server:~# apt-get install openvpn
+  Reading package lists... Done
+  Building dependency tree
+  Reading state information... Done
+  The following packages were automatically installed and are no longer required:
+    apache2-bin apache2-data apache2-utils libapr1 libaprutil1 libaprutil1-dbd-sqlite3 libaprutil1-ldap libgd3 libjbig0
+    libjpeg-turbo8 libjpeg8 liblua5.1-0 libtiff5 libvpx3 libxslt1.1 nginx-common nginx-core
+  Use 'apt autoremove' to remove them.
+  Suggested packages:
+    easy-rsa
+  The following NEW packages will be installed:
+    openvpn
+  0 upgraded, 1 newly installed, 0 to remove and 2 not upgraded.
+  Need to get 0 B/421 kB of archives.
+  After this operation, 1026 kB of additional disk space will be used.
+  Preconfiguring packages ...
+  Selecting previously unselected package openvpn.
+  (Reading database ... 22196 files and directories currently installed.)
+  Preparing to unpack .../openvpn_2.3.10-1ubuntu2.1_amd64.deb ...
+  Unpacking openvpn (2.3.10-1ubuntu2.1) ...
+  Processing triggers for libc-bin (2.23-0ubuntu9) ...
+  Processing triggers for systemd (229-4ubuntu21) ...
+  Processing triggers for ureadahead (0.100.0-19) ...
+  Processing triggers for man-db (2.7.5-1) ...
+  Setting up openvpn (2.3.10-1ubuntu2.1) ...
+  Processing triggers for libc-bin (2.23-0ubuntu9) ...
+  root@server:~# cd /etc/openvpn/
+  root@server:/etc/openvpn# ls
+  update-resolv-conf
+#+END_EXAMPLE
+
+然后是, 带有 [ENTER] 的输出:
+
+#+BEGIN_EXAMPLE
+  root@server:~#
+  root@server:~#
+  root@server:~# apt-get update
+  Hit:1 http://mirror.memset.com/ubuntu xenial InRelease
+  Get:2 http://mirror.memset.com/ubuntu xenial-updates InRelease [102 kB]
+  Get:3 http://mirror.memset.com/ubuntu xenial-security InRelease [102 kB]
+  Fetched 204 kB in 0s (433 kB/s)
+  Reading package lists... Done
+  root@server:~#
+  root@server:~#
+  root@server:~#
+  root@server:~# apt-get upgrade
+  Reading package lists... Done
+  Building dependency tree
+  Reading state information... Done
+  Calculating upgrade... Done
+  The following packages have been kept back:
+    libgl1-mesa-dri sysstat
+  0 upgraded, 0 newly installed, 0 to remove and 2 not upgraded.
+  root@server:~#
+  root@server:~#
+  root@server:~#
+  root@server:~#
+  root@server:~# apt-get install openvpn
+  Reading package lists... Done
+  Building dependency tree
+  Reading state information... Done
+  The following packages were automatically installed and are no longer required:
+    apache2-bin apache2-data apache2-utils libapr1 libaprutil1 libaprutil1-dbd-sqlite3 libaprutil1-ldap libgd3 libjbig0
+    libjpeg-turbo8 libjpeg8 liblua5.1-0 libtiff5 libvpx3 libxslt1.1 nginx-common nginx-core
+  Use 'apt autoremove' to remove them.
+  Suggested packages:
+    easy-rsa
+  The following NEW packages will be installed:
+    openvpn
+  0 upgraded, 1 newly installed, 0 to remove and 2 not upgraded.
+  Need to get 0 B/421 kB of archives.
+  After this operation, 1026 kB of additional disk space will be used.
+  Preconfiguring packages ...
+  Selecting previously unselected package openvpn.
+  (Reading database ... 22196 files and directories currently installed.)
+  Preparing to unpack .../openvpn_2.3.10-1ubuntu2.1_amd64.deb ...
+  Unpacking openvpn (2.3.10-1ubuntu2.1) ...
+  Processing triggers for libc-bin (2.23-0ubuntu9) ...
+  Processing triggers for systemd (229-4ubuntu21) ...
+  Processing triggers for ureadahead (0.100.0-19) ...
+  Processing triggers for man-db (2.7.5-1) ...
+  Setting up openvpn (2.3.10-1ubuntu2.1) ...
+  Processing triggers for libc-bin (2.23-0ubuntu9) ...
+  root@server:~#
+  root@server:~#
+  root@server:~# cd /etc/openvpn/
+  root@server:/etc/openvpn#
+  root@server:/etc/openvpn#
+  root@server:/etc/openvpn#
+  root@server:/etc/openvpn# ls
+  update-resolv-conf
+#+END_EXAMPLE
+
+很明显，使用空行分隔命令要容易阅读的多.
+同样的, 当输出写满终端屏幕后，请不要用 =clear= 命令清理掉这些内容, 你应该让自己习惯在终端底部工作.
+
+保留有输入过的命令及其输出和错误信息是一笔无可估量的财富,因为你可能会需要时常地返回来看之前做过了什么.
+
+一旦你开始敲击回车,很快你就会在工作时不自觉地这么做.
+
+* Use Bash Complete For All The Things
+
+Bash complete 是一个帮你补全命令名称，文件路径，文件名称以及命令选项的函数.
+
+你应该尽可能的用它，它是命令行中节省时间的最大助力. 它不仅减少你打字的个数，而且减少了输错的可能性.
+
+下面的例子假设你安装了 =bash-completion=:
+
+** Path completion
+
+每个Linux系统管理员应该都听过并且使用过tab补全,但是大多数的管理员并没有发挥它的价值. 
+如果要算哪个功能用的最多的话(除了上面的Enter),那么tab补全是当之无愧的赢家.
+它让我把 =c d / v a r / w w w / m a g e n t o= 简化成了 =c d / v [TAB] w [TAB] m [TAB]=
+
+一些常用的地址，比如 =/etc/=, =/home/=, =/var/log=, 则变成肌肉记忆，能够快速进入.
+
+记住, 如果按一次 [TAB] 不能立即得到正确的路径的话, 那么再按一下 [TAB] 会列出所有匹配的目录, 然后再多输入1到2个字符后，重新按tab进行补全.
+假设我们有两个目录; =/var/www/magento= 和 =/var/www/magellen=, 要cd进入 =/var/www/magento= 可以这样:
+
+#+BEGIN_EXAMPLE
+  root@server:~# cd /v[TAB] /w[TAB] /m[TAB] [TAB]
+#+END_EXAMPLE
+
+这一步会一直补全到两个目录不同的地方:
+
+#+BEGIN_EXAMPLE
+  root@server:~# cd /var/www/mage
+#+END_EXAMPLE
+
+现在, 按两下[TAB], 可以看到所有匹配的目录, 然后输入你想要进入目录的第一个字符,比如 n, 在按一次 =[TAB]= 就会补全所有路径:
+
+#+BEGIN_EXAMPLE
+  root@server:~# cd /var/www/m[TAB]
+  root@server:~# cd /var/www/mage[TAB][TAB]
+  magellen/ magento/
+  root@server:~# cd /var/www/magen[TAB]
+  root@server:~# cd /var/www/magento/[ENTER]
+  root@server:/var/www/magento#
+#+END_EXAMPLE
+
+** File name completion
+
+这是路径补全的一个简单扩展. Bash complete 会补全任何以你输入开头的文件名. 
+使用 Bash completion 可以减少输错的可能并且提高输入文件名的速度.
+
+而且, 在只有一个文件或目录的情况下, Bash complete 会直接补全该文件名或目录而不用输入任何字符.
+
+** Command and command option completion
+
+Bash complete 会检查并补全你 $PATH 中的所有命令. 如果你不记得了完整的命令，只需要i按下两次 [TAB] 就会看到所有匹配的命令了.
+
+此外, 对于那些常见命令, Bash complete 还能为你补全参数选项.
+
+比如, 使用命令 =systemctl= 重载 =apache2.service= 可以这样:
+
+#+BEGIN_EXAMPLE
+  root@server:~# systemc[TAB] rel[TAB] apa[TAB]
+#+END_EXAMPLE
+
+这种方法可以将常用路径，常用命令变成肌肉记忆,使得它们的输入格外的快速.
