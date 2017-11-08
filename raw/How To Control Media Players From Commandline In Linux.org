@@ -1,0 +1,263 @@
+#+TITLE: How To Control Media Players From Commandline In Linux
+#+URL: https://www.ostechnix.com/control-media-players-commandline-linux/
+#+AUTHOR: lujun9972
+#+TAGS: commandline media
+#+DATE: [2017-11-08 三 20:27]
+#+LANGUAGE:  zh-CN
+#+OPTIONS:  H:6 num:nil toc:t \n:nil ::t |:t ^:nil -:nil f:t *:t <:nil
+
+
+Howdy Music lovers! Today I learned that we can control media players from commandline in Unix-like operating systems. You can play,
+pause, toggle between play and pause, increase/decrease volume, switch to next/previous media files, and stop the media playback. All from
+Terminal! Cool, yeah? Yes, it is. In this guide, we will be discussing two simple utilities that can be used to control the media players
+from the Terminal in your Linux box.
+
+* 1. Playerctl
+
+=Playerctl= is a simple command line utility for controlling media files from Terminal. It will allow you to play, pause media files, switch
+to next or previous track, increase or decrease the volume, stop the playback etc. Using Playerctl, we can manage the all media
+players that implement the [[http://specifications.freedesktop.org/mpris-spec/latest/][MPRIS]] D-Bus Interface Specification. Some of the popular media players that can be controlled using Playerctl
+are given below.
+
++ Audacious,
++ Bmp,
++ Spotify,
++ Mplayer/SMplayer,
++ VLC,
++ Xmms2.
+
+** Installation
+
+Playerctl is available in the official repositories of all modern Linux distributions. So, you can install it using the distribution’s
+default package manager.
+
+On Arch Linux:
+
+#+BEGIN_SRC shell
+  sudo pacman -S playerctl
+#+END_SRC
+
+On Debian, Ubuntu and derivatives:
+
+#+BEGIN_SRC shell
+  sudo apt-get install playerctl
+#+END_SRC
+
+On Fedora:
+
+#+BEGIN_SRC shell
+  sudo dnf install playerctl
+#+END_SRC
+
+On openSUSE:
+
+#+BEGIN_SRC shell
+  sudo zypper install playerctl
+#+END_SRC
+
+If it is not available in the official repositories, you can manually compile and install it from using source. The latest source files
+are available in the [[https://github.com/acrisci/playerctl/releases][releases page]].
+
+** Usage
+
+First, list all available players using command:
+
+#+BEGIN_SRC shell
+  playerctl -l
+#+END_SRC
+
+Or,
+
+#+BEGIN_SRC shell
+  playerctl --list-all
+#+END_SRC
+
+Sample output would be:
+
+#+BEGIN_EXAMPLE
+  vlc
+  smplayer
+#+END_EXAMPLE
+
+You can view the status of a player by mentioning its name with playerctl command:
+
+#+BEGIN_SRC shell
+  $ playerctl status vlc
+  Stopped
+
+  $ playerctl status smplayer
+  Playing
+#+END_SRC
+
+As you can see, currently there are two players available (currently opened and running players) in my system. Vlc is stopped and smplayer
+is playing now.
+
+To play the track , run:
+
+#+BEGIN_SRC shell
+  playerctl play -p smplayer
+#+END_SRC
+
+Or,
+
+#+BEGIN_SRC shell
+  playerctl play --player smplayer
+#+END_SRC
+
+If there were only one player is running, you don’t have to use “-p” or “–player” switch. Playerctl will automatically play the track
+playing in the currently opened player.
+
+To pause the currently playing track (assuming you have only one running player), run:
+
+#+BEGIN_SRC shell
+  playerctl pause smplayer
+#+END_SRC
+
+To go to the next track, run:
+
+#+BEGIN_SRC shell
+  playerctl next smplayer
+#+END_SRC
+
+To go the previous track, run:
+
+#+BEGIN_SRC shell
+  playerctl previous smplayer
+#+END_SRC
+
+To toggle between play or pause, run:
+
+#+BEGIN_SRC shell
+  playerctl play-pause smplayer
+#+END_SRC
+
+This option will resume the track if it is currently paused or play the track if it is currently being played now.
+
+To stop the playback, run:
+
+#+BEGIN_SRC shell
+  playerctl stop smplayer
+#+END_SRC
+
+To view the help section, run:
+
+#+BEGIN_SRC shell
+  $ playerctl --help
+  Usage:
+  playerctl [OPTION…] COMMAND - Controller for MPRIS players
+  For true players only: spotify, vlc, audacious, bmp, xmms2, and others.
+
+  Help Options:
+  -h, --help Show help options
+
+  Application Options:
+  -p, --player=NAME The name of the player to control (default: the first available player)
+  -l, --list-all List the names of running players that can be controlled
+  -V, --version Print version information and exit
+
+  Available Commands:
+  play Command the player to play
+  pause Command the player to pause
+  play-pause Command the player to toggle between play/pause
+  stop Command the player to stop
+  next Command the player to skip to the next track
+  previous Command the player to skip to the previous track
+  position [OFFSET][+/-] Command the player to go to the position or seek forward/backward OFFSET in seconds
+  volume [LEVEL][+/-] Print or set the volume to LEVEL from 0.0 to 1.0
+  status Get the play status of the player
+  metadata [KEY] Print metadata information for the current track. Print only value of KEY if passed
+#+END_SRC
+
+
+For more details, look at the project’s GitHub page given at the end.
+
+* 2. OmniPause
+
+=OmniPause= is a simple python application to control media players via DBus. Unlike Playerctl, OmniPause is very new to the show and in
+early development stage. However it is fully functional and will do all of the same things as Playerctl.
+
+** Installation
+
+OmniPause is written using Python, so you need to install the following dependencies first. These packages are available in the official
+repositories of all Linux distributions. So, you can install them using the default package manager.
+
++ python2
++ dbus-python
+
+After installing the prerequisites, git clone the project:
+
+#+BEGIN_SRC shell
+  git clone https://github.com/mel00010/OmniPause.git
+#+END_SRC
+
+Go to the project’s directory:
+
+#+BEGIN_SRC shell
+  cd OmniPause/
+#+END_SRC
+
+And, run the following command to install it.
+
+#+BEGIN_SRC shell
+  sudo make install
+#+END_SRC
+
+The above command will copy omnipause.py program to /usr/local/bin/omnipause.
+
+** Usage
+
+The usage is exactly same as Playerctl. Unlike Playerctl, Omnipause has limited functionality. The only available functions are:
+
++ play,
++ pause,
++ next,
++ previous,
++ toggle,
++ stop.
+
+To pause all running media players, run:
+
+#+BEGIN_SRC shell
+  omnipause pause
+#+END_SRC
+
+To resume playback of media players paused by the program, run:
+
+#+BEGIN_SRC shell
+  omnipause play
+#+END_SRC
+
+To stop all media players, run:
+
+#+BEGIN_SRC shell
+  omnipause stop
+#+END_SRC
+
+To play the next track on all playing media players, run:
+
+#+BEGIN_SRC shell
+  omnipause next
+#+END_SRC
+
+To play the previous track on all playing media players, run:
+
+#+BEGIN_SRC shell
+  omnipause previous
+#+END_SRC
+
+To toggle the playback state of running media players, run:
+
+#+BEGIN_SRC shell
+  omnipause toggle
+#+END_SRC
+
+As you can see, we can control all running media players using single command. It’s that simple. Like Playerctl, It doesn’t have any
+options to stop a specific player or increase/decrease volume. If you want to such options and more control over your media players, use
+playerctl program.
+
+Cheers!
+
+Resources:
+
++ [[https://github.com/acrisci/playerctl][Playerctl GitHub page]]
++ [[https://github.com/mel00010/OmniPause][OmniPause GitHub page]]
