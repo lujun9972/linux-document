@@ -1,4 +1,4 @@
-#+TITLE: 4 Tools to Manage EXT2,EXT3 and EXT4 Health in Linux
+#+TITLE: 4个管理 EXT2,EXT3 以及 EXT4 健康状况的工具
 #+URL: https://www.tecmint.com/manage-ext2-ext3-and-ext4-health-in-linux/
 #+AUTHOR: lujun9972
 #+TAGS: ext filesystem
@@ -89,40 +89,38 @@ dumpe2fs 是一个导出ext2/ext3/ext4文件系统信息的命令行工具,它�
 
 $ dumpe2fs -b
 
-* Checking EXT2/EXT3/EXT4 Filesystems For Errors
+* 检查 EXT2/EXT3/EXT4 文件系统的错误
 
 e2fsck 用于检查 ext2/ext3/ext4 文件系统是否有错误,并进行fsck检查,甚至可以 [[https://www.tecmint.com/defragment-linux-system-partitions-and-directories/][修复Linux文件系统]]; 
 它基本上就是一系列文件系统检查器(fsck.fstype for example fsck.ext3, fsck.sfx 等)的一个前端界面.
 
-Remember that Linux runs e2fack/fsck automatically at system boot on partitions that are labeled for checking in /etc/fstab configuration
-file. This is normally done after a filesystem has not been unmounted cleanly.
+记住，Linux会在系统启动时自动运行 e2fack/fsck 来检查配置在 =/etc/fstab= 中的分区. 
+这通常发生在一个文件系统没有正常卸载的情况下.
 
-Attention: Do not run e2fsck or fsck on mounted filesystems, always unmount a partition first before you can run these tools on it, as
-shown below.
+注意: 不要在已挂载的文件系统上运行 e2fsck 和 fsck, 请一定记得先卸载这些分区.
 
 #+BEGIN_SRC shell
   $ sudo unmount /dev/sda10
   $ sudo fsck /dev/sda10
 #+END_SRC
 
-Alternatively, enable verbose output with the -V switch and use the -t to specify a filesystem type like this:
+你还可以使用 =-V= 来现实详细信息并使用 =-t= 来指定文件系统的类型:
 
 #+BEGIN_SRC shell
   $ sudo fsck -Vt ext4 /dev/sda10
 #+END_SRC
 
-* Tunning EXT2/EXT3/EXT4 Filesystems
+* 调整 EXT2/EXT3/EXT4 文件系统
 
-We mentioned from the start that one of the causes of filesystem damage is incorrect tunning. You can use the tune2fs utility to change
-the tunable parameters of ext2/ext3/ext4 filesystems as explained below.
+我们一开始就提到，不正确的调整是导致文件系统损坏的一大原因. 你可以使用 =tune2fs= 工具来更改 ext2/ext3/ext4 文件系统中的某些参数, 这些参数我们会在后面细说.
 
-To see the contents of the filesystem superblock, including the current values of the parameters, use the -l option as shown.
+使用 =-l= 选项可以看到文件系统超级块的内容, 包括各参数的当前值.
 
 #+BEGIN_SRC shell
   $ sudo tune2fs -l /dev/sda10
 #+END_SRC
 
-Sample Output
+输出为
 
 #+BEGIN_EXAMPLE
   tune2fs 1.42.13 (17-May-2015)
@@ -172,8 +170,8 @@ Sample Output
   Journal backup:           inode blocks
 #+END_EXAMPLE
 
-Next, using the -c flag, you can set the number of mounts after which the filesystem will be checked by e2fsck. This command instructs the
-system to run e2fsck against /dev/sda10 after every 4 mounts.
+使用 =-c= 选项可以设置一个挂载次数，文件系统挂载次数超过这个次数的话，就会使用 e2fsck 来对这个文件系统进行检查了. 
+下面的命令就是要求系统 =/dev/sda10= 在每挂载4次后都运行 =e2fsck= 检查一边.
 
 #+BEGIN_EXAMPLE
   $ sudo tune2fs -c 4 /dev/sda10
@@ -181,8 +179,8 @@ system to run e2fsck against /dev/sda10 after every 4 mounts.
   Setting maximal mount count to 4
 #+END_EXAMPLE
 
-You can as well define the time between two filesystem checks with the -i option. The following command sets an interval of 2 days between
-filesystem checks.
+你也可以使用 =-i= 选项指定两次文件系统检查的间隔时间. 
+下面命令设置文件系统两次检查的间隔时间为2天.
 
 #+BEGIN_EXAMPLE
   $ sudo tune2fs  -i  2d  /dev/sda10
@@ -190,7 +188,7 @@ filesystem checks.
   Setting interval between checks to 172800 seconds
 #+END_EXAMPLE
 
-Now if you run this command below, the filesystem check interval for /dev/sda10 is now set.
+再次运行下面命令，你会发现 =/dev/sda10= 文件系统检查的间隔时间已经被修改了.
 
 #+BEGIN_SRC shell
   $ sudo tune2fs -l /dev/sda10
@@ -221,33 +219,30 @@ Sample Output
   Journal backup:           inode blocks
 #+END_EXAMPLE
 
-To change the default journaling parameters, use the -J option. This option also has sub-options: size=journal-size (sets the journal’s
-size), device=external-journal (specifies the device on which it’s stored) and location=journal-location (defines the location of the
-journal).
+使用 =-J= 选项可以修改默认的日志参数. 该选项下面还有子选项: =size=journal-size= (设置日志的大小), =device=external-journal= (指定日志存放在哪个磁盘上) 以及 =location=journal-location= (定义日志的位置).
 
-Note that only one of the size or device options can be set for a filesystem:
+注意，为一个文件系统设置日志参数时, =size= 和 =device= 只能选一个:
 
 #+BEGIN_SRC shell
   $ sudo tune2fs -J size=4MB /dev/sda10
 #+END_SRC
 
-Last but not least, the volume label of a filesystem can be set using the -L option as below.
+最后, 你还可以使用 =-L= 选项来设置文件系统的标签.
 
 #+BEGIN_SRC shell
   $ sudo tune2fs -L "ROOT" /dev/sda10
 #+END_SRC
 
-* Debug EXT2/EXT3/EXT4 Filesystems
+* 调试 EXT2/EXT3/EXT4 文件系统
 
-debugfs is an simple, interactive command line based ext2/ext3/ext4 filesystems debugger. It allows you to modify filesystem parameters
-interactively. To view sub-commands or requests, type "?".
+debugfs 是一款简单的, 可互式的,基于命令行的 ext2/ext3/ext4 文件系统调试器. 它允许你交互式地调整文件系统. 
+按 “?” 可以查看子命令和请求的说明.
 
 #+BEGIN_SRC shell
   $ sudo debugfs /dev/sda10
 #+END_SRC
 
-By default, the filesystem should be opened in read-write mode, use the -w flag to open it in read-write mode. To open it in catastrophic
-mode, use the -c option.
+默认情况下, 文件系统以读写模式打开, 但也可以使用 =-w= 标志开指定以读写模式打开. 使用 =-c= 选项指定以 catastrophic 模式打开.
 
 Sample Output
 
@@ -270,13 +265,13 @@ Sample Output
   ....
 #+END_EXAMPLE
 
-To show free space fragmentation, use the freefrag request, like so.
+显示可用的空间碎片,使用 freefrag 请求, like so.
 
 #+BEGIN_SRC shell
   debugfs: freefrag
 #+END_SRC
 
-Sample Output
+输出为
 
 #+BEGIN_EXAMPLE
   Device: /dev/sda10
@@ -311,22 +306,20 @@ Sample Output
   debugfs:  
 #+END_EXAMPLE
 
-You can explore so many other requests such as creating or removing files or directories, changing the current working directory and much
-more, by simply reading the brief description provided. To quit debugfs, use the q request.
+你可以试试其他的请求命令,比如创建/删除文件和目录, 更改当前工作目录等等, 每个命令都有一些简单的描述. 想退出 debugfs 的话, 直接使用 =q= 请求即可.
 
-That’s all for now! We have a collection of related articles under different categories below, which you will find useful.
+这就是所有内容了! 下面是我们收集的一些相关的文章, 你们可能用得着.
 
-Filesystem Usage Information:
+文件系统使用信息:
 
  1. [[https://www.tecmint.com/how-to-check-disk-space-in-linux/][12 Useful “df” Commands to Check Disk Space in Linux]]
  2. [[https://www.tecmint.com/pyd-command-to-check-disk-usage/][Pydf an Alternative “df” Command to Check Disk Usage in Different Colours]]
  3. [[https://www.tecmint.com/check-linux-disk-usage-of-files-and-directories/][10 Useful du (Disk Usage) Commands to Find Disk Usage of Files and Directories]]
 
-Check Disk or Partition Health:
+检查磁盘或分区的健康状况:
 
  1. [[https://www.tecmint.com/linux-disk-scanning-tools/][3 Useful GUI and Terminal Based Linux Disk Scanning Tools]]
  2. [[https://www.tecmint.com/check-linux-hard-disk-bad-sectors-bad-blocks/][How to Check Bad Sectors or Bad Blocks on Hard Disk in Linux]]
  3. [[https://www.tecmint.com/defragment-linux-system-partitions-and-directories/][How to Repair and Defragment Linux System Partitions and Directories]]
 
-Maintaining a healthy filesystem always improves the overall performance of your Linux system. If you have any questions or additional
-thoughts to share use the comment form below.
+保持一个健康的文件系统有助于提高Linux系统的性能. 任何问题或想法都欢迎提出.
