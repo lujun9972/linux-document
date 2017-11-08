@@ -7,17 +7,14 @@
 #+OPTIONS:  H:6 num:nil toc:t \n:nil ::t |:t ^:nil -:nil f:t *:t <:nil
 
 
-Howdy Music lovers! Today I learned that we can control media players from commandline in Unix-like operating systems. You can play,
-pause, toggle between play and pause, increase/decrease volume, switch to next/previous media files, and stop the media playback. All from
-Terminal! Cool, yeah? Yes, it is. In this guide, we will be discussing two simple utilities that can be used to control the media players
-from the Terminal in your Linux box.
+各位音乐爱好者们! 进他我学到一样新东西,那就是在类Unix系统下的命令行控制媒体播放器.
+你可以播放,暂停,在播放和暂停间切换, 调高/调低音量, 切上一首/下一首媒体文件, 停止媒体播放等动作.
+所偶这些都在终端内完成! 很酷吧? 本文将告诉你两个这样的工具.
 
 * 1. Playerctl
 
-=Playerctl= is a simple command line utility for controlling media files from Terminal. It will allow you to play, pause media files, switch
-to next or previous track, increase or decrease the volume, stop the playback etc. Using Playerctl, we can manage the all media
-players that implement the [[http://specifications.freedesktop.org/mpris-spec/latest/][MPRIS]] D-Bus Interface Specification. Some of the popular media players that can be controlled using Playerctl
-are given below.
+=Playerctl= 是一个在终端制媒体播放的命令行工具. 你可以用它播放,暂停,在播放和暂停间切换, 调高/调低音量, 切上一首/下一首媒体文件, 停止媒体播放等.
+通过 Playerctl, 我们可以管理任何实现了 [[http://specifications.freedesktop.org/mpris-spec/latest/][MPRIS]] D-Bus 接口规范的媒体播放器. 下面是一些常见的能被 Playerctl 管理的播放器:
 
 + Audacious,
 + Bmp,
@@ -26,37 +23,35 @@ are given below.
 + VLC,
 + Xmms2.
 
-** Installation
+** 安装
 
-Playerctl is available in the official repositories of all modern Linux distributions. So, you can install it using the distribution’s
-default package manager.
+Playerctl 存在于所有现代Linux发行版的官方仓库中. 你可以使用发行版的默认包管理器来安装它.
 
-On Arch Linux:
+Arch Linux 上:
 
 #+BEGIN_SRC shell
   sudo pacman -S playerctl
 #+END_SRC
 
-On Debian, Ubuntu and derivatives:
+Debian, Ubuntu 及其衍生版上:
 
 #+BEGIN_SRC shell
   sudo apt-get install playerctl
 #+END_SRC
 
-On Fedora:
+Fedora 上:
 
 #+BEGIN_SRC shell
   sudo dnf install playerctl
 #+END_SRC
 
-On openSUSE:
+openSUSE 上:
 
 #+BEGIN_SRC shell
   sudo zypper install playerctl
 #+END_SRC
 
-If it is not available in the official repositories, you can manually compile and install it from using source. The latest source files
-are available in the [[https://github.com/acrisci/playerctl/releases][releases page]].
+如果你在官方仓库中找不到, 还可以通过源代码来手工编译和安装. 最新的源代码可以在 [[https://github.com/acrisci/playerctl/releases][发布页面]] 上找到.
 
 ** Usage
 
