@@ -24,6 +24,7 @@ Linux好游戏
 * raw
 未翻译的内容,欢迎大家领取
 
++ [[https://github.com/lujun9972/linux-document/blob/master/raw/How To Control Media Players From Commandline In Linux.org][ How To Control Media Players From Commandline In Linux]]		<2017-11-08>
 + [[https://github.com/lujun9972/linux-document/blob/master/raw/How to use cron in Liinux.org][ How to use cron in Linux]]		<2017-11-07>
 + [[https://github.com/lujun9972/linux-document/blob/master/raw/Top Ways to Learn Linux Online.org][ Top Ways to Learn Linux Online]]		<2017-11-06>
 * shell
@@ -33,6 +34,7 @@ Linux好游戏
 * system
 系统管理相关内容
 
++ [[https://github.com/lujun9972/linux-document/blob/master/system/4 Tools to Manage EXT2,EXT3 and EXT4 Health in Linux.org][ 4个管理 EXT2,EXT3 以及 EXT4 健康状况的工具]]		<2017-11-08>
 + [[https://github.com/lujun9972/linux-document/blob/master/system/The Pinky Finger habits Of Experienced Sysadmins.org][ 系统管理老手教你小指的妙用]]		<2017-11-07>
 + [[https://github.com/lujun9972/linux-document/blob/master/system/How to replicate SELinux policies among Linux machines.org][ 如何在Linux机器之间复制SELinux策略]]		<2017-11-06>
 + [[https://github.com/lujun9972/linux-document/blob/master/system/How To Check Installed Linux Kernels.org][ 如何查看已安装的Linux Kernels]]		<2017-11-02>
