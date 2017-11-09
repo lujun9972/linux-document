@@ -1,4 +1,4 @@
-#+TITLE: How To Control Media Players From Commandline In Linux
+#+TITLE: 如何在Linux命令行控制媒体播放器
 #+URL: https://www.ostechnix.com/control-media-players-commandline-linux/
 #+AUTHOR: lujun9972
 #+TAGS: commandline media
@@ -53,28 +53,28 @@ openSUSE 上:
 
 如果你在官方仓库中找不到, 还可以通过源代码来手工编译和安装. 最新的源代码可以在 [[https://github.com/acrisci/playerctl/releases][发布页面]] 上找到.
 
-** Usage
+** 用法
 
-First, list all available players using command:
+首先, 使用下面命令列出所有可以控制的播放器(译注:必须是正在运行的播放器):
 
 #+BEGIN_SRC shell
   playerctl -l
 #+END_SRC
 
-Or,
+或者,
 
 #+BEGIN_SRC shell
   playerctl --list-all
 #+END_SRC
 
-Sample output would be:
+输出:
 
 #+BEGIN_EXAMPLE
   vlc
   smplayer
 #+END_EXAMPLE
 
-You can view the status of a player by mentioning its name with playerctl command:
+你可以查看指定播放器的状态:
 
 #+BEGIN_SRC shell
   $ playerctl status vlc
@@ -84,57 +84,55 @@ You can view the status of a player by mentioning its name with playerctl comman
   Playing
 #+END_SRC
 
-As you can see, currently there are two players available (currently opened and running players) in my system. Vlc is stopped and smplayer
-is playing now.
+如你所见, 当前有两个可以控制的播放器. Vlc 处于停止状态, smplayer 处于播放状态.
 
-To play the track , run:
+用下面命令来进行播放:
 
 #+BEGIN_SRC shell
   playerctl play -p smplayer
 #+END_SRC
 
-Or,
+或者,
 
 #+BEGIN_SRC shell
   playerctl play --player smplayer
 #+END_SRC
 
-If there were only one player is running, you don’t have to use “-p” or “–player” switch. Playerctl will automatically play the track
-playing in the currently opened player.
+在只运行了一个播放器则无需使用 “-p” 或 “–player” 来指定播放器. Playerctl 会自动选择这个播放器来播放.
 
-To pause the currently playing track (assuming you have only one running player), run:
+要暂停播放(假设你只运行了一个播放器), 则运行:
 
 #+BEGIN_SRC shell
   playerctl pause smplayer
 #+END_SRC
 
-To go to the next track, run:
+播放下一首:
 
 #+BEGIN_SRC shell
   playerctl next smplayer
 #+END_SRC
 
-To go the previous track, run:
+播放上一首:
 
 #+BEGIN_SRC shell
   playerctl previous smplayer
 #+END_SRC
 
-To toggle between play or pause, run:
+切换播放与暂停:
 
 #+BEGIN_SRC shell
   playerctl play-pause smplayer
 #+END_SRC
 
-This option will resume the track if it is currently paused or play the track if it is currently being played now.
+若播放器处于暂停状态则会继续播放，若播放器处于播放状态则会暂停播放.
 
-To stop the playback, run:
+停止播放:
 
 #+BEGIN_SRC shell
   playerctl stop smplayer
 #+END_SRC
 
-To view the help section, run:
+查看帮助:
 
 #+BEGIN_SRC shell
   $ playerctl --help
@@ -164,44 +162,43 @@ To view the help section, run:
 #+END_SRC
 
 
-For more details, look at the project’s GitHub page given at the end.
+可以去项目的Github页面了解更多信息, 地址列在后面.
 
 * 2. OmniPause
 
-=OmniPause= is a simple python application to control media players via DBus. Unlike Playerctl, OmniPause is very new to the show and in
-early development stage. However it is fully functional and will do all of the same things as Playerctl.
+=OmniPause= 是一个python写的通过DBus来控制多媒体播放器的应用程序. 相比 Playerctl, OmniPause 出现的比较晚，尚处于早期的开发阶段. 
+不过它的功能很全面，能做到跟 Playerctl 一样的事情.
 
-** Installation
+** 安装
 
-OmniPause is written using Python, so you need to install the following dependencies first. These packages are available in the official
-repositories of all Linux distributions. So, you can install them using the default package manager.
+OmniPause 是由 Python 编写的, 因此你需要安装先安装以下依赖. 这些包在所有的Linux发行版的官方仓库上都有, 完全可以用默认的包管理器来安装. So, you can install them using the default package manager.
 
 + python2
 + dbus-python
 
-After installing the prerequisites, git clone the project:
+之后，克隆该项目:
 
 #+BEGIN_SRC shell
   git clone https://github.com/mel00010/OmniPause.git
 #+END_SRC
 
-Go to the project’s directory:
+进入项目目录:
 
 #+BEGIN_SRC shell
   cd OmniPause/
 #+END_SRC
 
-And, run the following command to install it.
+运行下面命令安装之.
 
 #+BEGIN_SRC shell
   sudo make install
 #+END_SRC
 
-The above command will copy omnipause.py program to /usr/local/bin/omnipause.
+上面命令会拷贝 omnipause.py 程序到 =/usr/local/bin/omnipause= 中.
 
-** Usage
+** 用法
 
-The usage is exactly same as Playerctl. Unlike Playerctl, Omnipause has limited functionality. The only available functions are:
+使用方法与 Playerctl 一样. 不过功能稍弱. 只支持以下几个功能:
 
 + play,
 + pause,
@@ -210,49 +207,46 @@ The usage is exactly same as Playerctl. Unlike Playerctl, Omnipause has limited 
 + toggle,
 + stop.
 
-To pause all running media players, run:
+暂停所有正在运行的媒体播放器:
 
 #+BEGIN_SRC shell
   omnipause pause
 #+END_SRC
 
-To resume playback of media players paused by the program, run:
+重启被暂停的媒体播放器:
 
 #+BEGIN_SRC shell
   omnipause play
 #+END_SRC
 
-To stop all media players, run:
+停止所有的播放器:
 
 #+BEGIN_SRC shell
   omnipause stop
 #+END_SRC
 
-To play the next track on all playing media players, run:
+所有正在播放的媒体播放器播放下一首:
 
 #+BEGIN_SRC shell
   omnipause next
 #+END_SRC
 
-To play the previous track on all playing media players, run:
+所有正在播放的播放器播放上一首:
 
 #+BEGIN_SRC shell
   omnipause previous
 #+END_SRC
 
-To toggle the playback state of running media players, run:
+切换所有正在运行播放器的状态:
 
 #+BEGIN_SRC shell
   omnipause toggle
 #+END_SRC
 
-As you can see, we can control all running media players using single command. It’s that simple. Like Playerctl, It doesn’t have any
-options to stop a specific player or increase/decrease volume. If you want to such options and more control over your media players, use
-playerctl program.
+如你所见, 你可以使用一个命令控制所有正在运行的媒体播放器. 很简单吧. 不过与 Playerctl 不同, 它没有选项停止指定的播放器，也没有调大/调小音量的功能. 
+如果你需要这些功能，还是使用 playerctl 程序吧.
 
-Cheers!
-
-Resources:
+* 相关资源:
 
 + [[https://github.com/acrisci/playerctl][Playerctl GitHub page]]
 + [[https://github.com/mel00010/OmniPause][OmniPause GitHub page]]
