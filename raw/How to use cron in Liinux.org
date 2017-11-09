@@ -7,21 +7,18 @@
 #+OPTIONS:  H:6 num:nil toc:t \n:nil ::t |:t ^:nil -:nil f:t *:t <:nil
 
 
-One of the challenges (among the many advantages) of being a sysadmin is running tasks when you'd rather be sleeping. For example, some
-tasks (including regularly recurring tasks) need to run overnight or on weekends, when no one is expected to be using computer resources.
-I have no time to spare in the evenings to run commands and scripts that have to operate during off-hours. And I don't want to have to get
-up at oh-dark-hundred to start a backup or major update.
+作为一名系统管理员, 面临的一个挑战就是需要在睡觉的点去跑任务. 
+比如，有些任务(包括周期性的任务)需要在大半夜或周末运行, 因为这个点没什么人会去使用计算机资源.
+我不想在非工作时间浪费时间去运行那些命令和脚本. 我也不想大半夜的起来去做悲愤和升级.
 
-Instead, I use two service utilities that allow me to run commands, programs, and tasks at predetermined times. The [[https://en.wikipedia.org/wiki/Cron][cron]] and at services
-enable sysadmins to schedule tasks to run at a specific time in the future. The at service specifies a one-time task that runs at a
-certain time. The cron service can schedule tasks on a repetitive basis, such as daily, weekly, or monthly.
+我使用两个工具来帮助我在预先定义好的时间运行命令,程序和任务.  [[https://en.wikipedia.org/wiki/Cron][cron]] 和 at 服务允许系统管理员安排好在指定的时间要运行的任务. 
+at u服务指定单次的任务. 而 cron 服务可以设定重复性的任务, 比如日任务, 周任务, 月任务.
 
-In this article, I'll introduce the cron service and how to use it.
+本文, 我会介绍一下 cron 服务，以及它的使用方法.
 
 * Common (and uncommon) cron uses
 
-I use the cron service to schedule obvious things, such as regular backups that occur daily at 2 a.m. I also use it for less obvious
-things.
+我使用 cron 服务来规划琐事, 比如每天凌晨2点要做的日常备份. I also use it for less obvious things.
 
   * The system times (i.e., the operating system time) on my many computers are set using the Network Time Protocol (NTP). While NTP sets
     the system time, it does not set the hardware time, which can drift. I use cron to set the hardware time based on the system time.
