@@ -167,81 +167,68 @@ crontab命令使用vi作为默认编辑器,因为几乎所有的linux系统都�
 
 * Scheduling tips
 
-Some of the times I set in the crontab files seem rather random—and to some extent they are. Trying to schedule cron jobs can be
-challenging, especially as the number of jobs increases. I usually have only a few tasks to schedule on each of my computers, which is
-simpler than in some of the production and lab environments where I have worked.
+我在crontab文件中设置的有些时间看起来似乎蛮随机的—某种程度上来说也确实如此. 
+分配cron job是一件颇具挑战性的事情,尤其当有大量job需要分配时.
+我在自己电脑上分配的任务并不多,比我在生产和实验环境中要简单一些.
 
-One system I administered had around a dozen cron jobs that ran every night and an additional three or four that ran on weekends or the
-first of the month. That was a challenge, because if too many jobs ran at the same time—especially the backups and compiles—the system
-would run out of RAM and nearly fill the swap file, which resulted in system thrashing while performance tanked, so nothing got done. We
-added more memory and improved how we scheduled tasks. We also removed a task that was very poorly written and used large amounts of
-memory.
+我管理过一个系统，每天晚上有一打的cron job要运行,还有3,4个job会在周末和月首运行. 这真是个挑战, 如果有太多的job在同一时间运行的话—尤其做备份和编译时—系统内存将会耗尽并且填充完所有的交换文件,这会导致系统抖动,影响性能, 从而导致一事无成. 
+我们后来增加了内存,改进了任务规划. 还移除了一个糟糕性能需要耗费巨量内存的任务.
 
-The crond service assumes that the host computer runs all the time. That means that if the computer is turned off during a period when
-cron jobs were scheduled to run, they will not run until the next time they are scheduled. This might cause problems if they are critical
-cron jobs. Fortunately, there is another option for running jobs at regular intervals: anacron.
+crond服务假定宿主电脑是一直开机的. 也就是说，如果电脑在cron job本该运行的时刻关机了一段时间, 那么这些job只能在下次规划的时间才能再次运行.
+如果这些cron job很关键的话，可能会引起一些问题. 幸运的是我们还有其他工具能让我们在特定间隔后运行jobs: anacron.
 
 * anacron
 
-The [[https://en.wikipedia.org/wiki/Anacron][anacron]] program performs the same function as crond, but it adds the ability to run jobs that were skipped, such as if the computer
-was off or otherwise unable to run the job for one or more cycles. This is very useful for laptops and other computers that are turned off
-or put into sleep mode.
+[[https://en.wikipedia.org/wiki/Anacron][anacron]] 的功能与 =crond= 一样, 但是它可以运行那些被跳过的jobs(比如电脑被关机或者上个周期因为某些原因无法运行job). 
+这对笔记本电脑以及其他经常会关机或进入休眠模式的电脑来说尤其有用.
 
-As soon as the computer is turned on and booted, anacron checks to see whether configured jobs missed their last scheduled run. If they
-have, those jobs run immediately, but only once (no matter how many cycles have been missed). For example, if a weekly job was not run for
-three weeks because the system was shut down while you were on vacation, it would be run soon after you turn the computer on, but only
-once, not three times.
+电脑开机启动后, anacron会检查配置的任务在上轮规划中是否错过了运行. 如果是，那么这些任务会被立即运行, 但只会运行一次(不过实际错过了多少轮).
+举个例子, 如果有个每周任务由于系统在你放假期间关机了导致三周都没有运行, 当你开机后，该任务会且仅会运行一次，而不是三次.
 
-The anacron program provides some easy options for running regularly scheduled tasks. Just install your scripts in the /etc/cron.[hourly|
-daily|weekly|monthly] directories, depending how frequently they need to be run.
+anacron 程序还提供了其他定义常规任务的方法. 只需要将你要运行的脚本根据间隔时间的需要放到 =/etc/cron.[hourly|daily|weekly|monthly]= 目录中即可. 
+它的工作原理是什么? 过程要比看起来简单的多.
 
-How does this work? The sequence is simpler than it first appears.
+1. crond服务运行在 =/etc/cron.d/0hourly= 中指定的job.
 
- 1. The crond service runs the cron job specified in /etc/cron.d/0hourly.
-
-    #+BEGIN_EXAMPLE
+   #+BEGIN_EXAMPLE
       # Run the hourly jobs
       SHELL=/bin/bash
       PATH=/sbin:/bin:/usr/sbin:/usr/bin
       MAILTO=root
       01 * * * * root run-parts /etc/cron.hourly
                            ^The contents of /etc/cron.d/0hourly cause the shell scripts located in /etc/cron.hourly to run.                     
-    #+END_EXAMPLE
+   #+END_EXAMPLE
 
- 2. The cron job specified in /etc/cron.d/0hourly runs the run-parts program once per hour.
- 3. The run-parts program runs all the scripts located in the /etc/cron.hourly directory.
- 4. The /etc/cron.hourly directory contains the 0anacron script, which runs the anacron program using the /etdc/anacrontab configuration
-    file shown here.
+2. /etc/cron.d/0hourly中定义的cron job每个小时运行一次 =run-parts= 程序.
+3. =run-parts= 程序运行 =/etc/cron.hourly= 目录中的所有脚本.
+4. =/etc/cron.hourly= 目录中包含一个 =0anacron= 脚本, 该脚本使用 =/etdc/anacrontab= 配置文件运行 anacron 程序,配置文件内容为
 
-    #+BEGIN_EXAMPLE
-      # /etc/anacrontab: configuration file for anacron
-      # See anacron(8) and anacrontab(5) for details.
-      SHELL=/bin/sh
-      PATH=/sbin:/bin:/usr/sbin:/usr/bin
-      MAILTO=root
-      # the maximal random delay added to the base delay of the jobs
-      RANDOM_DELAY=45
-      # the jobs will be started during the following hours only
-      START_HOURS_RANGE=3-22
-      #period in days   delay in minutes   job-identifier   command
-      1       5       cron.daily              nice run-parts /etc/cron.daily
-      7       25      cron.weekly             nice run-parts /etc/cron.weekly
-      @monthly 45     cron.monthly            nice run-parts /etc/cron.monthly
+   #+BEGIN_EXAMPLE
+     # /etc/anacrontab: configuration file for anacron
+     # See anacron(8) and anacrontab(5) for details.
+     SHELL=/bin/sh
+     PATH=/sbin:/bin:/usr/sbin:/usr/bin
+     MAILTO=root
+     # the maximal random delay added to the base delay of the jobs
+     RANDOM_DELAY=45
+     # the jobs will be started during the following hours only
+     START_HOURS_RANGE=3-22
+     #period in days   delay in minutes   job-identifier   command
+     1       5       cron.daily              nice run-parts /etc/cron.daily
+     7       25      cron.weekly             nice run-parts /etc/cron.weekly
+     @monthly 45     cron.monthly            nice run-parts /etc/cron.monthly
+         ^The contents of /etc/anacrontab file runs the executable files in the cron.[daily|weekly|monthly] directories at the appropriate times. 
+   #+END_EXAMPLE
 
-    #+END_EXAMPLE
 
-    ^The contents of /etc/anacrontab file runs the executable files in the cron.[daily|weekly|monthly] directories at the appropriate times. 
+5. anacron程序每天运行一次 =/etc/cron.daily= 中的程序; 每周运行一次 =/etc/cron.weekly= 中的程序, 每月运行一次 =cron.monthly= 中的程序. 
+   注意到，每行的延迟时间使得这些任务之间不会相互重叠.
 
- 5. The anacron program runs the programs located in /etc/cron.daily once per day; it runs the jobs located in /etc/cron.weekly once per
-    week, and the jobs in cron.monthly once per month. Note the specified delay times in each line that help prevent these jobs from
-    overlapping themselves and other cron jobs.
+我一般不把所有的Bash程序放到 =cron.X= 目录中,而是放到 =/usr/local/bin= 目录中, 这使得我可以方便地在命令行运行这些脚本. 
+然后我再创建一个符号链接到合适的 cron 目录中(比如/etc/cron.daily中).
 
-Instead of placing complete Bash programs in the cron.X directories, I install them in the /usr/local/bin directory, which allows me to
-run them easily from the command line. Then I add a symlink in the appropriate cron directory, such as /etc/cron.daily.
-
-The anacron program is not designed to run programs at specific times. Rather, it is intended to run programs at intervals that begin at
-the specified times, such as 3 a.m. (see the START_HOURS_RANGE line in the script just above) of each day, on Sunday (to begin the week),
-and on the first day of the month. If any one or more cycles are missed, anacron will run the missed jobs once, as soon as possible.
+anacron 程序并不是设计来让程序在特定时间运行的. 相反, 它适用于从特定时间(比如每天3 a.m,每周日，每月的第一天)开始每隔一定时间运行一次程序.(参见上例中START_HOURS_RANGE这一行), on Sunday (to begin the week),
+而且任何循环有缺失, anacron都会立即运行一次缺失的任务.
 
 * More on setting limits
 
