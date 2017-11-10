@@ -1,4 +1,4 @@
-#+TITLE: How to use cron in Linux
+#+TITLE: 如何使用Linux中的cron
 #+URL: https://opensource.com/article/17/11/how-use-cron-linux
 #+AUTHOR: lujun9972
 #+TAGS: crontab
@@ -232,18 +232,14 @@ anacron 程序并不是设计来让程序在特定时间运行的. 相反, 它�
 
 * More on setting limits
 
-I use most of these methods for scheduling tasks to run on my computers. All those tasks are ones that need to run with root privileges.
-It's rare in my experience that regular users really need a cron job. One case was a developer user who needed a cron job to kick off a
-daily compile in a development lab.
+我使用上述这些方法来分配在我电脑上运行的任务. 所有这些任务都需要root权限.
+依我的经验来说，普通用户很少有需要cron job的时候. 其中一个可能的例子是某个开发者需要cron job来自动开始每日编译.
 
-It is important to restrict access to cron functions by non-root users. However, there are circumstances when a user needs to set a task
-to run at pre-specified times, and cron can allow them to do that. Many users do not understand how to properly configure these tasks
-using cron and they make mistakes. Those mistakes may be harmless, but, more often than not, they can cause problems. By setting
-functional policies that cause users to interact with the sysadmin, individual cron jobs are much less likely to interfere with other
-users and other system functions.
+限制非root用户使用cron功能很重要. 然而, 若真的有用户需要设置在预定的时间运行任务, cron能让他们实现愿望. 
+很多用户不知道如何合理的配置这些任务从而引起差错. 有些差错可能无伤大雅,但大多数差错会引起麻烦. 
 
-It is possible to set limits on the total resources that can be allocated to individual users or groups, but that is an article for
-another time.
+通过让用户与系统管理员沟通, 可以减少 cron job 对其他用户和其他系统功能的破坏.
 
-For more information, the man pages for [[http://man7.org/linux/man-pages/man8/cron.8.html][cron]], [[http://man7.org/linux/man-pages/man5/crontab.5.html][crontab]], [[http://man7.org/linux/man-pages/man8/anacron.8.html][anacron]], [[http://man7.org/linux/man-pages/man5/anacrontab.5.html][anacrontab]], and [[http://manpages.ubuntu.com/manpages/zesty/man8/run-parts.8.html][run-parts]] all have excellent information and descriptions
-of how the cron system works.
+也可以限制单个的用户和组使用的总资源数,但这就另一篇文章的事了,我们以后再说.
+
+想了解更多, 可以查看 [[http://man7.org/linux/man-pages/man8/cron.8.html][cron]], [[http://man7.org/linux/man-pages/man5/crontab.5.html][crontab]], [[http://man7.org/linux/man-pages/man8/anacron.8.html][anacron]], [[http://man7.org/linux/man-pages/man5/anacrontab.5.html][anacrontab]], 以及 [[http://manpages.ubuntu.com/manpages/zesty/man8/run-parts.8.html][run-parts]] 的man帮助,其中很好的描述了cron系统工作的原理和相关信息.
