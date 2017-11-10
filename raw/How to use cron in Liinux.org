@@ -18,33 +18,30 @@ at u服务指定单次的任务. 而 cron 服务可以设定重复性的任务, 
 
 * Common (and uncommon) cron uses
 
-我使用 cron 服务来规划琐事, 比如每天凌晨2点要做的日常备份. I also use it for less obvious things.
+我使用 cron 服务来规划琐事, 比如每天凌晨2点要做的日常备份. 我也会用它来做一些不那么琐碎的事情.
 
-  * The system times (i.e., the operating system time) on my many computers are set using the Network Time Protocol (NTP). While NTP sets
-    the system time, it does not set the hardware time, which can drift. I use cron to set the hardware time based on the system time.
-  * I also have a Bash program I run early every morning that creates a new "message of the day" (MOTD) on each computer. It contains
-    information, such as disk usage, that should be current in order to be useful.
-  * Many system processes and services, like [[https://sourceforge.net/projects/logwatch/files/][Logwatch]], [[https://github.com/logrotate/logrotate][logrotate]], and [[http://rkhunter.sourceforge.net/][Rootkit Hunter]], use the cron service to schedule tasks and run
-    programs every day.
++ 我多台电脑的系统时间(也就是操作系统的时间)使用 Network Time Protocol (NTP)来同步时间. 
+  然而 NTP 只会设置系统时间,不会设置硬件时间,这会造成时间的漂移. 因此我使用cron来根据系统时间设置硬件时间.
++ 我每个月月初都会运行一个Bash程序来在每台机上创建新的"message of the day" (MOTD). 
+  这条消息中包含诸如当前磁盘利用率之类的信息.
++ 很多系统进程和系统服务, 比如 [[https://sourceforge.net/projects/logwatch/files/][Logwatch]], [[https://github.com/logrotate/logrotate][logrotate]], 以及 [[http://rkhunter.sourceforge.net/][Rootkit Hunter]], 都是使用cron服务来规划任务，每天运行程序的.
 
-The crond daemon is the background service that enables cron functionality.
+crond守护进程就是提供cron功能的后台服务进程.
 
-The cron service checks for files in the /var/spool/cron and /etc/cron.d directories and the /etc/anacrontab file. The contents of these
-files define cron jobs that are to be run at various intervals. The individual user cron files are located in /var/spool/cron, and system
-services and applications generally add cron job files in the /etc/cron.d directory. The /etc/anacrontab is a special case that will be
-covered later in this article.
+cron 服务会检查 =/var/spool/cron= 和 =/etc/cron.d= 目录中的文件,以及 =/etc/anacrontab= 这个文件. 
+这些文件的内容定义了不同间隔时间内要运行的cron jobs. =/var/spool/cron= 中存放的是个人用户定义的cron job文件, 而系统服务和应用产生的cron job文件存放在 =/etc/cron.d= 目录中.
+而 =/etc/anacrontab= 是一个很特别的存在，后面再说.
 
 * Using crontab
 
-The cron utility runs based on commands specified in a cron table (crontab). Each user, including root, can have a cron file. These files
-don't exist by default, but can be created in the /var/spool/cron directory using the crontab -e command that's also used to edit a cron
-file (see the script below). I strongly recommend that you not use a standard editor (such as Vi, Vim, Emacs, Nano, or any of the many
-other editors that are available). Using the crontab command not only allows you to edit the command, it also restarts the crond daemon
-when you save and exit the editor. The crontab command uses Vi as its underlying editor, because Vi is always present (on even the most
-basic of installations).
+cron会运行cron table (crontab)中定义的那些命令. 每个用户, 包括root, 都有一个cron文件. 
+这些文件默认并不存在, 但是可以使用 =crontab -e= 命令来创建或修改,创建的文件存放在 =/var/spool/cron= 目录中. 
+我强烈建议不要用标准编辑器(比如Vi, Vim, Emacs, Nano, 或者其他一些编辑器). 
+crontab 不仅允许你编辑要定时运行的命令, 还会在你保存退出编辑器后重启crond守护进程.
+crontab命令使用vi作为默认编辑器,因为几乎所有的linux系统都装有Vi.
 
-New cron files are empty, so commands must be added from scratch. I added the job definition example below to my own cron files, just as a
-quick reference, so I know what the various parts of a command mean. Feel free to copy it for your own use.
+新的 cron 文件是空的, 必须从头添加命令. 我将下面job定义的示例添加到cron文件中, 用来做个参考, 这样方便知道命令各部分的意义.
+你也可以这样做.
 
 #+BEGIN_EXAMPLE
   # crontab -e
@@ -69,36 +66,29 @@ quick reference, so I know what the various parts of a command mean. Feel free t
                                          ^The crontab command is used to view or edit the cron files.                                       
 #+END_EXAMPLE
 
-The first three lines in the code above set up a default environment. The environment must be set to whatever is necessary for a given
-user because cron does not provide an environment of any kind. The SHELL variable specifies the shell to use when commands are executed.
-This example specifies the Bash shell. The MAILTO variable sets the email address where cron job results will be sent. These emails can
-provide the status of the cron job (backups, updates, etc.) and consist of the output you would see if you ran the program manually from
-the command line. The third line sets up the PATH for the environment. Even though the path is set here, I always prepend the fully
-qualified path to each executable.
+代码前三行设置默认的环境. 设置环境是必须的,因此 cron 本身并不提供任何环境. 
+=SHELL= 变量指定了命令执行时使用的shell. 本例中指定为 Bash shell. 
+=MAILTO= 变量设置了cron job结果发送到哪个邮件地址. 这些邮件的内容包括cron job的状态(backups, updates等)以及程序的输出.
+第三行设置了环境的 =PATH= 变量. 不过虽然有在这设置路径，我依然总是为每个执行文件指明完整的路径.
 
-There are several comment lines in the example above that detail the syntax required to define a cron job. I'll break those commands down,
-then add a few more to show you some more advanced capabilities of crontab files.
+上例中还有很多注释行,详细说明了定义cron job的语法. 我会一一讲解这些命令,然后再向你展示一些cron文件中的高级功能.
 
 #+BEGIN_EXAMPLE
   01 01 * * * /usr/local/bin/rsbu -vbd1 ; /usr/local/bin/rsbu -vbd2
-                              ^This line in my /etc/crontab runs a script that performs backups for my systems.
+                              ^这行运行脚本进行系统备份.
 #+END_EXAMPLE
 
-This line runs my self-written Bash shell script, rsbu, that backs up all my systems. This job kicks off at 1:01 a.m. (01 01) every day.
-The asterisks (*) in positions three, four, and five of the time specification are like file globs, or wildcards, for other time
-divisions; they specify "every day of the month," "every month," and "every day of the week." This line runs my backups twice; one backs
-up to an internal dedicated backup hard drive, and the other backs up to an external USB drive that I can take to the safe deposit box.
+该行u运行我自己写的一个 Bash shell 脚本, rsbuthat, 来做系统备份. 该工作开始于每天的 1:01 a.m. (01 01).
+时间指示部分的第3,4,5位的星号(*)与文件通配符类似,表示每天，每月，每周; 该行会备份两次; 一份备份到内置硬盘,一份备份到外置U盘,然后放到安全的地方保存.
 
-The following line sets the hardware clock on the computer using the system clock as the source of an accurate time. This line is set to
-run at 5:03 a.m. (03 05) every day.
+下面命令根据系统时钟设置硬件时钟. 每天的 5:03 a.m. (03 05) 运行.
 
 #+BEGIN_EXAMPLE
   03 05 * * * /sbin/hwclock --systohc
-                                   ^This line sets the hardware clock using the system time as the source.
+                                   ^该行根据系统时钟设置硬件时钟.
 #+END_EXAMPLE
 
-I was using the third and final cron job (commented out) to perform a dnf or yum update at 04:25 a.m. on the first day of each month, but
-I commented it out so it no longer runs.
+我曾经使用第三行也是最后一个 cron job (现在已经注释掉了) 来在每月一号的04:25 a.m来做一次dnf/yum升级, 不过我把他注释掉了不再运行.
 
 #+BEGIN_EXAMPLE
   # 25 04 1 * * /usr/bin/dnf -y update
