@@ -97,64 +97,55 @@ crontab命令使用vi作为默认编辑器,因为几乎所有的linux系统都�
 
 * Other scheduling tricks
 
-Now let's do some things that are a little more interesting than these basics. Suppose you want to run a particular job every Thursday at
-3 p.m.:
+现在让我们尝试一些更有趣的事. 假设你需要在每个周二的3 p.m运行某个特定的任务:
 
 #+BEGIN_EXAMPLE
   00 15 * * Thu /usr/local/bin/mycronjob.sh
-                                            ^This line runs mycronjob.sh every Thursday at 3 p.m.                                           
+                                            ^该行在每周二下午3点运行 mycronjob.sh                                           
 #+END_EXAMPLE
-#+BEGIN_SRC sh
 
-#+END_SRC
-
-Or, maybe you need to run quarterly reports after the end of each quarter. The cron service has no option for "The last day of the month,"
-so instead you can use the first day of the following month, as shown below. (This assumes that the data needed for the reports will be
-ready when the job is set to run.)
+或者你需要在季末运行一份季度报表. 而cron服务没有办法直接表示"月份的最后一天",因此你需要使用后一个月的第一天来代替. (这里假设job运行时,报表的数据已经准备好了)
 
 #+BEGIN_EXAMPLE
   02 03 1 1,4,7,10 * /usr/local/bin/reports.sh
                           ^This cron job runs quarterly reports on the first day of the month after a quarter ends.                         
 #+END_EXAMPLE
 
-The following shows a job that runs one minute past every hour between 9:01 a.m. and 5:01 p.m.
+下面一行会在9:01 a.m到5:01 p.m之间每小时过1分钟的时候运行命令.
 
 #+BEGIN_EXAMPLE
   01 09-17 * * * /usr/local/bin/hourlyreminder.sh
                                 ^Sometimes you want to run jobs at regular times during normal business hours.                              
 #+END_EXAMPLE
 
-I have encountered situations where I need to run a job every two, three, or four hours. That can be accomplished by dividing the hours by
-the desired interval, such as */3 for every three hours, or 6-18/3 to run every three hours between 6 a.m. and 6 p.m. Other intervals can
-be divided similarly; for example, the expression */15 in the minutes position means "run the job every 15 minutes."
+我遇到过一种情况每隔2/3/4个小时运行一次命令. 这可以通过在小时位置的值后面除于一个特定的间隔来实现, 例如 =*/3= 表示每三小时, =6-18/3= 表示在6 a.m 到 6 p.m 这个时间段内的没三个小时运行一次.
+其他的间隔时间也类似; 例如, 分种位置的 =*/15= 表示 "每15分钟运行一次"
 
 #+BEGIN_EXAMPLE
   ,*/5 08-18/2 * * * /usr/local/bin/mycronjob.sh
                             ^This cron job runs every five minutes during every hour between 8 a.m. and 5:58 p.m.                           
 #+END_EXAMPLE
 
-One thing to note: The division expressions must result in a remainder of zero for the job to run. That's why, in this example, the job is
-set to run every five minutes (08:05, 08:10, 08:15, etc.) during even-numbered hours from 8 a.m. to 6 p.m., but not during any
-odd-numbered hours. For example, the job will not run at all from 9 p.m. to 9:59 a.m.
+要注意一件事: job只会在除法表达式的结果余数为0的时候运行. 这也是为什么本例中job只会在8 a.m到6 p.m之间每个偶数小时内,每5分钟运行一次(08:05, 08:10, 08:15, 以此类推).
+比如,该job就不会在 9 p.m 到 9:59 a.m之间运行.
 
-I am sure you can come up with many other possibilities based on these examples.
+我相信你应该能举一反三.
 
 * Limiting cron access
 
-Regular users with cron access could make mistakes that, for example, might cause system resources (such as memory and CPU time) to be
-swamped. To prevent possible misuse, the sysadmin can limit user access by creating a /etc/cron.allow file that contains a list of all
-users with permission to create cron jobs. The root user cannot be prevented from using cron.
+允许cron的普通用户可能会犯错误,比如,可能会导致系统资源(内存，CPU之类)浪费. 
+为了防止滥用,系统管理员可以限制哪些用户可以使用cron,方法是 创建一个 =/etc/cron.allow= 文件,里面包含所有允许创建cron job的用户.
+不过root不能被禁止.
 
-By preventing non-root users from creating their own cron jobs, it may be necessary for root to add their cron jobs to the root crontab.
-"But wait!" you say. "Doesn't that run those jobs as root?" Not necessarily. In the first example in this article, the username field
-shown in the comments can be used to specify the user ID a job is to have when it runs. This prevents the specified non-root user's jobs
-from running as root. The following example shows a job definition that runs a job as the user "student":
+既然禁止了某些非root用户创建cron job的权限,那么root就有必要帮助他们在root的crontab中添加cron job.
+"等会!" 你可能会大吃一惊. "这些job都以root用户来运行吗?" 当然不会. 本文第一个例子的注释中的用户名域可以用来指定运行job的用户ID.
+这就预防了以root用户来运行那些非root用户的job. 下面例子中定义了一个job,它以"student"用户来运行:
 
 #+BEGIN_EXAMPLE
   04 07 * * * student /usr/local/bin/mycronjob.sh
 #+END_EXAMPLE
 
-If no user is specified, the job is run as the user that owns the crontab file, root in this case.
+如果没有指定用户,那么job以crontab文件所有者的身份运行,本例中就是root.
 
 * cron.d
 
