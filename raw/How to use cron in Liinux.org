@@ -149,11 +149,10 @@ crontab命令使用vi作为默认编辑器,因为几乎所有的linux系统都�
 
 * cron.d
 
-The directory /etc/cron.d is where some applications, such as [[http://spamassassin.apache.org/][SpamAssassin]] and [[https://github.com/sysstat/sysstat][sysstat]], install cron files. Because there is no
-spamassassin or sysstat user, these programs need a place to locate cron files, so they are placed in /etc/cron.d.
+有些应用，例如 [[http://spamassassin.apache.org/][SpamAssassin]] 和 [[https://github.com/sysstat/sysstat][sysstat]] 会在安装时生成一些cron文件到目录 =/etc/cron.d= 中. 
+由于并不存在名为 =spamassassin= 和 =sysstat= 的用户,因此这些程序只能在 =/etc/cron.d= 中存放cron文件.
 
-The /etc/cron.d/sysstat file below contains cron jobs that relate to system activity reporting (SAR). These cron files have the same
-format as a user cron file.
+下面是 =/etc/cron.d/sysstat= 文件的内容,它包含了系统活动报告(SAR)相关的一些cron jobs. 这些cron文件的格式与用户cron文件一样.
 
 #+BEGIN_EXAMPLE
   # Run system activity accounting tool every 10 minutes
@@ -163,8 +162,8 @@ format as a user cron file.
                            ^The sysstat package installs the /etc/cron.d/sysstat cron file to run programs for SAR.                         
 #+END_EXAMPLE
 
-The sysstat cron file has two lines that perform tasks. The first line runs the sa1 program every 10 minutes to collect data stored in
-special binary files in the /var/log/sa directory. Then, every night at 23:53, the sa2 program runs to create a daily summary.
+这个sysstat cron 文件定义了两个任务. 第一行每10分钟运行一次 =sa1= 程序来收集存储在 =/var/log/sa= 目录下二进制文件中的数据.
+然后每晚的23:53,运行 =sa2= 程序来生成每日汇总.
 
 * Scheduling tips
 
