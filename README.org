@@ -24,7 +24,6 @@ Linux好游戏
 * raw
 未翻译的内容,欢迎大家领取
 
-+ [[https://github.com/lujun9972/linux-document/blob/master/raw/How to use cron in Liinux.org][ How to use cron in Linux]]		<2017-11-07>
 + [[https://github.com/lujun9972/linux-document/blob/master/raw/Top Ways to Learn Linux Online.org][ Top Ways to Learn Linux Online]]		<2017-11-06>
 * shell
 别不把shell当语言
