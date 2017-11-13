@@ -1,4 +1,4 @@
-#+TITLE: 简单配置Linux版的远程桌面连接
+#+TITLE: 如何Linux版的远程桌面连接
 #+URL: https://www.linux.com/learn/intro-to-linux/2017/11/how-set-easy-remote-desktop-access-linux
 #+AUTHOR: lujun9972
 #+TAGS: Remote Desktop
