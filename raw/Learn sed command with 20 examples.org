@@ -1,0 +1,239 @@
+#+TITLE: Learn sed command with 20 examples
+#+URL: https://www.linuxtechi.com/20-sed-command-examples-linux-users/
+#+AUTHOR: lujun9972
+#+TAGS: sed examples
+#+DATE: [2017-11-14 二 07:32]
+#+LANGUAGE:  zh-CN
+#+OPTIONS:  H:6 num:nil toc:t \n:nil ::t |:t ^:nil -:nil f:t *:t <:nil
+
+
+Sed command or Stream Editor is very powerful utility offered by Linux/Unix systems. It is mainly used for text substitution , find & replace but
+it can also perform other text manipulations like insertion, deletion, search etc. With SED, we can edit complete files without actually having to
+open it. Sed also supports the use of regular expressions, which makes sed an even more powerful test manipulation tool.
+
+In this article, we will learn to use SED command with the help some examples. Basic syntax for using sed command is,
+
+sed OPTIONS… [SCRIPT] [INPUTFILE…]
+
+[[https://www.linuxtechi.com/wp-content/uploads/2017/11/Sed-Command-Options.jpg]]
+
+Now let’s see some examples.
+
++ Example :1) Displaying partial text of a file
+
+With sed, we can view only some part of a file rather than seeing whole file. To see some lines of the file, use the following command,
+
+#+BEGIN_SRC shell
+  [linuxtechi@localhost ~]$ sed -n 22,29p testfile.txt
+#+END_SRC
+
+here, option ‘n’ suppresses printing of whole file & option ‘p’ will print only line lines from 22 to 29.
+
++ Example :2) Display all except some lines
+
+To display all content of a file except for some portion, use the following command,
+
+#+BEGIN_SRC shell
+  [linuxtechi@localhost ~]$ sed 22,29d testfile.txt
+#+END_SRC
+
+Option ‘d’ will remove the mentioned lines from output.
+
++ Example :3) Display every 3rd line starting with Nth line
+
+Do display content of every 3rd line starting with line number 2 or any other line, use the following command
+
+#+BEGIN_SRC shell
+  [linuxtechi@localhost ~]$ sed -n '2-3p' file.txt
+#+END_SRC
+
++ Example :4 ) Deleting a line using sed command
+
+To delete a line with sed from a file, use the following command,
+
+#+BEGIN_SRC shell
+  [linuxtechi@localhost ~]$ sed Nd testfile.txt
+#+END_SRC
+
+where ‘N’ is the line number & option ‘d’ will delete the mentioned line number. To delete the last line of the file, use
+
+[linuxtechi@localhost ~]$ sed $d testfile.txt
+
++ Example :5) Deleting a range of lines
+
+To delete a range of lines from the file, run
+
+#+BEGIN_SRC shell
+  [linuxtechi@localhost ~]$ sed '29-34d' testfile.txt
+#+END_SRC
+
+This will delete lines 29 to 34 from testfile.txt file.
+
++ Example :6) Deleting lines other than the mentioned
+
+To delete lines other than the mentioned lines from a file, we will use ‘!’
+
+#+BEGIN_SRC shell
+  [linuxtechi@localhost ~]$ sed '29-34!d' testfile.txt
+#+END_SRC
+
+here ‘!’ option is used as not, so it will reverse the condition i.e. will not delete the lines mentioned. All the lines other 29-34 will be
+deleted from the files testfile.txt.
+
++ Example :7) Adding Blank lines/spaces
+
+To add a blank line after every non-blank line, we will use option ‘G’,
+
+#+BEGIN_SRC shell
+  [linuxtechi@localhost ~]$ sed G testfile.txt
+#+END_SRC
+
++ Example :8) Search and Replacing a string using sed
+
+To search & replace a string from the file, we will use the following example,
+
+#+BEGIN_SRC shell
+  [linuxtechi@localhost ~]$ sed 's/danger/safety/' testfile.txt
+#+END_SRC
+
+here option ‘s’ will search for word ‘danger’ & replace it with ‘safety’ on every line for the first occurrence only.
+
++ Example :9) Search and replace a string from whole file using sed
+
+To replace the word completely from the file, we will use option ‘g’  with ‘s’,
+
+#+BEGIN_SRC shell
+  [linuxtechi@localhost ~]$ sed 's/danger/safety/g' testfile.txt
+#+END_SRC
+
++ Example :10) Replace the nth occurrence of string pattern
+
+We can also substitute a string on nth occurrence from a file. Like replace ‘danger’ with ‘safety’ only on second occurrence,
+
+#+BEGIN_SRC shell
+  [linuxtechi@localhost ~]$ sed ‘s/danger/safety/2’ testfile.txt
+#+END_SRC
+
+To replace ‘danger’ on 2nd occurrence of every line from whole file, use
+
+#+BEGIN_SRC shell
+  [linuxtechi@localhost ~]$ sed 's/danger/safety/2g' testfile.txt
+#+END_SRC
+
++ Example :11) Replace a string on a particular line
+
+To replace a string only from a particular line, use
+
+#+BEGIN_SRC shell
+  [linuxtechi@localhost ~]$ sed '4 s/danger/safety/' testfile.txt
+#+END_SRC
+
+This will only substitute the string from 4th line of the file. We can also mention a range of lines instead of a single line,
+
+#+BEGIN_SRC shell
+  [linuxtechi@localhost ~]$  sed '4-9 s/danger/safety/' testfile.txt
+#+END_SRC
+
++ Example :12) Add a line after/before the matched search
+
+To add a new line with some content after every pattern match, use option ‘a’ ,
+
+#+BEGIN_SRC shell
+  [linuxtechi@localhost ~]$ sed '/danger/a "This is new line with text after match"' testfile.txt
+#+END_SRC
+
+To add a new line with some content a before every pattern match, use option ‘i’,
+
+#+BEGIN_SRC shell
+  [linuxtechi@localhost ~]$ sed '/danger/i "This is new line with text before match" ' testfile.txt
+#+END_SRC
+
++ Example :13) Change a whole line with matched pattern
+
+To change a whole line to a new line when a search pattern matches we need to use option ‘c’ with sed,
+
+#+BEGIN_SRC shell
+  [linuxtechi@localhost ~]$ sed '/danger/c "This will be the new line" ' testfile.txt
+#+END_SRC
+
+So when the pattern matches ‘danger’, whole line will be changed to the mentioned line.
+
+* Advanced options with sed
+
+Up until now we were only using simple expressions with sed, now we will discuss some advanced uses of sed with regex,
+
++ Example :14) Running multiple sed commands
+
+If we need to perform multiple sed expressions, we can use option ‘e’ to chain the sed commands,
+
+#+BEGIN_SRC shell
+  [linuxtechi@localhost ~]$  sed -e 's/danger/safety/g' -e 's/hate/love/' testfile.txt
+#+END_SRC
+
++ Example :15) Making a backup copy before editing a file
+
+To create a backup copy of a file before we edit it, use option ‘-i.bak’,
+
+#+BEGIN_SRC shell
+  [linuxtechi@localhost ~]$ sed -i.bak -e 's/danger/safety/g'  testfile.txt
+#+END_SRC
+
+This will create a backup copy of the file with extension .bak. You can also use other extension if you like.
+
++ Example :16) Delete a file line starting with & ending with a pattern
+
+To delete a file line starting with a particular string & ending with another string, use
+
+#+BEGIN_SRC shell
+  [linuxtechi@localhost ~]$ sed -e 's/danger.*stops//g' testfile.txt
+#+END_SRC
+
+This will delete the line with ‘danger’ on start & ‘stops’ in the end & it can have any number of words in between , ‘.*’ defines that part.
+
++ Example :17) Appending lines
+
+To add some content before every line with sed & regex, use
+
+#+BEGIN_SRC shell
+  [linuxtechi@localhost ~]$ sed -e 's/.*/testing sed &/' testfile.txt
+#+END_SRC
+
+So now every line will have ‘testing sed’ before it.
+
++ Example :18) Removing all commented lines & empty lines
+
+To remove all commented lines i.e. lines with # & all the empty lines,  use
+
+#+BEGIN_SRC shell
+  [linuxtechi@localhost ~]$ sed -e 's/#.*//;/^$/d' testfile.txt
+#+END_SRC
+
+To only remove commented lines, use
+
+#+BEGIN_SRC shell
+  [linuxtechi@localhost ~]$ sed -e 's/#.*//' testfile.txt
+#+END_SRC
+
++ Example :19) Get list of all usernames from /etc/passwd
+
+To get the list of all usernames from /etc/passwd file, use
+
+#+BEGIN_SRC shell
+  [linuxtechi@localhost ~]$  sed 's/\([^:]*\).*/\1/' /etc/passwd
+#+END_SRC
+
+a complete list all usernames will be generated on screen as output.
+
++ Example :20) Prevent overwriting of system links with sed command
+
+‘sed -i’ command has been know to remove system links & create only regular files in place of the link file. So to avoid such a situation & prevent
+‘sed -i‘ from destroying the links, use ‘–follow-symklinks‘ options with the command being executed.
+
+Let’s assume i want to disable SELinux on CentOS or RHEL Severs
+
+#+BEGIN_SRC shell
+  [linuxtechi@localhost ~]# sed -i --follow-symlinks 's/SELINUX=enforcing/SELINUX=disabled/g' /etc/sysconfig/selinux
+#+END_SRC
+
+These were some examples to show sed, we can use these reference to employ them as & when needed. If you guys have any queries related to this or
+any article, do share with us.
