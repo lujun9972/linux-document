@@ -1,4 +1,4 @@
-#+TITLE: How to Set Up Easy Remote Desktop Access in linux
+#+TITLE: 简单配置Linux版的远程桌面连接
 #+URL: https://www.linux.com/learn/intro-to-linux/2017/11/how-set-easy-remote-desktop-access-linux
 #+AUTHOR: lujun9972
 #+TAGS: Remote Desktop
@@ -7,96 +7,85 @@
 #+OPTIONS:  H:6 num:nil toc:t \n:nil ::t |:t ^:nil -:nil f:t *:t <:nil
 
 
-Linux is a remarkably flexible operating system. One of the easiest means of understanding that is when you see that, given a task, there
-are always multiple paths to success. This is perfectly illustrated when you find the need to display a remote desktop on a local machine.
-You could go with RDP, VNC, SSH, or even a third-party option. Generally speaking, your desktop will determine the route you take, but
-some options are far easier than others. Once you understand how streamlined modern desktops have made this task, your remote
-administration of Linux desktops and servers (with GUIs) becomes much simplified.
+Linux是一个非常灵活的操作系统. 它提供了多种方法来完成一个任务. 比如当你需要在本机显示远程桌面时,你可以通过RDP, VNC, SSH, 还有很多第三方的解决方案来完成.
+一般来说, 你的桌面系统决定了你会采取的方案, 不过有一些方案确实要好的多. 
+一旦你理解了现代的桌面系统为此做了多少优化, 你会发现远程管理Linux桌面系统和带GUI的服务器其实十分简单.
 
-As I mentioned, how you do this will depend upon your distribution. In this article, I’ll cover how this can be done between Ubuntu
-Desktop 18.04 and Fedora 26 and Fedora 26 to Kubuntu. The big issue you will come across is that some desktops simply don’t work well with
-this technology. For example, as it stands, Wayland has yet to find its way to supporting VNC. The same thing holds true with the
-Elementary OS desktop. So I’ll demonstrate connecting to Fedora 26 from Ubuntu 18.04 and then from Fedora 26 to Kubuntu 17.10. I’ll be
-using the tools remmina, krfb, and the GNOME built-in tools.
+刚才我说过, 你要如何远程桌面取决于你用的是哪个Linux发行版. 本文我将会讲解如何在 在Ubuntu Desktop 18.04 上登陆 Fedora 26的远程桌面,以及如何在Fedora 26 上登陆 Kubuntu的共享远程桌面.
+有一个大问题就是，有些桌面系统对该技术支持不够好. 比如, =Wayland= 就不支持 VNC. =Elementary OS 桌面系统= 也是一样. 
+因此，我这里只会演示在Ubuntu 18.04如何连接到 Fedora 26,以及如何从 Fedora 26 上连接到 Kubuntu 17.10.
+我会用到的工具包括 =remmina=, =krfb=, 以及 =GNOME= 内建的一些工具.
 
-* From Ubuntu to Fedora
+* 从 Ubuntu 连接到 Fedora
 
-With the latest release of Fedora 26, using the default GNOME desktop, setting up a remote connection is fairly straightforward (because
-everything is installed by default). The first thing you must do is enable sharing. If you open up the GNOME Dash and type sharing, you’ll
-see the Sharing option appear, which allows you to open the tool. When the window opens, click the ON/OFF slider to the ON position and
-then click Screen Sharing. In the resulting window (Figure 1), click the checkbox for Allow connections to control the screen.
+Fedora 26的最终发行版, 默认使用的是 GNOME 桌面系统, 其设置远程连接的方法十分直接(因为所有东西都默认安装好了).
+你要做的第一件事就是启用 =sharing= 功能. 打开 =GNOME Dash= 然后输入 =sharing=, 就会看到有个 =Sharing= 选项, 点击就能打开这个工具. 
+在打开的窗口中将开关点到ON的位置,然后点击 =Screen Sharing=. 在打开的窗口中(图 1), 选中 =Allow connections to control the screen=.
 
 [[https://www.linux.com/files/images/sharing1jpg]]
 
-Figure 1: Enable Sharing in Fedora 26.
+图 1: Enable Sharing in Fedora 26.
 [[https://www.linux.com/licenses/category/used-permission][Used with permission]]
 
-You can also enable the access options for New connections must ask for access and requiring a password. I highly recommend, at a bare
-minimum, that you enable the option for New connections must ask for access. That way, when someone attempts to gain access to your remote
-desktop, the connection will not be made until it is approved. Once these options have been taken care of, you can close out that window.
+你也可以选中 =access options= 中的 =New connections must ask for access and requiring a password=. 
+我十分推荐选上该选项,选上它对你几乎没有影响. 而之后, 当有人想连接上你的远程桌面时，只有认证后才能建立连接.
+然后关闭窗口.
 
-Out of the box, Fedora must have the necessary port opened in the firewall, so this remote connection can work. Go back to the GNOME Dash
-and type firewall. When the firewall icon appears, click on it, and enter your admin password. In the resulting window, click on Services
-and scroll down until you see vnc-server (Figure 2).
+初始条件下, Fedora防火墙开放了所需的端口, 远程链接直接就能用了. 如果有问题，请回到 =GNOME Dash= 然后输入 =firewall=.
+就会出现一个防火墙图标, 点击它, 然后输入管理员密码. 在弹出的窗口中点击 =Services= 然后向下滚动直到看见 =vnc-server= 为止 (图 2).
 
 [[https://www.linux.com/files/images/sharing2jpg]]
 
-Figure 2: Enabling the necessary VNC ports through the firewall.
+图 2: Enabling the necessary VNC ports through the firewall.
 [[https://www.linux.com/licenses/category/used-permission][Used with permission]]
 
-Click to enable vnc-server and then, when prompted, type your admin password. Access to the VNC port is now enabled.
+点击启用 =vnc-server= 然后再次输入管理员密码. 现在允许连接 VNC 端口了.
 
-Head over to the Ubuntu machine. We need to install the remmina application (which is one of the better remote client applications).
-Because the version in the standard repository contains a few bugs, we’ll install the most recent version with the following steps:
+下面来到 Ubuntu 机器. 我们需要安装 =remmina= 应用(这是一款不错的远程客户端应用).
+由于标准仓库中的版本有一些bug, 我们可以通过以下步骤安装最新版的应用:
 
-+ 1. Add the necessary repository with the command sudo apt-add-repository ppa:remmina-ppa-team/remmina-next
+1. 使用命令 =sudo apt-add-repository ppa:remmina-ppa-team/remmina-next= 添加仓库
    
-+ 2. Update the apt sources with the command sudo apt update
+2. 使用命令 =sudo apt update= 更新apt源
    
-+ 3. Install the software with the command sudo apt-get install remmina remmina-plugin-rdp remmina-plugin-gnome libfreerdp-plugins-standard
+3. 使用命令 =sudo apt-get install remmina remmina-plugin-rdp remmina-plugin-gnome libfreerdp-plugins-standard= 安装软件
    
-From the desktop menu, type remmina and open the newly installed software. In the address window (Figure 3), select VNC from the
-drop-down, enter the IP address of the Fedora machine, and hit Enter on the keyboard.
+在桌面菜单输入 =remmina= 就能打新安装的软件了. 在地址窗口中(图 3), 从下拉框中选择 =VNC=, 输入Fedora机器的IP地址,然后按下回车.
 
 [[https://www.linux.com/files/images/sharing3jpg]]
 
-Figure 3: The remmina main window.
+图 3: The remmina main window.
 [[https://www.linux.com/licenses/category/used-permission][Used with permission]]
 
-Once you hit Enter on the keyboard, the Fedora desktop notification will pop up. Hover over that notification and click Accept (Figure 4).
-The connection will be made and whoever is on the Ubuntu machine can control your Fedora desktop.
+按下回车后, Fedora 桌面系统就会弹出通知. 点击 =Accept= 后(图 4)就会创建链接,Ubuntu机器上的人就可以控制你的fedora桌面了.
 
 [[https://www.linux.com/files/images/sharing4jpg]]
 
-Figure 4: Accepting a request to share out the desktop on Fedora 26.
+图 4: Accepting a request to share out the desktop on Fedora 26.
 [[https://www.linux.com/licenses/category/used-permission][Used with permission]]
 
-* From Fedora to Kubuntu
+* 从 Fedora 连接 Kubuntu
 
-Now we’re going to connect from Fedora to Kubuntu. Because we’re going to use the same client (remmina), we need to install it on Fedora.
-To do this, open up a terminal window and issue the command sudo dnf install remmina.
+现在让我们试试从 Fedora 连接到 Kubuntu. 这里我们还是使用remmina作为客户端, 因此我们先要在 Fedora 上安装remmina.
+打开终端并输入命令 =sudo dnf install remmina= 安装即可.
 
-With that installed, we now have to add the necessary piece of software on the Kubuntu desktop. The application in question is krfb and
-can be installed with the command sudo apt install krfb. Once that is installed, you can open the KDE menu and type krfb. Click on the
-resulting entry and then, in the new window, click the checkbox associated with Enable Desktop Sharing (Figure 5).
+安装好remmina后, 就的在 Kubuntu 桌面系统上安装必须的软件了. 这个要安装的软件就是 =krfb=,使用命令 =sudo apt install krfb= 来安装.
+安装好krfb后, 就能在 =KDE= 菜单中输入 =krfb=. 点击筛选出的结果后在打开的窗口中选中 =Enable Desktop Sharing= (图 5).
 
 [[https://www.linux.com/files/images/sharing5jpg]]
 
-Figure 5: Enabling desktop sharing on Kubuntu, via krfb.
+图 5: Enabling desktop sharing on Kubuntu, via krfb.
 [[https://www.linux.com/licenses/category/used-permission][Used with permission]]
 
-The krfb tool also gives you the necessary IP address as well as the password to use in order to gain access from the client. If you don’t
-like the given password, it can be changed by clicking the associated edit button.
+=krfb= 还会告诉你客户端连接的IP地址和登陆密码. 如果你不喜欢这个密码，也可以点击更改按钮更改该密码.
 
-At this point, your KDE desktop is ready to share. Head over to Fedora, open the GNOME Dash, type remmina and click the icon to open the
-software. Select VNC from the drop-down, type the IP address of the Kubuntu machine, and hit enter. You will be prompted for the krfb
-password. Type that and click OK. Back on the Kubuntu desktop, you’ll be asked to accept the connection. Once accepted, the Kubuntu
-desktop will appear on the Fedora. You’re ready to work.
+到了这一步, 你的 KDE 桌面已经可以与他人共享了. 回到 Fedora 机器, 打开 GNOME Dash, 输入 remmina 并点击图标打开.
+在下拉框中选择 =VNC=, 输入 Kubuntu 机器上的IP地址然后按下回车. krfb会提示你输入密码. 输入krfb的密码后点击 =OK=.
+在 Kubuntu 桌面上会提示是否接受该连接. 接受后, Fedora 上就会显示出 Kubuntu 桌面来了. 你可以做事了.
 
 * Simple remote desktop connection
 
-And that’s all there is to it. Yes, there are plenty of other ways to enable these types of connections (and some desktops don’t make the
-process nearly as easy). Fortunately, modern desktop distributions do include everything necessary to make remote connections incredibly
-simple. If your particular desktop of choice doesn’t include the tools to make this easy, you’re looking at installing one of the many VNC
-servers available for Linux (such as [[https://wiki.gnome.org/Projects/Vino][vino]], [[http://tigervnc.org/][TigerVNC]], or [[https://www.tightvnc.com/][tightvnc]]). Going the standard VNC server route might not be as user-friendly as
-the methods I’ve explained here, but, once set up, it is equally reliable.
+当然, 除此之外还有很多其他途径可以创建链接(而且有些桌面系统可能会要比这里说的复杂一些).
+好在现代Linux的桌面发布版都包含了创建远程连接的所有必须的东西，这使得创建远程连接变得前所未有的简单.
+如果你所选择的桌面系统并没有文中的这些工具, 你也可以从众多的 VNC 服务端中挑选其他的替代品(比如[[https://wiki.gnome.org/Projects/Vino][vino]], [[http://tigervnc.org/][TigerVNC]], 和 [[https://www.tightvnc.com/][tightvnc]]).
+使用这些标准的 VNC 服务用起来可能没那么易用，但是一旦配置完成，也是同样可靠的.
