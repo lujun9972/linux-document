@@ -1,7 +1,7 @@
-#+TITLE: Cryptr - A Simple CLI Utility To Encrypt And Decrypt File
+#+TITLE: Cryptr - 一款简单的加加密CLI工具
 #+URL: https://www.ostechnix.com/cryptr-simple-cli-utility-encrypt-decrypt-files/
 #+AUTHOR: lujun9972
-#+TAGS: raw
+#+TAGS: passwd encrypt decrypt
 #+DATE: [2017-11-14 二 19:05]
 #+LANGUAGE:  zh-CN
 #+OPTIONS:  H:6 num:nil toc:t \n:nil ::t |:t ^:nil -:nil f:t *:t <:nil
@@ -9,65 +9,74 @@
 
 想要一个简单，快捷又安全的方法来保护你的文件? 这款名为 “Cryptr” 的shell工具可以帮你加解密文件. 
 一切都在命令行中搞定, 而且你也不必成为安全领域高手和Linux专家才能够保护你的数据. 
-Cryptr 使用 OpenSSL AES-256 cipher block chaining method to encrypt files. It is free to use and is licensed under the Apache
-License, Version 2.0.
+Cryptr 使用 OpenSSL AES-256 cipher block chaining 方法来加密文件. 它基于Apache License, Version 2.0许可证发布可以任你使用.
 
-Encrypt And Decrypt Files Using Cryptr
+* Encrypt And Decrypt Files Using Cryptr
 
-Installation is not a big deal. Git clone Cryptr repository using command:
+安装很简单. 使用下列命令克隆 Cryptr 仓库:
 
-git clone https://github.com/nodesocket/cryptr.git
+#+BEGIN_SRC shell
+  git clone https://github.com/nodesocket/cryptr.git
+#+END_SRC
 
-This command will clone the contents of Cryptr repository in a folder called cryptr in your current working directory.
+该命令将 Cryptr 仓库的内容克隆到当前工作目录中一个名为 cryptr 的目录中
 
-Then link the cryptr.bash file to your bin folder using command:
+然后使用下面命令将 cryptr.bash 文件链接到你的 bin 目录中:
 
-sudo ln -s "$PWD"/cryptr/cryptr.bash /usr/local/bin/cryptr
+#+BEGIN_SRC shell
+  sudo ln -s "$PWD"/cryptr/cryptr.bash /usr/local/bin/cryptr
+#+END_SRC
 
-That’s it. It’s time to see some usage examples.
+这就行了. 下面让我们来看看一些使用案例.
 
-Let us encrypt a file called “test.txt”. To do so, run the following command from your Terminal. Cryptr will ask you to enter the password
-to the file twice.
+在终端运行下面命令会加密一个名为 “test.txt” 的文件. Cryptr 需要你输入两次密码.
 
-$ cryptr encrypt test.txt 
-enter aes-256-cbc encryption password:
-Verifying - enter aes-256-cbc encryption password:
+#+BEGIN_SRC shell
+  $ cryptr encrypt test.txt 
+  enter aes-256-cbc encryption password:
+  Verifying - enter aes-256-cbc encryption password:
+#+END_SRC
 
-The above command will encrypt the given file (I.e test.txt) using AES-256-CBC encryption method and save it with an extension .aes. You
-can use “ls” command to verify if the file is really encrypted or not.
+上面的命令使用AES-256-CBC加密方法来加密指定文件(也就是 test.txt),加密后的文件以 =.aes= 为后缀. 
+你可以使用 “ls” 命令来验证文件是否加密成功.
 
-[[http://www.ostechnix.com/wp-content/uploads/2017/11/cryptr-1.png][{yH5BAEAAAAALAAAAAABAAEAAAIBRAA7}]]
+[[http://www.ostechnix.com/wp-content/uploads/2017/11/cryptr-1.png]]
 
-If there is .aes at the end in the file name, it menas the file is encrypted.
+如果有以 =.aes= 结尾的文件, 则表示文件被加密了.
 
-To decrypt an encrypted file, use the following command. Enter the correct password and voila!
+使用下面命令可以解密文件. 需要输入正确的密码.
 
-$ cryptr decrypt test.txt.aes 
-enter aes-256-cbc decryption password:
+#+BEGIN_SRC shell
+  $ cryptr decrypt test.txt.aes 
+  enter aes-256-cbc decryption password:
+#+END_SRC
 
-You can also define the password to use when encrypting a file using the CRYPTR_PASSWORD environment variable like below.
+你还可以使用环境变量 =CRYPTR_PASSWORD= 来指定用于加密时的密码.
 
-$ CRYPTR_PASSWORD=BC1rO7K7SspYcLChMr28M cryptr encrypt test.txt 
-Using environment variable CRYPTR_PASSWORD for the password
+#+BEGIN_SRC shell
+   CRYPTR_PASSWORD=BC1rO7K7SspYcLChMr28M cryptr encrypt test.txt 
+  Using environment variable CRYPTR_PASSWORD for the password
+#+END_SRC
 
-Here, BC1rO7K7SspYcLChMr28M is the password to the file.
+这里, =BC1rO7K7SspYcLChMr28M= 就是文件的密码.
 
-Similarly, to decrypt an encrypted file, use:
+类似的, 可以这样解密文件:
 
-$ CRYPTR_PASSWORD=BC1rO7K7SspYcLChMr28M cryptr decrypt test.txt.aes
-Using environment variable CRYPTR_PASSWORD for the password
+#+BEGIN_SRC shell
+  $ CRYPTR_PASSWORD=BC1rO7K7SspYcLChMr28M cryptr decrypt test.txt.aes
+  Using environment variable CRYPTR_PASSWORD for the password
+#+END_SRC
 
-This can be helpful in scripts and batch operations.
+这一能力在脚本和批量操作时特别有用.
 
-To view the help, run:
+想看帮助的话，运行:
 
-$ cryptr help
-Usage: cryptr command <command-specific-options>
+#+BEGIN_SRC shell
+  $ cryptr help
+  Usage: cryptr command <command-specific-options>
 
-encrypt <file> Encrypt file
- decrypt <file.aes> Decrypt encrypted file
- help Displays help
- version Displays the current version
-
-If you’re looking for a simple utility that just works out of the box without much hassle, give Cryptr a try. I will be soon here with
-another interesting guide. Until then stay tuned with OSTechNix.
+  encrypt <file> Encrypt file
+  decrypt <file.aes> Decrypt encrypted file
+  help Displays help
+  version Displays the current version
+#+END_SRC
