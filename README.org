@@ -43,7 +43,8 @@ Linux好游戏
 * tools
 又有什么新玩意?
 
-+ [[https://github.com/lujun9972/linux-document/blob/master/tools/Cryptr - A Simple CLI Utility To Encrypt And Decrypt File.org][ Cryptr - 一款简单的加加密CLI工具]]		<2017-11-14>
++ [[https://github.com/lujun9972/linux-document/blob/master/tools/sosreport in RHEL.org][ RHEL sosreport简介]]		<2017-11-14>
++ [[https://github.com/lujun9972/linux-document/blob/master/tools/Cryptr - A Simple CLI Utility To Encrypt And Decrypt File.org][ Cryptr - 一款简单的加解密CLI工具]]		<2017-11-14>
 + [[https://github.com/lujun9972/linux-document/blob/master/tools/How To Control Media Players From Commandline In Linux.org][ 如何在Linux命令行控制媒体播放器]]		<2017-11-09>
 + [[https://github.com/lujun9972/linux-document/blob/master/tools/Packup - A Script To Quickly Share Updates Via USB Drive In Arch Linux.org][ Packup - 一款通过U盘快速共享Arch Linux升级包的脚本]]		<2017-11-06>
 + [[https://github.com/lujun9972/linux-document/blob/master/tools/3 open source alternatives to MATLAB.org][ 3个MATLAB的开源替代]]		<2017-11-05>
