@@ -13,6 +13,7 @@
 * examples
 读什么手册啊，跟着我来做就好了.
 
++ [[https://github.com/lujun9972/linux-document/blob/master/examples/Learn sed command with 20 examples.org][ 20个例子带你入门sed命令]]		<2017-11-14>
 + [[https://github.com/lujun9972/linux-document/blob/master/examples/10 wget command examples.org][ 10个例子教你学会wget命令]]		<2017-11-02>
 * game
 Linux好游戏
