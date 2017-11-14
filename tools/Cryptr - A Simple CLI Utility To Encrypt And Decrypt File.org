@@ -1,4 +1,4 @@
-#+TITLE: Cryptr - 一款简单的加加密CLI工具
+#+TITLE: Cryptr - 一款简单的加解密CLI工具
 #+URL: https://www.ostechnix.com/cryptr-simple-cli-utility-encrypt-decrypt-files/
 #+AUTHOR: lujun9972
 #+TAGS: passwd encrypt decrypt
