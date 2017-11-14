@@ -1,4 +1,4 @@
-#+TITLE: Learn sed command with 20 examples
+#+TITLE: 20个例子带你入门sed命令
 #+URL: https://www.linuxtechi.com/20-sed-command-examples-linux-users/
 #+AUTHOR: lujun9972
 #+TAGS: sed examples
@@ -7,233 +7,231 @@
 #+OPTIONS:  H:6 num:nil toc:t \n:nil ::t |:t ^:nil -:nil f:t *:t <:nil
 
 
-Sed command or Stream Editor is very powerful utility offered by Linux/Unix systems. It is mainly used for text substitution , find & replace but
-it can also perform other text manipulations like insertion, deletion, search etc. With SED, we can edit complete files without actually having to
-open it. Sed also supports the use of regular expressions, which makes sed an even more powerful test manipulation tool.
+Sed 命令或者说流编辑器是Linux/Unix系统提供的强力工具. 她主要用于文本替代, 查找并替换.但它也能做其他的文本维护工作，比如插入，删除，搜索等.
+使用SED, 我们做到不用打开文件就完成编辑操作. Sed 还支持正则表达式, 这使得 sed 还成为一款强大的测试工具.
 
-In this article, we will learn to use SED command with the help some examples. Basic syntax for using sed command is,
+本文中, 我们将会通过一些例子学习使用 SED 命令. 使用sed命令的基本语法为,
 
-sed OPTIONS… [SCRIPT] [INPUTFILE…]
+#+BEGIN_SRC shell
+  sed OPTIONS… [SCRIPT] [INPUTFILE…]
+#+END_SRC
 
 [[https://www.linuxtechi.com/wp-content/uploads/2017/11/Sed-Command-Options.jpg]]
 
-Now let’s see some examples.
+现在让我们看看一些例子.
 
-+ Example :1) Displaying partial text of a file
++ 例1) 显示文件部分内容
 
-With sed, we can view only some part of a file rather than seeing whole file. To see some lines of the file, use the following command,
+  sed可以让你只查看文件的一部分内容. 使用下面命令来查看指定行的内容,
 
-#+BEGIN_SRC shell
-  [linuxtechi@localhost ~]$ sed -n 22,29p testfile.txt
-#+END_SRC
+  #+BEGIN_SRC shell
+    [linuxtechi@localhost ~]$ sed -n 22,29p testfile.txt
+  #+END_SRC
 
-here, option ‘n’ suppresses printing of whole file & option ‘p’ will print only line lines from 22 to 29.
+  这里, 选项 ‘n’ 抑制输出所有文件的内容，而命令 ‘p’ 会只输出22行到20行的内容.
 
-+ Example :2) Display all except some lines
++ 例2) 除了某些行外，显示所有内容
 
-To display all content of a file except for some portion, use the following command,
+  使用下面命令可以输出除了指定行外的所有内容,
 
-#+BEGIN_SRC shell
-  [linuxtechi@localhost ~]$ sed 22,29d testfile.txt
-#+END_SRC
+  #+BEGIN_SRC shell
+    [linuxtechi@localhost ~]$ sed 22,29d testfile.txt
+  #+END_SRC
+  
+  命令 ‘d’ 会将指定行从输出中删除.
 
-Option ‘d’ will remove the mentioned lines from output.
++ 例3) 从第N行开始，每3行显示一行内容
 
-+ Example :3) Display every 3rd line starting with Nth line
+  要从第2行开始，显示每3行的内容，使用下面命令
 
-Do display content of every 3rd line starting with line number 2 or any other line, use the following command
+  #+BEGIN_SRC shell
+    [linuxtechi@localhost ~]$ sed -n '2-3p' file.txt
+  #+END_SRC
 
-#+BEGIN_SRC shell
-  [linuxtechi@localhost ~]$ sed -n '2-3p' file.txt
-#+END_SRC
++ 例4) 删除一行
 
-+ Example :4 ) Deleting a line using sed command
+  使用下面命令删除一行, use the following command,
+  
+  #+BEGIN_SRC shell
+    [linuxtechi@localhost ~]$ sed Nd testfile.txt
+  #+END_SRC
+  
+  这里 ‘N’ 为行好而 ‘d’ 命令删除指定行. 要删除最后一样，则可以这样
+  
+  #+BEGIN_SRC shell
+    [linuxtechi@localhost ~]$ sed $d testfile.txt
+  #+END_SRC
 
-To delete a line with sed from a file, use the following command,
++ 例5) 删除连续的几行
 
-#+BEGIN_SRC shell
-  [linuxtechi@localhost ~]$ sed Nd testfile.txt
-#+END_SRC
+  要删除连续几行的内容,运行
+  
+  #+BEGIN_SRC shell
+    [linuxtechi@localhost ~]$ sed '29-34d' testfile.txt
+  #+END_SRC
+  
+  这会删除 testfile.txt 中的第29到34行的内容.txt file.
 
-where ‘N’ is the line number & option ‘d’ will delete the mentioned line number. To delete the last line of the file, use
++ 例6) 只保留指定范围的内容
 
-[linuxtechi@localhost ~]$ sed $d testfile.txt
+  要删除除了指定行之外的所有内容，使用 ‘!’
+  
+  #+BEGIN_SRC shell
+    [linuxtechi@localhost ~]$ sed '29-34!d' testfile.txt
+  #+END_SRC
+  
+  这里 ‘!’ 命令的意思是 =非=, 它会反转条件，即不要删除指定的行. 所有行，除了 29-34 行会从文件 testfile.txt 中删掉.
 
-+ Example :5) Deleting a range of lines
++ 例7) 增加空行/空格
 
-To delete a range of lines from the file, run
+  要在每个非空行后添加一个空行, 使用选项 ‘G’,
+  
+  #+BEGIN_SRC shell
+    [linuxtechi@localhost ~]$ sed G testfile.txt
+  #+END_SRC
 
-#+BEGIN_SRC shell
-  [linuxtechi@localhost ~]$ sed '29-34d' testfile.txt
-#+END_SRC
++ 例8) 搜索并替换字符串
 
-This will delete lines 29 to 34 from testfile.txt file.
+  可以这样搜索并替换字符串,
+  
+  #+BEGIN_SRC shell
+    [linuxtechi@localhost ~]$ sed 's/danger/safety/' testfile.txt
+  #+END_SRC
+  
+  这里命令 ‘s’ 会搜索每行中第一个单词 ‘danger’ 然后将之替换为 ‘safety’.
 
-+ Example :6) Deleting lines other than the mentioned
++ 例9) 全文搜索并替换字符串
 
-To delete lines other than the mentioned lines from a file, we will use ‘!’
-
-#+BEGIN_SRC shell
-  [linuxtechi@localhost ~]$ sed '29-34!d' testfile.txt
-#+END_SRC
-
-here ‘!’ option is used as not, so it will reverse the condition i.e. will not delete the lines mentioned. All the lines other 29-34 will be
-deleted from the files testfile.txt.
-
-+ Example :7) Adding Blank lines/spaces
-
-To add a blank line after every non-blank line, we will use option ‘G’,
-
-#+BEGIN_SRC shell
-  [linuxtechi@localhost ~]$ sed G testfile.txt
-#+END_SRC
-
-+ Example :8) Search and Replacing a string using sed
-
-To search & replace a string from the file, we will use the following example,
-
-#+BEGIN_SRC shell
-  [linuxtechi@localhost ~]$ sed 's/danger/safety/' testfile.txt
-#+END_SRC
-
-here option ‘s’ will search for word ‘danger’ & replace it with ‘safety’ on every line for the first occurrence only.
-
-+ Example :9) Search and replace a string from whole file using sed
-
-To replace the word completely from the file, we will use option ‘g’  with ‘s’,
+要全部替换文件中的单词，我们可以将命令 ‘g’ 与 ‘s’ 连用
 
 #+BEGIN_SRC shell
   [linuxtechi@localhost ~]$ sed 's/danger/safety/g' testfile.txt
 #+END_SRC
 
-+ Example :10) Replace the nth occurrence of string pattern
++ 例10) 替换第n次出现的字符串模式
 
-We can also substitute a string on nth occurrence from a file. Like replace ‘danger’ with ‘safety’ only on second occurrence,
+  我们可以只替换第n次出现的字符串. 比如将第二次淑贤的 ‘safety’ 替换为 ‘danger’,
+  
+  #+BEGIN_SRC shell
+    [linuxtechi@localhost ~]$ sed ‘s/danger/safety/2’ testfile.txt
+  #+END_SRC
+  
+  将每行中的第二次出现的‘danger’替换掉,
+  
+  #+BEGIN_SRC shell
+    [linuxtechi@localhost ~]$ sed 's/danger/safety/2g' testfile.txt
+  #+END_SRC
 
-#+BEGIN_SRC shell
-  [linuxtechi@localhost ~]$ sed ‘s/danger/safety/2’ testfile.txt
-#+END_SRC
++ 例11) 只替换指定行上的字符串
 
-To replace ‘danger’ on 2nd occurrence of every line from whole file, use
+  只替换指定行上的字符串, 这样做
+  
+  #+BEGIN_SRC shell
+    [linuxtechi@localhost ~]$ sed '4 s/danger/safety/' testfile.txt
+  #+END_SRC
+  
+  这只会在第四行上做替换. 你也可以指定一系列的行,
+  
+  #+BEGIN_SRC shell
+    [linuxtechi@localhost ~]$  sed '4-9 s/danger/safety/' testfile.txt
+  #+END_SRC
 
-#+BEGIN_SRC shell
-  [linuxtechi@localhost ~]$ sed 's/danger/safety/2g' testfile.txt
-#+END_SRC
++ 例12) 在匹配搜索的后面/前面添加一行
 
-+ Example :11) Replace a string on a particular line
+  在匹配位置的后面添加一行内容, 使用命令 ‘a’ ,
+  
+  #+BEGIN_SRC shell
+    [linuxtechi@localhost ~]$ sed '/danger/a "This is new line with text after match"' testfile.txt
+  #+END_SRC
+  
+  在匹配位置的前面添加一行内容, 使用命令 ‘i’,
+  
+  #+BEGIN_SRC shell
+    [linuxtechi@localhost ~]$ sed '/danger/i "This is new line with text before match" ' testfile.txt
+  #+END_SRC
 
-To replace a string only from a particular line, use
++ Example :13) 修改匹配行的整个内容
 
-#+BEGIN_SRC shell
-  [linuxtechi@localhost ~]$ sed '4 s/danger/safety/' testfile.txt
-#+END_SRC
+  修改匹配行的整个内容使用命令 ‘c’,
+  
+  #+BEGIN_SRC shell
+    [linuxtechi@localhost ~]$ sed '/danger/c "This will be the new line" ' testfile.txt
+  #+END_SRC
+  
+  这样若某行中包含 ‘danger’, 则整行内容都会改变.
 
-This will only substitute the string from 4th line of the file. We can also mention a range of lines instead of a single line,
+* sed高级命令
 
-#+BEGIN_SRC shell
-  [linuxtechi@localhost ~]$  sed '4-9 s/danger/safety/' testfile.txt
-#+END_SRC
+到目前为止，我们还只是用到了sed的简单表达式,现在我们来看看sed的更高级用法，这些用法往往会用到正则表达式.
 
-+ Example :12) Add a line after/before the matched search
++ 例14) 运行多条sed命令
 
-To add a new line with some content after every pattern match, use option ‘a’ ,
+  若要运行多条sed表达式, 使用命令 ‘e’ 来将多个sed命令串起来,
+  
+  #+BEGIN_SRC shell
+    [linuxtechi@localhost ~]$  sed -e 's/danger/safety/g' -e 's/hate/love/' testfile.txt
+  #+END_SRC
 
-#+BEGIN_SRC shell
-  [linuxtechi@localhost ~]$ sed '/danger/a "This is new line with text after match"' testfile.txt
-#+END_SRC
++ 例15) 修改文件前做个备份
 
-To add a new line with some content a before every pattern match, use option ‘i’,
-
-#+BEGIN_SRC shell
-  [linuxtechi@localhost ~]$ sed '/danger/i "This is new line with text before match" ' testfile.txt
-#+END_SRC
-
-+ Example :13) Change a whole line with matched pattern
-
-To change a whole line to a new line when a search pattern matches we need to use option ‘c’ with sed,
-
-#+BEGIN_SRC shell
-  [linuxtechi@localhost ~]$ sed '/danger/c "This will be the new line" ' testfile.txt
-#+END_SRC
-
-So when the pattern matches ‘danger’, whole line will be changed to the mentioned line.
-
-* Advanced options with sed
-
-Up until now we were only using simple expressions with sed, now we will discuss some advanced uses of sed with regex,
-
-+ Example :14) Running multiple sed commands
-
-If we need to perform multiple sed expressions, we can use option ‘e’ to chain the sed commands,
-
-#+BEGIN_SRC shell
-  [linuxtechi@localhost ~]$  sed -e 's/danger/safety/g' -e 's/hate/love/' testfile.txt
-#+END_SRC
-
-+ Example :15) Making a backup copy before editing a file
-
-To create a backup copy of a file before we edit it, use option ‘-i.bak’,
+使用选项‘-i.bak’来在修改文件前创建备份,
 
 #+BEGIN_SRC shell
   [linuxtechi@localhost ~]$ sed -i.bak -e 's/danger/safety/g'  testfile.txt
 #+END_SRC
 
-This will create a backup copy of the file with extension .bak. You can also use other extension if you like.
+这回创建一个以 =.bak= 为后缀的备份文件. 当然你也可以选择其他喜欢的扩展名.
 
-+ Example :16) Delete a file line starting with & ending with a pattern
++ 例16) 删除以指定模式开头并且以指定模式结尾的行
 
-To delete a file line starting with a particular string & ending with another string, use
+  删除以指定模式开头并且以指定模式结尾的行,使用以下命令
+  
+  #+BEGIN_SRC shell
+    [linuxtechi@localhost ~]$ sed -e 's/danger.*stops//g' testfile.txt
+  #+END_SRC
+  
+  这回删除以‘danger’开头且以‘stops’结尾的行，‘.*’ 表示中间可以有任意多个单词.
 
-#+BEGIN_SRC shell
-  [linuxtechi@localhost ~]$ sed -e 's/danger.*stops//g' testfile.txt
-#+END_SRC
++ 例17) 在行中添加内容
 
-This will delete the line with ‘danger’ on start & ‘stops’ in the end & it can have any number of words in between , ‘.*’ defines that part.
+  使用sed和正则表达式在每行前面添加内容
+  
+  #+BEGIN_SRC shell
+    [linuxtechi@localhost ~]$ sed -e 's/.*/testing sed &/' testfile.txt
+  #+END_SRC
+  
+  现在每一行前面都加上 ‘testing sed’ 了.
 
-+ Example :17) Appending lines
++ 例18) 删除所有注释行以及空行
 
-To add some content before every line with sed & regex, use
+  删除所有注释的行(以#开头的行)以及空行,
+  
+  #+BEGIN_SRC shell
+    [linuxtechi@localhost ~]$ sed -e 's/#.*//;/^$/d' testfile.txt
+  #+END_SRC
+  
+  之想删除注释行的话
+  
+  #+BEGIN_SRC shell
+    [linuxtechi@localhost ~]$ sed -e 's/#.*//' testfile.txt
+  #+END_SRC
 
-#+BEGIN_SRC shell
-  [linuxtechi@localhost ~]$ sed -e 's/.*/testing sed &/' testfile.txt
-#+END_SRC
++ 例19) 从 =/etc/passwd= 中抽取出所有的用户名列表
 
-So now every line will have ‘testing sed’ before it.
+  用下面命令可以从 =/etc/passwd= 中抽取出所有的用户名列表
 
-+ Example :18) Removing all commented lines & empty lines
+  #+BEGIN_SRC shell
+    [linuxtechi@localhost ~]$  sed 's/\([^:]*\).*/\1/' /etc/passwd
+  #+END_SRC
+  
+  所有用户的列表都会显示在屏幕上.
 
-To remove all commented lines i.e. lines with # & all the empty lines,  use
++ 例20) 防止使用sed时覆写了系统链接
 
-#+BEGIN_SRC shell
-  [linuxtechi@localhost ~]$ sed -e 's/#.*//;/^$/d' testfile.txt
-#+END_SRC
+‘sed -i’ 命令会删除系链接接并且创建一个常规的文件替代这个链接. 为了防止 ‘sed -i‘ 破坏这个链接, 执行sed时你还需要使用 ‘–follow-symklinks‘ 参数.
 
-To only remove commented lines, use
-
-#+BEGIN_SRC shell
-  [linuxtechi@localhost ~]$ sed -e 's/#.*//' testfile.txt
-#+END_SRC
-
-+ Example :19) Get list of all usernames from /etc/passwd
-
-To get the list of all usernames from /etc/passwd file, use
-
-#+BEGIN_SRC shell
-  [linuxtechi@localhost ~]$  sed 's/\([^:]*\).*/\1/' /etc/passwd
-#+END_SRC
-
-a complete list all usernames will be generated on screen as output.
-
-+ Example :20) Prevent overwriting of system links with sed command
-
-‘sed -i’ command has been know to remove system links & create only regular files in place of the link file. So to avoid such a situation & prevent
-‘sed -i‘ from destroying the links, use ‘–follow-symklinks‘ options with the command being executed.
-
-Let’s assume i want to disable SELinux on CentOS or RHEL Severs
+假设我想金庸 CentOS 或 RHEL 服务器上的 SELinux,可以这样
 
 #+BEGIN_SRC shell
   [linuxtechi@localhost ~]# sed -i --follow-symlinks 's/SELINUX=enforcing/SELINUX=disabled/g' /etc/sysconfig/selinux
 #+END_SRC
-
-These were some examples to show sed, we can use these reference to employ them as & when needed. If you guys have any queries related to this or
-any article, do share with us.
