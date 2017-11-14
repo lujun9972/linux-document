@@ -1,0 +1,73 @@
+#+TITLE: Cryptr - A Simple CLI Utility To Encrypt And Decrypt File
+#+URL: https://www.ostechnix.com/cryptr-simple-cli-utility-encrypt-decrypt-files/
+#+AUTHOR: lujun9972
+#+TAGS: raw
+#+DATE: [2017-11-14 二 19:05]
+#+LANGUAGE:  zh-CN
+#+OPTIONS:  H:6 num:nil toc:t \n:nil ::t |:t ^:nil -:nil f:t *:t <:nil
+
+
+想要一个简单，快捷又安全的方法来保护你的文件? 这款名为 “Cryptr” 的shell工具可以帮你加解密文件. 
+一切都在命令行中搞定, 而且你也不必成为安全领域高手和Linux专家才能够保护你的数据. 
+Cryptr 使用 OpenSSL AES-256 cipher block chaining method to encrypt files. It is free to use and is licensed under the Apache
+License, Version 2.0.
+
+Encrypt And Decrypt Files Using Cryptr
+
+Installation is not a big deal. Git clone Cryptr repository using command:
+
+git clone https://github.com/nodesocket/cryptr.git
+
+This command will clone the contents of Cryptr repository in a folder called cryptr in your current working directory.
+
+Then link the cryptr.bash file to your bin folder using command:
+
+sudo ln -s "$PWD"/cryptr/cryptr.bash /usr/local/bin/cryptr
+
+That’s it. It’s time to see some usage examples.
+
+Let us encrypt a file called “test.txt”. To do so, run the following command from your Terminal. Cryptr will ask you to enter the password
+to the file twice.
+
+$ cryptr encrypt test.txt 
+enter aes-256-cbc encryption password:
+Verifying - enter aes-256-cbc encryption password:
+
+The above command will encrypt the given file (I.e test.txt) using AES-256-CBC encryption method and save it with an extension .aes. You
+can use “ls” command to verify if the file is really encrypted or not.
+
+[[http://www.ostechnix.com/wp-content/uploads/2017/11/cryptr-1.png][{yH5BAEAAAAALAAAAAABAAEAAAIBRAA7}]]
+
+If there is .aes at the end in the file name, it menas the file is encrypted.
+
+To decrypt an encrypted file, use the following command. Enter the correct password and voila!
+
+$ cryptr decrypt test.txt.aes 
+enter aes-256-cbc decryption password:
+
+You can also define the password to use when encrypting a file using the CRYPTR_PASSWORD environment variable like below.
+
+$ CRYPTR_PASSWORD=BC1rO7K7SspYcLChMr28M cryptr encrypt test.txt 
+Using environment variable CRYPTR_PASSWORD for the password
+
+Here, BC1rO7K7SspYcLChMr28M is the password to the file.
+
+Similarly, to decrypt an encrypted file, use:
+
+$ CRYPTR_PASSWORD=BC1rO7K7SspYcLChMr28M cryptr decrypt test.txt.aes
+Using environment variable CRYPTR_PASSWORD for the password
+
+This can be helpful in scripts and batch operations.
+
+To view the help, run:
+
+$ cryptr help
+Usage: cryptr command <command-specific-options>
+
+encrypt <file> Encrypt file
+ decrypt <file.aes> Decrypt encrypted file
+ help Displays help
+ version Displays the current version
+
+If you’re looking for a simple utility that just works out of the box without much hassle, give Cryptr a try. I will be soon here with
+another interesting guide. Until then stay tuned with OSTechNix.
