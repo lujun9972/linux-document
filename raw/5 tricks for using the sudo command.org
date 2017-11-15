@@ -7,32 +7,30 @@
 #+OPTIONS:  H:6 num:nil toc:t \n:nil ::t |:t ^:nil -:nil f:t *:t <:nil
 
 
-The sudoers file can provide detailed control over user privileges, but with very little effort, you can still get a lot of benefit from
-sudo. In this post, we're going to look at some simple ways to get a lot of value out of the sudo command in Linux.
+=sudoers= 文件精确控制了用户权限, 不过只需少许努力, 你依然可以从 =sudo= 中获益匪浅. 
+在本文中, 我们会演示一些简单而又十分有价值的 =sudo= 用法.
 
 * Trick 1: Nearly effortless sudo usage
 
-The default file on most Linux distributions makes it very simple to give select users the ability to run commands as root. In fact, you
-don’t even have to edit the /etc/sudoers file in any way to get started. Instead, you just add the users to the sudo or admin group on the
-system and you’re done.
+在大多数的Linux发行版中，可以很容易地做到让指定用户拥有以root运行命令的能力. 你甚至无需修改 =/etc/sudoers= 文件.
+只需要将用户添加到 =sudo= 或 =admin= 组就行了.
 
-Adding users to the sudo or admin group in the /etc/group file gives them permission to run commands using sudo.
+在 =/etc/group= 文件中将用户加入 =sudo= 或 =admin= 组中就赋予了那些用户使用 =sudo= 运行命令的权利.
 
 #+BEGIN_SRC shell
   $ grep sudo /etc/group
   sudo:x:27:shs,jdoe,peanut
 #+END_SRC
 
-Assuming the standard /etc/sudoers setup, they should immediately be able to start using sudo commands once this change has been made. The
-privileges are derived through a line like this in the /etc/sudoers file:
+在标准的 =/etc/sudoers= 配置中, 一旦将用户纳入这两个组中就能立即使用 =sudo= 命令了.
+它的权限由 =/etc/sudoers= 文件中的下面行决定:
 
 #+BEGIN_EXAMPLE
   %sudo   ALL=(ALL:ALL) ALL
 #+END_EXAMPLE
 
-The $sudo (or %admin) part of this line is a reference to the sudo (or admin) group. The rest of the line allows members of this group to
-run any command as any user. This much is built in. If you don’t want anyone to have this ability, don’t put anyone in the sudo (or admin)
-group on your system and this privilege level will not be implemented.
+行内的 =%sudo= (或 =%admin=) 部分表示 =sudo= (或 =admin=) 组. 剩下的内容允许组中的成员以任意用户的身份运行任意命令. 这是内建的行为. 
+如果你不希望有人拥有这项能力, 那就不要把任何人加入 =sudo= (或 =admin=) 组中.
 
 #+BEGIN_SRC shell
   $ sudo whoami
@@ -42,8 +40,7 @@ group on your system and this privilege level will not be implemented.
 
 * Trick 2: Running commands as other users — not just root
 
-While most people use sudo access to run commands as root, it also allows you to run commands as other users. Just use the -u option with
-the sudo command and specify the username.
+虽然大多数人使用 =sudo= 的目的是以root的身份运行命令, 但它也能允许你以其他用户的身份来运行命令. 只要使用 =-u= 参数加上指定的用户名就行了.
 
 #+BEGIN_SRC shell
   $ sudo -u jdoe whoami
