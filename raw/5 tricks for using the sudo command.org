@@ -50,15 +50,14 @@
 
 * Trick 3: Changing the default editor for the visudo command
 
-The /etc/sudoers file should always be modified using the visudo command because this command helps to keep you from causing configuration
-errors that might make the resultant file unusable (i.e., it can break sudo). If the editor used by default is one that you’re not
-comfortable using, you can change it with this command:
+必须使用 =visudo= 命令来西修改 =/etc/sudoers= 文件,该命令会帮你避免配置出错导致配置文件不可用(即，损害了 sudo).
+若你不习惯改命令默认使用的编辑器，你可以使用下面命令修改它:
 
 #+BEGIN_SRC shell
   sudo update-alternatives --config editor
 #+END_SRC
 
-This command will display a list of editors with the current one marked with an asterisk and allows you to select the one that you prefer.
+改命令会显示一个编辑器列表，并且当前使用的编辑器前有一个星号标识,在这里你可以选择自己喜欢的编辑器.
 
 #+BEGIN_SRC shell
   $ sudo update-alternatives --config editor
@@ -77,9 +76,8 @@ This command will display a list of editors with the current one marked with an 
 
 * Trick 4: Switching to root
 
-There are times when prefacing every command with "sudo" gets in the way of getting your work done. With a default /etc/sudoers
-configuration and membership in the sudo (or admin) group, you can assume root control using the command sudo su -. Extra care should
-always be taken when using the root account in this way.
+时常会有需要在每个命令前都加上 "sudo" 的时候. 默认的 =/etc/sudoers= 配置中，sudo (或 admin) 组中的成员可以使用命令 =sudo su -= 来获取root权限.
+但使用root账户时请一定小心.
 
 #+BEGIN_SRC shell
   $ sudo su -
@@ -89,8 +87,7 @@ always be taken when using the root account in this way.
 
 * Trick 5: Fixing a corrupt /etc/sudoers file
 
-A corrupt /etc/sudoers file can keep sudo from working and really mess up your day. Fortunately, there are some ways around this that
-don't involve a lot of work, and the visudo command provides some details on the problems needing to be fixed.
+损坏的 =/etc/sudoers= 文件会使得 =sudo= 无法正常工作. 幸运的是有一些简单的方法可以帮到你, visudo 命令本身会提供一些错误的详细信息.
 
 The problem
 
