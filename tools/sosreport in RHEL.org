@@ -1,0 +1,214 @@
+#+TITLE: RHEL sosreport简介
+#+AUTHOR: lujun9972
+#+TAGS: sosreport redhat
+#+DATE: [2017-11-14 二 22:02]
+#+LANGUAGE:  zh-CN
+#+OPTIONS:  H:6 num:nil toc:t \n:nil ::t |:t ^:nil -:nil f:t *:t <:nil
+
+#+URL: https://kerneltalks.com/tools/all-you-need-to-know-about-sosreport/
+
+sosreport对很多RedHat爱好者来说应该并不陌生! 它是一款在RedHat Linux下帮你收集系统信息打成一个tar包的工具,你可以将这个tar包发给供应商来定位问题.
+
+当你给RedHat开个case时, 他们会第一时间找你要 sosreport. 本文中我们会演示如何生成 sosreport 以及如何阅读 sosreport.
+
+如果 sosreport 包并未安装,你会看到如下错误:
+
+#+BEGIN_SRC shell
+  root@kerneltalks # sosreport
+  -bash: sosreport: command not found
+#+END_SRC
+
+使用yum安装 sos 包. 你可以按照 [[https://kerneltalks.com/tools/package-installation-linux-yum-apt/][这里]] 说明的安装步骤来安装. 以下是安装日志供你参考.
+
+#+BEGIN_SRC shell
+  root@kerneltalks # yum install sos
+  Loaded plugins: amazon-id, rhui-lb, search-disabled-repos
+  Resolving Dependencies
+  --> Running transaction check
+  ---> Package sos.noarch 0:3.4-6.el7 will be installed
+  --> Processing Dependency: bzip2 for package: sos-3.4-6.el7.noarch
+  --> Running transaction check
+  ---> Package bzip2.x86_64 0:1.0.6-13.el7 will be installed
+  --> Finished Dependency Resolution
+
+  Dependencies Resolved
+
+  ===================================================================================================================================================
+  =====================
+  Package                        Arch                            Version
+  Repository                                                 Size
+  ===================================================================================================================================================
+  =====================
+  Installing:
+  sos                            noarch                          3.4-6.el7                               rhui-REGION-rhel-server-releases
+                            381 k
+  Installing for dependencies:
+  bzip2                          x86_64                          1.0.6-13.el7                            rhui-REGION-rhel-server-releases
+                             52 k
+
+  Transaction Summary
+  ===================================================================================================================================================
+  =====================
+  Install  1 Package (+1 Dependent package)
+
+  Total download size: 433 k
+  Installed size: 1.4 M
+  Is this ok [y/d/N]: y
+  Downloading packages:
+  (1/2): sos-3.4-6.el7.noarch.rpm                                                                                                                  |
+  381 kB  00:00:00
+  (2/2): bzip2-1.0.6-13.el7.x86_64.rpm                                                                                                             |
+    52 kB  00:00:00
+  --------------------------------------------------------------------------------------------------------------------------------------------------
+  ----------------------
+  Total                                                                                                                                   610 kB/s |
+  433 kB  00:00:00
+  Running transaction check
+  Running transaction test
+  Transaction test succeeded
+  Running transaction
+    Installing : bzip2-1.0.6-13.el7.x86_64
+                                                                                                                              1/2
+    Installing : sos-3.4-6.el7.noarch
+                                                                                                                                   2/2
+    Verifying  : sos-3.4-6.el7.noarch
+                                                                                                                                   1/2
+    Verifying  : bzip2-1.0.6-13.el7.x86_64
+                                                                                                                              2/2
+
+  Installed:
+    sos.noarch 0:3.4-6.el7
+
+  Dependency Installed:
+    bzip2.x86_64 0:1.0.6-13.el7
+
+  Complete!
+#+END_SRC
+
+---------------------------------------------------------------------------------------------------------------------------------------------------
+
+* 如何生成 sosreport
+
+你只需要运行 =sosreport= 命令就能生成 sosreport 了. 它默认将报告放在 =/var/tmp= 中,因此你需要保证 =/var= 挂载点中有足够的空闲空间.
+
+输出文件遵照 =sosreport-name.caseID-yyyymmddhhmmss.tar.xz= 这样的命名规则,其中 –
+
+ 1. name 就是你提供的名称,默认为主机名
+ 2. caseID 如果你没有提供则为空
+ 3. 日期格式为 yyyymmdd
+ 4. 时间格式为 hhmmss
+
+这是一个压缩过的tar包. 运行sosreport命令后,它会要你输入名称以及case ID,然后开始执行模块收集所有的系统信息并保存道tar包中.
+
+#+BEGIN_SRC shell
+  root@kerneltalks # sosreport
+
+  sosreport (version 3.4)
+
+  This command will collect diagnostic and configuration information from
+  this Red Hat Enterprise Linux system and installed applications.
+
+  An archive containing the collected information will be generated in
+  /var/tmp/sos.iNadXY and may be provided to a Red Hat support
+  representative.
+
+  Any information provided to Red Hat will be treated in accordance with
+  the published support policies at:
+
+    https://access.redhat.com/support/
+
+  The generated archive may contain data considered sensitive and its
+  content should be reviewed by the originating organization before being
+  passed to any third party.
+
+  No changes will be made to system configuration.
+
+  Press ENTER to continue, or CTRL-C to quit.
+
+  Please enter your first initial and last name [kerneltalks]: Shrikant Lavhate
+  Please enter the case id that you are generating this report for []: 12345678
+
+  Setting up archive ...
+  Setting up plugins ...
+  Running plugins. Please wait ...
+
+    Running 74/74: yum...            er...
+  Creating compressed archive...
+
+  Your sosreport has been generated and saved in:
+    /var/tmp/sosreport-ShrikantLavhate.12345678-20171105171210.tar.xz
+
+  The checksum is: 502b698f6052964ca1c2d348ea7e67a4
+
+  Please send this file to your support representative.
+#+END_SRC
+
+
+命令还会输出结果文件的验证码. 这有助于对方验证文件的完整性.
+
+
+#+BEGIN_SRC shell
+  root@kerneltalks # ll /var/tmp/sosreport-ShrikantLavhate.12345678-20171105171210.tar.xz
+  -rw-------. 1 root root 8519732 Nov  5 17:12 /var/tmp/sosreport-ShrikantLavhate.12345678-20171105171210.tar.xz
+#+END_SRC
+
+
+
+* 如何阅读 sosreport
+
+生成的报告是一个tar包. 你可以可以自己 [[https://kerneltalks.com/commands/how-create-tar-file-linux-unix/][un-tar]]  这个tar包,然后自己阅读里面的内容.
+
+
+#+BEGIN_SRC shell
+  root@kerneltalks # tar xvf /var/tmp/sosreport-ShrikantLavhate.12345678-20171105171210.tar.xz
+#+END_SRC
+
+
+解压tar包后,你会看到一个以tar包同名的目录. 其中有好多文件和子目录.
+
+#+BEGIN_SRC shell
+  root@kerneltalks # ls -lrt sosreport-ShrikantLavhate.12345678-20171105171210
+  total 16
+  drwxr-xr-x.  5 root root   42 Jul 11 15:57 usr
+  dr-xr-xr-x.  3 root root   19 Jul 11 16:07 boot
+  dr-xr-xr-x. 10 root root 4096 Nov  5 12:19 proc
+  dr-xr-xr-x. 10 root root  112 Nov  5 12:19 sys
+  drwxr-xr-x.  4 root root   28 Nov  5 12:19 var
+  drwxr-xr-x.  2 root root   18 Nov  5 12:19 dev
+  dr-xr-xr-x.  7 root root   78 Nov  5 12:24 lib
+  dr-xr-x---.  2 root root   29 Nov  5 16:23 root
+  drwxr-xr-x. 34 root root 4096 Nov  5 17:08 etc
+  lrwxrwxrwx.  1 root root   29 Nov  5 17:12 mount -> sos_commands/filesys/mount_-l
+  lrwxrwxrwx.  1 root root   27 Nov  5 17:12 df -> sos_commands/filesys/df_-al
+  lrwxrwxrwx.  1 root root   27 Nov  5 17:12 uptime -> sos_commands/general/uptime
+  lrwxrwxrwx.  1 root root   28 Nov  5 17:12 uname -> sos_commands/kernel/uname_-a
+  drwx------.  3 root root   18 Nov  5 17:12 sos_strings
+  lrwxrwxrwx.  1 root root   25 Nov  5 17:12 lsmod -> sos_commands/kernel/lsmod
+  lrwxrwxrwx.  1 root root   45 Nov  5 17:12 java -> sos_commands/java/alternatives_--display_java
+  lrwxrwxrwx.  1 root root   29 Nov  5 17:12 hostname -> sos_commands/general/hostname
+  lrwxrwxrwx.  1 root root   31 Nov  5 17:12 dmidecode -> sos_commands/hardware/dmidecode
+  lrwxrwxrwx.  1 root root   25 Nov  5 17:12 date -> sos_commands/general/date
+  lrwxrwxrwx.  1 root root   32 Nov  5 17:12 route -> sos_commands/networking/route_-n
+  lrwxrwxrwx.  1 root root   30 Nov  5 17:12 ps -> sos_commands/process/ps_auxwww
+  lrwxrwxrwx.  1 root root   41 Nov  5 17:12 netstat -> sos_commands/networking/netstat_-W_-neopa
+  lrwxrwxrwx.  1 root root   22 Nov  5 17:12 last -> sos_commands/last/last
+  lrwxrwxrwx.  1 root root   34 Nov  5 17:12 ip_addr -> sos_commands/networking/ip_-o_addr
+  lrwxrwxrwx.  1 root root   24 Nov  5 17:12 free -> sos_commands/memory/free
+  lrwxrwxrwx.  1 root root  130 Nov  5 17:12 installed-rpms -> sos_commands/rpm/sh_-c_rpm_--nodigest_-qa_--qf_NAME_-_VERSION_-_RELEASE_
+  ._ARCH_INSTALLTIME_date_awk_-F_printf_-59s_s_n_1_2_sort_-f
+  lrwxrwxrwx.  1 root root   38 Nov  5 17:12 chkconfig -> sos_commands/services/chkconfig_--list
+  -rw-r--r--.  1 root root 1481 Nov  5 17:12 version.txt
+  drwx------.  2 root root   37 Nov  5 17:12 sos_reports
+  drwx------.  2 root root   35 Nov  5 17:12 sos_logs
+  drwx------. 43 root root 4096 Nov  5 17:12 sos_commands
+  drwxr-xr-x.  3 root root   19 Nov  5 17:12 run
+#+END_SRC
+
+在 =sos_reports= 目录中你会看到 =sos.txt= 和 =sos.html= 文件.
+
+在 =sos.txt= 文件中,你可以看到所有加载了的插件,执行过的命令,被sosreport拷贝的文件. 在 =sos.html= 文件中所有这些内容都通过超链接连接到目录中的原始内容. 
+这样你可以你可以直接查看脚本命令的输出结果和拷贝过的文件.
+
+sosreport 探测到的任何警告都会在这些文件的开始位置高亮显示出来.
+
+本文基于3.4版的 sosreport. 如果你的版本不同,那么可能信息会有少许的差异.
