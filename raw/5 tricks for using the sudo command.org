@@ -1,0 +1,113 @@
+#+TITLE: 5 tricks for using the sudo command
+#+URL: https://www.networkworld.com/article/3236499/linux/some-tricks-for-using-sudo.html
+#+AUTHOR: lujun9972
+#+TAGS: system sudo
+#+DATE: [2017-11-15 三 12:56]
+#+LANGUAGE:  zh-CN
+#+OPTIONS:  H:6 num:nil toc:t \n:nil ::t |:t ^:nil -:nil f:t *:t <:nil
+
+
+The sudoers file can provide detailed control over user privileges, but with very little effort, you can still get a lot of benefit from
+sudo. In this post, we're going to look at some simple ways to get a lot of value out of the sudo command in Linux.
+
+* Trick 1: Nearly effortless sudo usage
+
+The default file on most Linux distributions makes it very simple to give select users the ability to run commands as root. In fact, you
+don’t even have to edit the /etc/sudoers file in any way to get started. Instead, you just add the users to the sudo or admin group on the
+system and you’re done.
+
+Adding users to the sudo or admin group in the /etc/group file gives them permission to run commands using sudo.
+
+#+BEGIN_SRC shell
+  $ grep sudo /etc/group
+  sudo:x:27:shs,jdoe,peanut
+#+END_SRC
+
+Assuming the standard /etc/sudoers setup, they should immediately be able to start using sudo commands once this change has been made. The
+privileges are derived through a line like this in the /etc/sudoers file:
+
+#+BEGIN_EXAMPLE
+  %sudo   ALL=(ALL:ALL) ALL
+#+END_EXAMPLE
+
+The $sudo (or %admin) part of this line is a reference to the sudo (or admin) group. The rest of the line allows members of this group to
+run any command as any user. This much is built in. If you don’t want anyone to have this ability, don’t put anyone in the sudo (or admin)
+group on your system and this privilege level will not be implemented.
+
+#+BEGIN_SRC shell
+  $ sudo whoami
+  [sudo] password for shs:
+  root
+#+END_SRC
+
+* Trick 2: Running commands as other users — not just root
+
+While most people use sudo access to run commands as root, it also allows you to run commands as other users. Just use the -u option with
+the sudo command and specify the username.
+
+#+BEGIN_SRC shell
+  $ sudo -u jdoe whoami
+  [sudo] password for shs:
+  jdoe
+#+END_SRC
+
+* Trick 3: Changing the default editor for the visudo command
+
+The /etc/sudoers file should always be modified using the visudo command because this command helps to keep you from causing configuration
+errors that might make the resultant file unusable (i.e., it can break sudo). If the editor used by default is one that you’re not
+comfortable using, you can change it with this command:
+
+#+BEGIN_SRC shell
+  sudo update-alternatives --config editor
+#+END_SRC
+
+This command will display a list of editors with the current one marked with an asterisk and allows you to select the one that you prefer.
+
+#+BEGIN_SRC shell
+  $ sudo update-alternatives --config editor
+  [sudo] password for shs:
+  There are 3 choices for the alternative editor (providing /usr/bin/editor).
+
+  Selection    Path               Priority   Status
+  ------------------------------------------------------------
+  ,* 0            /bin/nano           40        auto mode
+  1            /bin/ed            -100       manual mode
+  2            /bin/nano           40        manual mode
+  3            /usr/bin/vim.tiny   10        manual mode
+
+  Press <enter> to keep the current choice[*], or type selection number:
+#+END_SRC
+
+* Trick 4: Switching to root
+
+There are times when prefacing every command with "sudo" gets in the way of getting your work done. With a default /etc/sudoers
+configuration and membership in the sudo (or admin) group, you can assume root control using the command sudo su -. Extra care should
+always be taken when using the root account in this way.
+
+#+BEGIN_SRC shell
+  $ sudo su -
+  [sudo] password for jdoe:
+  root@stinkbug:~#
+#+END_SRC
+
+* Trick 5: Fixing a corrupt /etc/sudoers file
+
+A corrupt /etc/sudoers file can keep sudo from working and really mess up your day. Fortunately, there are some ways around this that
+don't involve a lot of work, and the visudo command provides some details on the problems needing to be fixed.
+
+The problem
+
+#+BEGIN_SRC shell
+  shs@stinkbug:/etc$ sudo date
+  >>> /etc/sudoers: syntax error near line 3 <<<
+  sudo: parse error in /etc/sudoers near line 3
+  sudo: no valid sudoers sources found, quitting
+  sudo: unable to initialize policy plugin
+#+END_SRC
+
+The fix
+
+#+BEGIN_SRC shell
+  shs@stinkbug:/etc$ pkexec visudo
+  >>> /etc/sudoers: syntax error near line 3 <<<
+#+END_SRC
