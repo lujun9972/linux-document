@@ -1,0 +1,297 @@
+#+TITLE: 11 Useful split command examples for Linux systems
+#+URL: https://www.linuxtechi.com/split-command-examples-for-linux-unix/
+#+AUTHOR: lujun9972
+#+TAGS: raw
+#+DATE: [2017-11-16 四 10:44]
+#+LANGUAGE:  zh-CN
+#+OPTIONS:  H:6 num:nil toc:t \n:nil ::t |:t ^:nil -:nil f:t *:t <:nil
+
+
+As the name suggests ‘split‘ command is used to split or break a file into the pieces in Linux and UNIX systems. Whenever we split a large file
+with split command then split output file’s default size is 1000 lines and its default prefix would be ‘x’.
+
+In this article we will discuss 11 useful split command examples for Linux Users. Apart from this we will also discuss how split files can be merge
+or reassembled into a single file. Syntax for split command:
+
+#+BEGIN_SRC shell
+  # split {options} {file_name} {prefix}
+#+END_SRC
+
+Some of the important options of split command is shown below:
+
+[[https://www.linuxtechi.com/wp-content/uploads/2017/11/Split-Command-Options-Linux.jpg]]
+
+
+* Example: 1) Split File into Pieces
+
+Let’s assume we have file name with tuxlap.txt, Use below split command to break into the pieces
+
+#+BEGIN_SRC shell
+  [root@linuxtechi ~]# split tuxlap.txt
+  [root@linuxtechi ~]# ll
+  total 32
+  -rw-------. 1 root root  980 Aug 12 00:11 anaconda-ks.cfg
+  -rw-r--r--. 1 root root 9607 Nov 11 03:22 tuxlap.txt
+  -rw-r--r--. 1 root root 8744 Nov 11 03:23 xaa
+  -rw-r--r--. 1 root root  863 Nov 11 03:23 xab
+  [root@linuxtechi ~]#
+#+END_SRC
+
+As we can see the above output ‘tuxlab.txt‘ is split into two pieces with the name ‘xaa’ and ‘xab’.
+
+* Example: 2) Split Command with verbose option
+
+We can run split command in verbose mode with option ‘–verbose‘, example is shown below:
+
+#+BEGIN_SRC shell
+  [root@linuxtechi ~]# split tuxlap.txt --verbose
+  creating file ‘xaa’
+  creating file ‘xab’
+  [root@linuxtechi ~]#
+#+END_SRC
+
+* Example: 3) Split files with customize line numbers (-l)
+
+Let’s suppose we want to split a file with customize line numbers, let say I want max 200 lines per file.
+
+To achieve this, use  ‘-l’ option in split command.
+
+#+BEGIN_SRC shell
+  [root@linuxtechi ~]# split -l200 tuxlap.txt --verbose
+  creating file ‘xaa’
+  creating file ‘xab’
+  creating file ‘xac’
+  creating file ‘xad’
+  creating file ‘xae’
+  creating file ‘xaf’
+  [root@linuxtechi ~]#
+#+END_SRC
+
+Verify the lines of each file using below command
+
+#+BEGIN_SRC shell
+  [root@linuxtechi ~]# wc -l xa*
+   200 xaa
+   200 xab
+   200 xac
+   200 xad
+   200 xae
+    91 xaf
+  1091 total
+  [root@linuxtechi ~]#
+#+END_SRC
+
+* Example: 4) Split files with file size using option  -b
+
+Using Split command we can split a file with file size. Use the following syntax to split files with size in bytes, KB , MB and GB
+
+#+BEGIN_SRC shell
+  # split  -b{bytes}  {file_name}
+
+  # split  -b  nK      {file_name}    // n is the numeric value
+
+  # split  -b   nM    {file_name}      // n is the numeric value
+
+  # split  -b   nG     {file_name}     // n is the numeric value
+#+END_SRC
+
+Split file based on bytes:
+
+#+BEGIN_SRC shell
+  [root@linuxtechi ~]# split -b2000000 tuxlap.txt
+#+END_SRC
+
+Split file based on KB:
+
+#+BEGIN_SRC shell
+  [root@linuxtechi ~]# split -b 50K tuxlap.txt
+#+END_SRC
+
+Split file based on MB:
+
+#+BEGIN_SRC shell
+  [root@linuxtechi ~]# split -b 50M tuxlap.txt
+#+END_SRC
+
+Split file based on GB:
+
+#+BEGIN_SRC shell
+  [root@linuxtechi ~]# split -b 1G tuxlap.txt
+#+END_SRC
+
+* Example: 5) Create Split files with numeric suffix instead of alphabetic (-d)
+
+In the above examples we have seen that split command output files are created with alphabetic suffix like xaa, xab….. xan , Use ‘-d’ option with
+split command to create split output files with numeric suffix like x00, x01, … x0n
+
+#+BEGIN_SRC shell
+  [root@linuxtechi ~]# split -d tuxlap.txt
+
+  [root@linuxtechi ~]# ll
+  total 1024256
+  -rw-------. 1 root root        980 Aug 12 00:11 anaconda-ks.cfg
+  -rwx------. 1 root root 1048576000 Nov 11 03:54 linux-lite.iso
+  -rw-r--r--. 1 root root     120010 Nov 11 04:39 tuxlap.txt
+  -rw-r--r--. 1 root root      11998 Nov 11 04:41 x00
+  -rw-r--r--. 1 root root      12000 Nov 11 04:41 x01
+  -rw-r--r--. 1 root root      12000 Nov 11 04:41 x02
+  -rw-r--r--. 1 root root      12000 Nov 11 04:41 x03
+  -rw-r--r--. 1 root root      12000 Nov 11 04:41 x04
+  -rw-r--r--. 1 root root      12000 Nov 11 04:41 x05
+  -rw-r--r--. 1 root root      12000 Nov 11 04:41 x06
+  -rw-r--r--. 1 root root      12000 Nov 11 04:41 x07
+  -rw-r--r--. 1 root root      12000 Nov 11 04:41 x08
+  -rw-r--r--. 1 root root      12000 Nov 11 04:41 x09
+  -rw-r--r--. 1 root root         12 Nov 11 04:41 x10
+  [root@linuxtechi ~]#
+#+END_SRC
+
+* Example: 6) Split file with Customize Suffix
+
+With split command we can create split output files with customize suffix. Let’s assume we want to create split output files with customize suffix
+
+Syntax:
+
+#+BEGIN_SRC shell
+  # split  {file_name}  {prefix_name}
+
+  [root@linuxtechi ~]# split tuxlap.txt split_file_
+
+  [root@linuxtechi ~]# ll
+  total 1024248
+  -rw-------. 1 root root        980 Aug 12 00:11 anaconda-ks.cfg
+  -rwx------. 1 root root 1048576000 Nov 11 03:54 linux-lite.iso
+  -rw-r--r--. 1 root root      11998 Nov 11 04:56 split_file_aa
+  -rw-r--r--. 1 root root      12000 Nov 11 04:56 split_file_ab
+  -rw-r--r--. 1 root root      12000 Nov 11 04:56 split_file_ac
+  -rw-r--r--. 1 root root      12000 Nov 11 04:56 split_file_ad
+  -rw-r--r--. 1 root root      12000 Nov 11 04:56 split_file_ae
+  -rw-r--r--. 1 root root      12000 Nov 11 04:56 split_file_af
+  -rw-r--r--. 1 root root      12000 Nov 11 04:56 split_file_ag
+  -rw-r--r--. 1 root root      12000 Nov 11 04:56 split_file_ah
+  -rw-r--r--. 1 root root      12000 Nov 11 04:56 split_file_ai
+  -rw-r--r--. 1 root root      12000 Nov 11 04:56 split_file_aj
+  -rw-r--r--. 1 root root         12 Nov 11 04:56 split_file_ak
+  -rw-r--r--. 1 root root     120010 Nov 11 04:39 tuxlap.txt
+  [root@linuxtechi ~]#
+#+END_SRC
+
+* Example: 7) Generate n chunks output files with split command (-n)
+
+Let’s suppose we want to split an iso file into 4 chunk output files. Use ‘-n’ option with split command limit the number of split output files.
+
+#+BEGIN_SRC shell
+  [root@linuxtechi ~]# split -n5 linux-lite.iso
+#+END_SRC
+
+Verify the Split out files using ll command.
+
+#+BEGIN_SRC shell
+  [root@linuxtechi ~]# ll
+  total 2048124
+  -rw-------. 1 root root        980 Aug 12 00:11 anaconda-ks.cfg
+  -rwx------. 1 root root 1048576000 Nov 11 03:54 linux-lite.iso
+  -rw-r--r--. 1 root root     120010 Nov 11 04:39 tuxlap.txt
+  -rw-r--r--. 1 root root  209715200 Nov 11 05:22 xaa
+  -rw-r--r--. 1 root root  209715200 Nov 11 05:22 xab
+  -rw-r--r--. 1 root root  209715200 Nov 11 05:22 xac
+  -rw-r--r--. 1 root root  209715200 Nov 11 05:23 xad
+  -rw-r--r--. 1 root root  209715200 Nov 11 05:23 xae
+  [root@linuxtechi ~]#
+#+END_SRC
+
+Example: 8) Prevent Zero Size Split output files with option (-e)
+
+There can be some scenarios where we split a small file into a large number of chunk files and zero size split output files can be created in such
+cases, so to avoid zero size split output file, use the option ‘-e’
+
+#+BEGIN_SRC shell
+  [root@linuxtechi ~]# split -n60 -e tuxlap.txt
+  [root@linuxtechi ~]# ls -l x*
+  -rw-r--r--. 1 root root 2000 Nov 11 05:34 xaa
+  -rw-r--r--. 1 root root 2000 Nov 11 05:34 xab
+  -rw-r--r--. 1 root root 2000 Nov 11 05:34 xac
+  -rw-r--r--. 1 root root 2000 Nov 11 05:34 xad
+  -rw-r--r--. 1 root root 2000 Nov 11 05:34 xae
+  -rw-r--r--. 1 root root 2000 Nov 11 05:34 xaf
+  -rw-r--r--. 1 root root 2000 Nov 11 05:34 xag
+  -rw-r--r--. 1 root root 2000 Nov 11 05:34 xah
+  .............
+  -rw-r--r--. 1 root root 2000 Nov 11 05:34 xce
+  -rw-r--r--. 1 root root 2000 Nov 11 05:34 xcf
+  -rw-r--r--. 1 root root 2000 Nov 11 05:34 xcg
+  -rw-r--r--. 1 root root 2010 Nov 11 05:34 xch
+  [root@linuxtechi ~]#
+#+END_SRC
+
+* Example:9) Create Split output files of customize suffix length (-a option)
+
+Let’s suppose we want to split an iso file and where size of each split output file is 500MB and suffix length is to be 3.  Use the following split
+command:
+
+#+BEGIN_SRC shell
+  [root@linuxtechi ~]# split -b 500M linux-lite.iso -a 3
+
+  [root@linuxtechi ~]# ll
+  total 2048124
+  -rw-------. 1 root root        980 Aug 12 00:11 anaconda-ks.cfg
+  -rwx------. 1 root root 1048576000 Nov 11 03:54 linux-lite.iso
+  -rw-r--r--. 1 root root     120010 Nov 11 04:39 tuxlap.txt
+  -rw-r--r--. 1 root root  524288000 Nov 11 05:43 xaaa
+  -rw-r--r--. 1 root root  524288000 Nov 11 05:43 xaab
+  [root@linuxtechi ~]#
+#+END_SRC
+
+* Example: 10) Split ISO file and merge it into a single file.
+
+Let’s suppose we have a Windows Server ISO file of size 4.2 GB and we are unable to scp this file to remote server because of its size.
+
+To resolve such type of issues we can split the ISO into n number of pieces and will copy these pieces to remote sever and on the remote server we
+can merge these pieces into a single file using cat command,
+
+#+BEGIN_SRC shell
+  [root@linuxtechi ~]# split -b 800M Windows2012r2.iso Split_IS0_
+#+END_SRC
+
+View the split output files using ll command,
+
+#+BEGIN_SRC shell
+  [root@linuxtechi ~]# ll
+  total 8871788
+  -rw-------. 1 root root        980 Aug 12 00:11 anaconda-ks.cfg
+  -rw-r--r--. 1 root root  838860800 Nov 11 06:29 Split_IS0_aa
+  -rw-r--r--. 1 root root  838860800 Nov 11 06:29 Split_IS0_ab
+  -rw-r--r--. 1 root root  838860800 Nov 11 06:29 Split_IS0_ac
+  -rw-r--r--. 1 root root  838860800 Nov 11 06:29 Split_IS0_ad
+  -rw-r--r--. 1 root root  838860800 Nov 11 06:29 Split_IS0_ae
+  -rw-r--r--. 1 root root  347987968 Nov 11 06:29 Split_IS0_af
+  -rw-r--r--. 1 root root     120010 Nov 11 04:39 tuxlap.txt
+  -rwx------. 1 root root 4542291968 Nov 11 06:03 Windows2012r2.iso
+  [root@linuxtechi ~]#
+#+END_SRC
+
+Now scp these files to remote server and merge these files into a single using cat command
+
+#+BEGIN_SRC shell
+  [root@linuxtechi ~]# cat Split_IS0_a* > Windows_Server.iso
+  [root@linuxtechi ~]#
+#+END_SRC
+
+* Example: 11) Verify the Integrity of Merge file using md5sum utility
+
+As per Example 10, once the split output files are merged into a single file, then we can check the integrity of actual & merge file with md5sum
+utility. Example is shown below:
+
+#+BEGIN_SRC shell
+  [root@linuxtechi ~]# md5sum Windows2012r2.iso
+  5b5e08c490ad16b59b1d9fab0def883a  Windows2012r2.iso
+  [root@linuxtechi ~]#
+
+  [root@linuxtechi ~]# md5sum Windows_Server.iso
+  5b5e08c490ad16b59b1d9fab0def883a  Windows_Server.iso
+  [root@linuxtechi ~]#
+#+END_SRC
+
+As per the above output, it is confirm that integrity is maintained and we can also say split file are successfully restored to a single file.
+
+That’s all from this article, If you like these examples then please do share your valuable feedback and comments in the comments section below.
