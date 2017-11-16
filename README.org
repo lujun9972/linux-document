@@ -25,7 +25,6 @@ Linux好游戏
 * raw
 未翻译的内容,欢迎大家领取
 
-+ [[https://github.com/lujun9972/linux-document/blob/master/raw/File better bugs with coredumpctl.org][ File better bugs with coredumpctl]]		<2017-11-14>
 + [[https://github.com/lujun9972/linux-document/blob/master/raw/Top Ways to Learn Linux Online.org][ Top Ways to Learn Linux Online]]		<2017-11-06>
 * shell
 别不把shell当语言
@@ -45,6 +44,7 @@ Linux好游戏
 * tools
 又有什么新玩意?
 
++ [[https://github.com/lujun9972/linux-document/blob/master/tools/File better bugs with coredumpctl.org][ 使用coredumpctl帮你定位bug]]		<2017-11-16>
 + [[https://github.com/lujun9972/linux-document/blob/master/tools/sosreport in RHEL.org][ RHEL sosreport简介]]		<2017-11-14>
 + [[https://github.com/lujun9972/linux-document/blob/master/tools/Cryptr - A Simple CLI Utility To Encrypt And Decrypt File.org][ Cryptr - 一款简单的加解密CLI工具]]		<2017-11-14>
 + [[https://github.com/lujun9972/linux-document/blob/master/tools/How To Control Media Players From Commandline In Linux.org][ 如何在Linux命令行控制媒体播放器]]		<2017-11-09>
