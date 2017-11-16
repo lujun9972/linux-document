@@ -25,6 +25,7 @@ Linux好游戏
 * raw
 未翻译的内容,欢迎大家领取
 
++ [[https://github.com/lujun9972/linux-document/blob/master/raw/File better bugs with coredumpctl.org][ File better bugs with coredumpctl]]		<2017-11-14>
 + [[https://github.com/lujun9972/linux-document/blob/master/raw/Top Ways to Learn Linux Online.org][ Top Ways to Learn Linux Online]]		<2017-11-06>
 * shell
 别不把shell当语言
@@ -33,6 +34,7 @@ Linux好游戏
 * system
 系统管理相关内容
 
++ [[https://github.com/lujun9972/linux-document/blob/master/system/5 tricks for using the sudo command.org][ 5 tricks for using the sudo command]]		<2017-11-16>
 + [[https://github.com/lujun9972/linux-document/blob/master/system/How to Set Up Easy Remote Desktop Access in linux.org][ 如何设置Linux版的远程桌面连接]]		<2017-11-13>
 + [[https://github.com/lujun9972/linux-document/blob/master/system/How to use cron in Linux.org][ 如何使用Linux中的cron]]		<2017-11-11>
 + [[https://github.com/lujun9972/linux-document/blob/master/system/4 Tools to Manage EXT2,EXT3 and EXT4 Health in Linux.org][ 4个管理 EXT2,EXT3 以及 EXT4 健康状况的工具]]		<2017-11-08>
