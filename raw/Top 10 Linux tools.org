@@ -1,0 +1,112 @@
+#+TITLE: Top 10 Linux tools
+#+URL: https://www.datamation.com/open-source/slideshows/top-10-linux-tools.html
+#+AUTHOR: lujun9972
+#+TAGS: linux tools
+#+DATE: [2017-11-16 四 18:50]
+#+LANGUAGE:  zh-CN
+#+OPTIONS:  H:6 num:nil toc:t \n:nil ::t |:t ^:nil -:nil f:t *:t <:nil
+
+
+   
+The Linux tools you need to do just about anything on the Linux desktop.
+* CloneZilla
+
+Whether you need to clone and deploy a Linux desktop/server or simply make a disk image for restoration, [[http://clonezilla.org/][CloneZilla]] is a great
+software choice. One of the things I love about CloneZilla is that you can clone disks for both Linux and Windows.
+
+CloneZilla allows its users to backup to a local backup drive or via their local network. Compression can also be utilized to save
+space or simply let CloneZilla do its job without any compression at all.
+
+Unlike proprietary disk and partition cloning tools, CloneZilla doesn't rely on fees or license keys. Simply download the software to
+bootable media and you're all set. The biggest thing to be wary of with CloneZilla is remembering which drive is the source and which
+is the backup destination.
+
+
+* GIMP
+
+GIMP is a very powerful, yet often misunderstood image manipulation program. The misunderstood element of [[https://www.gimp.org/][GIMP]] is that it's often seen
+as a Photoshop alternative. In reality, the two programs have more things different from one another than alike.
+
+One of the things that makes GIMP so powerful is that you can extend its functionality by using plugins. There are plugins that
+provides tablet support, advanced print options, even some limited CMYK color manipulation and more. GIMP shines best when making
+edits to RGB color images and tweaking existing photography.
+
+Outside of the fact that GIMP has a different workflow than Photoshop, it's important to note that the tool set offered also differs.
+The one thing the two editors have in common these days is the fact that both are available in a single window mode.
+
+* Handbrake
+
+If you're looking to backup your existing DVD collection for safe keeping, then [[https://handbrake.fr/][Handbrake]] is a very important tool for making this
+easier. Thanks to Handbrake's clear feature layout and logical presets, ripping your DVD collection onto your hard drive has never
+been easier.
+
+Additional benefits to this software include its ability to clean up video errors, change aspect ratio and cooperate with videos being
+ripped into file containers. One amazing feature that must be mentioned is Handbrake's ability to handle DVD chapters.
+
+If you decide to venture beyond the offered presets, your success with Handbrake may vary from video to video. You'll also find that
+Handbrake shines at its best on PCs with enough horsepower to render video quickly and successfully without crashing.
+
+* GParted
+
+Before you install a Linux distro, you must first partition the drive it's to be installed on. Obviously, you could do this from the
+installation media. But how would you do this on a system that's already installed? Using [[https://gparted.org/][GParted]] is one option that you might
+consider. I've found that GParted offers a solid GUI to the otherwise mystifying partitioning process. Even those who know how to
+partition from the command line will admit that having a clearly color coded visual representation of their partitions is extremely
+beneficial.
+
+GParted allows you to create, resize and even copy your computer's partition scheme. It supports Linux and Windows file systems.
+Additionally, it also makes partitioning your flash drives a snap when using GParted on an existing Linux installation.
+
+* VirtualBox
+
+I've used a lot of different applications to run virtual machines over the years. Yet despite my best efforts, I kept coming back to 
+VirtualBox]]. I highly recommend VirtualBox as it works with just about any distro both as a host and as a guest.
+
+Another benefit to VirtualBox is that you can pass USB devices through to the guest OS from your host. Not to worry though, you're
+still able to keep the mouse and keyboard setup as bi-directional devices thanks to the VirtualBox extensions add-on.
+
+* HTOP
+
+While most Linux distros come with a GUI process manager, few of them have the raw functionality found with [[http://hisham.hm/htop/][HTOP]]. Like TOP, HTOP
+provides you with a terminal friendly method of monitoring and manipulating your Linux processes. You can use HTOP to sort, filter and
+end processes with the utmost of ease.
+
+For any remotely modern Linux system, you'll find number representation for each of your computer's cores. This is invaluable in
+visualizing how your PC runs various programs. The only thing to keep in mind with HTOP is the help feature is about as robust as a
+MAN file. The details are there, however the formatting while reading it will feel like a wall of text.
+
+* Powertop
+
+When you're freeing yourself from the tether of a plugged in laptop, you may find yourself on the receiving end of inexplicable
+battery drain. There are things you can do to address this issue, such as installing tlp to better manage power usage on your Linux
+system.
+
+Powertop]] adds value to the equation of power management in that you can see in a terminal output, what specifically is utilizing
+power. Whether its a rogue process or you forgot you had a video rendering (minimized), PowerTop is the best tool for managing your
+power consumption on Linux computers.
+
+* Tilda
+
+I've run a number of terminals for my Linux boxes. The ones I enjoyed the most were accessible when needed and out of the way when
+they weren't. This is why I run [[https://github.com/lanoxx/tilda][Tilda]]. Unlike a desktop environment specific option, Tilda is highly customizable and can be setup to
+activate by pressing an assigned hotkey of your choosing.
+
+Another benefit to using Tilda over say, Guake, is that it's a bit lighter in terms of resources. Both are great programs, but I like
+the minimalism of Tilda overall.
+
+* AptOnCD
+
+If you're running Ubuntu and have ever needed to install packages on a PC where Internet wasn't available, then I'm willing to bet 
+AptOnCD]] was on your short list of possible solutions.
+
+Obviously you'd need to use the Internet at least once to get the packages you wish to add to a CD/DVD, however once this is done
+AptOnCD provides you with extremely smooth package portability for just about any situation.
+
+* Glances
+
+I would go so far as to suggest that [[https://nicolargo.github.io/glances/][Glances]] is the swiss army knife of the command line utility world. This is the best monitoring
+tool for running in a dedicated window. Use Glances to watch for serious errors, CPU spikes, disk IO issues, user vs system load
+issues and of course real time drive usage.
+
+The only downside of Glances is that it's a monitoring tool only. If you see an issues arise, you'll have to deep dive into your logs
+or related to do any advanced troubleshooting.
