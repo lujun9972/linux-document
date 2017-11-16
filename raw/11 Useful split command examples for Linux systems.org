@@ -1,4 +1,4 @@
-#+TITLE: 11 Useful split command examples for Linux systems
+#+TITLE: 11个应用案例教你使用split
 #+URL: https://www.linuxtechi.com/split-command-examples-for-linux-unix/
 #+AUTHOR: lujun9972
 #+TAGS: raw
@@ -7,24 +7,23 @@
 #+OPTIONS:  H:6 num:nil toc:t \n:nil ::t |:t ^:nil -:nil f:t *:t <:nil
 
 
-As the name suggests ‘split‘ command is used to split or break a file into the pieces in Linux and UNIX systems. Whenever we split a large file
-with split command then split output file’s default size is 1000 lines and its default prefix would be ‘x’.
+‘split‘ 命令是一个Linux和UNIX系统中用于将文件拆分成片的命令. 拆分的结果文件默认为1000行，且以 ‘x’ 打头.
 
-In this article we will discuss 11 useful split command examples for Linux Users. Apart from this we will also discuss how split files can be merge
-or reassembled into a single file. Syntax for split command:
+本文我们会展示11个使用split命令的案例. 此外我们还会展示如何将分拆的文件合并回原始文件. 
+split 命令的语法为:
 
 #+BEGIN_SRC shell
   # split {options} {file_name} {prefix}
 #+END_SRC
 
-Some of the important options of split command is shown below:
+split 命令的常用参数如下:
 
 [[https://www.linuxtechi.com/wp-content/uploads/2017/11/Split-Command-Options-Linux.jpg]]
 
 
-* Example: 1) Split File into Pieces
+* 例1) 拆分文件
 
-Let’s assume we have file name with tuxlap.txt, Use below split command to break into the pieces
+假设有一个文件 tuxlap.txt, 使用下面命令可以将它拆分成片
 
 #+BEGIN_SRC shell
   [root@linuxtechi ~]# split tuxlap.txt
@@ -37,11 +36,11 @@ Let’s assume we have file name with tuxlap.txt, Use below split command to bre
   [root@linuxtechi ~]#
 #+END_SRC
 
-As we can see the above output ‘tuxlab.txt‘ is split into two pieces with the name ‘xaa’ and ‘xab’.
+如上所示, ‘tuxlab.txt‘ 被拆分成两个文件，名称分别为 ‘xaa’ 以及 ‘xab’.
 
-* Example: 2) Split Command with verbose option
+* 例2) Split 命令的 verbose 选项
 
-We can run split command in verbose mode with option ‘–verbose‘, example is shown below:
+参数 =–verbose= 可以让split运行时输出详细信息, 如下所示:
 
 #+BEGIN_SRC shell
   [root@linuxtechi ~]# split tuxlap.txt --verbose
@@ -50,11 +49,9 @@ We can run split command in verbose mode with option ‘–verbose‘, example i
   [root@linuxtechi ~]#
 #+END_SRC
 
-* Example: 3) Split files with customize line numbers (-l)
+* 例3) 指定拆分文件的行数 (-l)
 
-Let’s suppose we want to split a file with customize line numbers, let say I want max 200 lines per file.
-
-To achieve this, use  ‘-l’ option in split command.
+假设我想以指定的行数来拆分文件, 比如200行每个文件，那么可以使用 =-l= 参数.
 
 #+BEGIN_SRC shell
   [root@linuxtechi ~]# split -l200 tuxlap.txt --verbose
@@ -67,124 +64,125 @@ To achieve this, use  ‘-l’ option in split command.
   [root@linuxtechi ~]#
 #+END_SRC
 
-Verify the lines of each file using below command
+检查一下每个文件多少行
 
 #+BEGIN_SRC shell
   [root@linuxtechi ~]# wc -l xa*
-   200 xaa
-   200 xab
-   200 xac
-   200 xad
-   200 xae
-    91 xaf
+  200 xaa
+  200 xab
+  200 xac
+  200 xad
+  200 xae
+   91 xaf
   1091 total
   [root@linuxtechi ~]#
 #+END_SRC
 
-* Example: 4) Split files with file size using option  -b
+* 例4) 使用-b参数指定拆分文件的大小 
 
-Using Split command we can split a file with file size. Use the following syntax to split files with size in bytes, KB , MB and GB
+我们可以指定文件大小来拆分文件. 只需要准照以下语法拆分文件就行，大小的单位可以是 bytes, KB , MB 以及 GB
 
 #+BEGIN_SRC shell
-  # split  -b{bytes}  {file_name}
+  # split -b{bytes} {file_name}
 
-  # split  -b  nK      {file_name}    // n is the numeric value
+  # split -b nK {file_name} // n is the numeric value
 
-  # split  -b   nM    {file_name}      // n is the numeric value
+  # split -b nM {file_name} // n is the numeric value
 
-  # split  -b   nG     {file_name}     // n is the numeric value
+  # split -b nG {file_name} // n is the numeric value
 #+END_SRC
 
-Split file based on bytes:
+以byte为单位:
 
 #+BEGIN_SRC shell
   [root@linuxtechi ~]# split -b2000000 tuxlap.txt
 #+END_SRC
 
-Split file based on KB:
+以KB为单位:
 
 #+BEGIN_SRC shell
   [root@linuxtechi ~]# split -b 50K tuxlap.txt
 #+END_SRC
 
-Split file based on MB:
+以MB为单位:
 
 #+BEGIN_SRC shell
   [root@linuxtechi ~]# split -b 50M tuxlap.txt
 #+END_SRC
 
-Split file based on GB:
+以GB为单位:
 
 #+BEGIN_SRC shell
   [root@linuxtechi ~]# split -b 1G tuxlap.txt
 #+END_SRC
 
-* Example: 5) Create Split files with numeric suffix instead of alphabetic (-d)
+* 例5) 拆分出来的文件以数字结尾而不是字母结尾 (-d)
 
-In the above examples we have seen that split command output files are created with alphabetic suffix like xaa, xab….. xan , Use ‘-d’ option with
-split command to create split output files with numeric suffix like x00, x01, … x0n
+从上面的例子中可以看到split命令的结果文件是以字母结尾的，像这样: xaa, xab….. xan , 使用 ‘-d’ 选项就会创建出以数字结尾的拆分结果文件了
 
 #+BEGIN_SRC shell
   [root@linuxtechi ~]# split -d tuxlap.txt
 
   [root@linuxtechi ~]# ll
   total 1024256
-  -rw-------. 1 root root        980 Aug 12 00:11 anaconda-ks.cfg
+  -rw-------. 1 root root        980 Aug 12 00:11 anaconda-ks.cfg
   -rwx------. 1 root root 1048576000 Nov 11 03:54 linux-lite.iso
-  -rw-r--r--. 1 root root     120010 Nov 11 04:39 tuxlap.txt
-  -rw-r--r--. 1 root root      11998 Nov 11 04:41 x00
-  -rw-r--r--. 1 root root      12000 Nov 11 04:41 x01
-  -rw-r--r--. 1 root root      12000 Nov 11 04:41 x02
-  -rw-r--r--. 1 root root      12000 Nov 11 04:41 x03
-  -rw-r--r--. 1 root root      12000 Nov 11 04:41 x04
-  -rw-r--r--. 1 root root      12000 Nov 11 04:41 x05
-  -rw-r--r--. 1 root root      12000 Nov 11 04:41 x06
-  -rw-r--r--. 1 root root      12000 Nov 11 04:41 x07
-  -rw-r--r--. 1 root root      12000 Nov 11 04:41 x08
-  -rw-r--r--. 1 root root      12000 Nov 11 04:41 x09
-  -rw-r--r--. 1 root root         12 Nov 11 04:41 x10
+  -rw-r--r--. 1 root root     120010 Nov 11 04:39 tuxlap.txt
+  -rw-r--r--. 1 root root      11998 Nov 11 04:41 x00
+  -rw-r--r--. 1 root root      12000 Nov 11 04:41 x01
+  -rw-r--r--. 1 root root      12000 Nov 11 04:41 x02
+  -rw-r--r--. 1 root root      12000 Nov 11 04:41 x03
+  -rw-r--r--. 1 root root      12000 Nov 11 04:41 x04
+  -rw-r--r--. 1 root root      12000 Nov 11 04:41 x05
+  -rw-r--r--. 1 root root      12000 Nov 11 04:41 x06
+  -rw-r--r--. 1 root root      12000 Nov 11 04:41 x07
+  -rw-r--r--. 1 root root      12000 Nov 11 04:41 x08
+  -rw-r--r--. 1 root root      12000 Nov 11 04:41 x09
+  -rw-r--r--. 1 root root         12 Nov 11 04:41 x10
   [root@linuxtechi ~]#
 #+END_SRC
 
-* Example: 6) Split file with Customize Suffix
+* 例6) 指定拆分结果文件的前缀
 
-With split command we can create split output files with customize suffix. Let’s assume we want to create split output files with customize suffix
+我们可以指定拆分结果文件的前缀. 举个例子
 
-Syntax:
+语法为:
 
 #+BEGIN_SRC shell
-  # split  {file_name}  {prefix_name}
+  # split {file_name} {prefix_name}
+#+END_SRC
 
+#+BEGIN_SRC shell
   [root@linuxtechi ~]# split tuxlap.txt split_file_
 
   [root@linuxtechi ~]# ll
   total 1024248
-  -rw-------. 1 root root        980 Aug 12 00:11 anaconda-ks.cfg
+  -rw-------. 1 root root        980 Aug 12 00:11 anaconda-ks.cfg
   -rwx------. 1 root root 1048576000 Nov 11 03:54 linux-lite.iso
-  -rw-r--r--. 1 root root      11998 Nov 11 04:56 split_file_aa
-  -rw-r--r--. 1 root root      12000 Nov 11 04:56 split_file_ab
-  -rw-r--r--. 1 root root      12000 Nov 11 04:56 split_file_ac
-  -rw-r--r--. 1 root root      12000 Nov 11 04:56 split_file_ad
-  -rw-r--r--. 1 root root      12000 Nov 11 04:56 split_file_ae
-  -rw-r--r--. 1 root root      12000 Nov 11 04:56 split_file_af
-  -rw-r--r--. 1 root root      12000 Nov 11 04:56 split_file_ag
-  -rw-r--r--. 1 root root      12000 Nov 11 04:56 split_file_ah
-  -rw-r--r--. 1 root root      12000 Nov 11 04:56 split_file_ai
-  -rw-r--r--. 1 root root      12000 Nov 11 04:56 split_file_aj
-  -rw-r--r--. 1 root root         12 Nov 11 04:56 split_file_ak
-  -rw-r--r--. 1 root root     120010 Nov 11 04:39 tuxlap.txt
+  -rw-r--r--. 1 root root      11998 Nov 11 04:56 split_file_aa
+  -rw-r--r--. 1 root root      12000 Nov 11 04:56 split_file_ab
+  -rw-r--r--. 1 root root      12000 Nov 11 04:56 split_file_ac
+  -rw-r--r--. 1 root root      12000 Nov 11 04:56 split_file_ad
+  -rw-r--r--. 1 root root      12000 Nov 11 04:56 split_file_ae
+  -rw-r--r--. 1 root root      12000 Nov 11 04:56 split_file_af
+  -rw-r--r--. 1 root root      12000 Nov 11 04:56 split_file_ag
+  -rw-r--r--. 1 root root      12000 Nov 11 04:56 split_file_ah
+  -rw-r--r--. 1 root root      12000 Nov 11 04:56 split_file_ai
+  -rw-r--r--. 1 root root      12000 Nov 11 04:56 split_file_aj
+  -rw-r--r--. 1 root root         12 Nov 11 04:56 split_file_ak
+  -rw-r--r--. 1 root root     120010 Nov 11 04:39 tuxlap.txt
   [root@linuxtechi ~]#
 #+END_SRC
 
-* Example: 7) Generate n chunks output files with split command (-n)
+* 例7) 指定拆分结果文件的个数 (-n)
 
-Let’s suppose we want to split an iso file into 4 chunk output files. Use ‘-n’ option with split command limit the number of split output files.
+假设我们想将一个iso文件拆分成5块结果文件. 使用 ‘-n’ 选项设置结果文件的个数.
 
 #+BEGIN_SRC shell
   [root@linuxtechi ~]# split -n5 linux-lite.iso
 #+END_SRC
 
-Verify the Split out files using ll command.
+使用 =ll= 验证一下拆分结果文件.
 
 #+BEGIN_SRC shell
   [root@linuxtechi ~]# ll
@@ -200,10 +198,9 @@ Verify the Split out files using ll command.
   [root@linuxtechi ~]#
 #+END_SRC
 
-Example: 8) Prevent Zero Size Split output files with option (-e)
+* 例8) 禁止产生0字节的结果文件 (-e)
 
-There can be some scenarios where we split a small file into a large number of chunk files and zero size split output files can be created in such
-cases, so to avoid zero size split output file, use the option ‘-e’
+当将一个小文件拆分成很多的结果文件时,可能会产生0字节的文件, 使用 =-e= 选项可以防止产生0字节的文件
 
 #+BEGIN_SRC shell
   [root@linuxtechi ~]# split -n60 -e tuxlap.txt
@@ -224,10 +221,9 @@ cases, so to avoid zero size split output file, use the option ‘-e’
   [root@linuxtechi ~]#
 #+END_SRC
 
-* Example:9) Create Split output files of customize suffix length (-a option)
+* 例9) 指定拆分结果文件的后缀长度 (-a option)
 
-Let’s suppose we want to split an iso file and where size of each split output file is 500MB and suffix length is to be 3.  Use the following split
-command:
+使用下面命令会将一个iso文件按500M为限进行拆分，而且拆分的结果文件后缀长度为3:
 
 #+BEGIN_SRC shell
   [root@linuxtechi ~]# split -b 500M linux-lite.iso -a 3
@@ -242,18 +238,17 @@ command:
   [root@linuxtechi ~]#
 #+END_SRC
 
-* Example: 10) Split ISO file and merge it into a single file.
+* 例10) 拆分ISO文件后又合并成单个文件
 
-Let’s suppose we have a Windows Server ISO file of size 4.2 GB and we are unable to scp this file to remote server because of its size.
+假设一个 Windows Server ISO 文件有 4.2 GB大小，由于体积太大无法通过scp上传到远程服务器上.
 
-To resolve such type of issues we can split the ISO into n number of pieces and will copy these pieces to remote sever and on the remote server we
-can merge these pieces into a single file using cat command,
+为了解决这个问题,我们将ISO拆分成 n 份，传到远程服务器上后再用 =cat= 命令组合起来
 
 #+BEGIN_SRC shell
   [root@linuxtechi ~]# split -b 800M Windows2012r2.iso Split_IS0_
 #+END_SRC
 
-View the split output files using ll command,
+使用 =ll= 命令查看拆分结果文件,
 
 #+BEGIN_SRC shell
   [root@linuxtechi ~]# ll
@@ -270,17 +265,16 @@ View the split output files using ll command,
   [root@linuxtechi ~]#
 #+END_SRC
 
-Now scp these files to remote server and merge these files into a single using cat command
+现在使用scp上传这些文件到远程服务器上,然后使用 =cat= 命令合并这些文件
 
 #+BEGIN_SRC shell
   [root@linuxtechi ~]# cat Split_IS0_a* > Windows_Server.iso
   [root@linuxtechi ~]#
 #+END_SRC
 
-* Example: 11) Verify the Integrity of Merge file using md5sum utility
+* 例11) 使用 md5sum 验证合并文件的完整性
 
-As per Example 10, once the split output files are merged into a single file, then we can check the integrity of actual & merge file with md5sum
-utility. Example is shown below:
+在例子10中，我们将拆分结果文件合并起来了, 之后我们可以使用 =md5sum= 来验证完整性. 像这样:
 
 #+BEGIN_SRC shell
   [root@linuxtechi ~]# md5sum Windows2012r2.iso
@@ -292,6 +286,4 @@ utility. Example is shown below:
   [root@linuxtechi ~]#
 #+END_SRC
 
-As per the above output, it is confirm that integrity is maintained and we can also say split file are successfully restored to a single file.
-
-That’s all from this article, If you like these examples then please do share your valuable feedback and comments in the comments section below.
+上面的结果确认了文件是完整的，拆分的文件成功的恢复了.
