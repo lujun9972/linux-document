@@ -1,4 +1,4 @@
-#+TITLE: File better bugs with coredumpctl
+#+TITLE: 使用coredumpctl帮你定位bug
 #+URL: https://fedoramagazine.org/file-better-bugs-coredumpctl/
 #+AUTHOR: lujun9972
 #+TAGS: core fedoral
