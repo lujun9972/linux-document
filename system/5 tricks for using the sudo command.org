@@ -1,4 +1,4 @@
-#+TITLE: 5 tricks for using the sudo command
+#+TITLE: sudo命令的5个小技巧
 #+URL: https://www.networkworld.com/article/3236499/linux/some-tricks-for-using-sudo.html
 #+AUTHOR: lujun9972
 #+TAGS: system sudo
