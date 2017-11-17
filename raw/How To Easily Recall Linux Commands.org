@@ -1,0 +1,75 @@
+#+TITLE: How To Easily Recall Linux Commands
+#+URL: https://www.ostechnix.com/easily-recall-forgotten-linux-commands/
+#+AUTHOR: lujun9972
+#+TAGS: raw
+#+DATE: [2017-11-17 五 09:40]
+#+LANGUAGE:  zh-CN
+#+OPTIONS:  H:6 num:nil toc:t \n:nil ::t |:t ^:nil -:nil f:t *:t <:nil
+
+
+There are thousands of Linux commands, and remembering all of them is absolutely impossible. Also, it is not necessary though. At times,
+my mind goes completely blank and I couldn’t remember a particular command. I keep looking at the Terminal and try to remember the
+command, but can’t. If you are anything like me, I’ve got a good news for you. Thanks to Apropos command and BASH history that helps me to
+easily recall forgotten Linux commands. Apropos is a Linux command that searches the manual page names and descriptions by using a given
+keyword or string. It comes pre-installed in most Linux distributions and usage is very easy.
+
+The Apropos command – Easily Recall Forgotten Linux Commands
+
+Let say you forgot the command to list the contents of a directory. Let us see if apropos can help us in this regard.
+
+apropos "list directory"
+
+Sample output would be:[[http://www.ostechnix.com/wp-content/uploads/2017/11/apropos.png][apropos]]
+
+See? The apropos command is displaying the list if suggested commands that matches for the search string. As you see in the example, we
+can use “dir” command to list a directory contents.
+
+I know it is easy to remember “dir” command, but i used it to demonstrate the purpose of Apropos command. You can use any search string.
+But, some times you need to be more specific when using search strings. For example, the following command will display all commands that
+contains the word “list”.
+
+apropos "list"
+
+In such cases, apropos will not help you to find what you’re looking for.
+
+Let me show you another example. Want to find the Kernel but you forgot the actual command? Here is how you can find it.
+
+apropos "kernel"
+
+Or, run it with out quotes.
+
+apropos "kernel"
+
+[[http://www.ostechnix.com/wp-content/uploads/2017/11/DeepinScreenshot_mate-terminal_20171115190817.png][apropos]]
+
+In this case, we can use “uname” command to know the details of Linux Kernel.
+
+Please note that you must use quotes when the search string has more than one word.
+
+I forgot the command to access my remote system? What to do? No worries! Use the following command to find out what it is!!
+
+apropos "remote"
+
+Be mindful that the Apropos command will display all possible commands that has the search string in their description. So, you might have
+to scroll through the results and pick the command that suits you.
+
+For more details, refer man pages.
+
+man apropos
+
+OK, I forgot some lengthy commands that I used few days ago, how to remember them?
+
+No problem. I know a few ways to remember the forgotten Linux commands.
+
+Do a quick reverse search by pressing “CTRL+R” and type the first few letters of the command you’re looking for. You will see the list of
+suggested commands from the bash history. Use UP/DOWN arrow keys to navigate through commands. Once you find out the actual command, press
+TAB or right arrow key to choose that command press ENTER key to execute.
+
+Alternatively, you can save or bookmark the important and frequently used commands, so you can use them later without having to search on
+websites or man pages. Refer the following links for more details.
+
+  * [[https://www.ostechnix.com/save-commands-terminal-use-demand/][Save commands in Terminal and use them on demand]]
+  * [[https://www.ostechnix.com/bookmark-linux-commands-easier-repeated-invocation/][Bookmark the frequently used commands]]
+
+And, that’s all for now. Hope this helps. If you know any other method to easily recall or remember a command, please feel free to let me
+know in the comment section below. More good stuffs to come. Stay tuned!
