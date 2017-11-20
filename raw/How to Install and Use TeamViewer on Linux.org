@@ -132,29 +132,26 @@ TeamViewer 同时支持多个会话, 你可以在不断开第一个系统的情�
 
 ** 4. Easy file transfer
 
-You can share a file by selecting File Transfer from the TeamViewer toolbar. You can either select the file which you want to share, or
-drag and drop a file using option File box. This is important since you can push an application to the target machine and install it
-without having a physical access.
+在 TeamViewer 菜单栏上选择 "File Transfer" 可以在系统之间分享文件. 你也可以选中文件然后拖进 File 框中. 
+这个功能很重要,这样你就可以无需物理接触就能把应用放到目标机器上并安装它了.
 
 ** 5. Manage Visual Settings
 
-Visual Settings options lets you optimize your connection to the target machine by giving you options to choose the Quality, Scaling,
-Screen resolution. It can be accessed via View option. In case there is a lag, you could select Optimize speed under Quality options, or
-disable GUI animations.
+你可以在 "Visual Settings" 中设置图像质量,缩放大小以及屏幕分辨率,以此里优化你的连接.
+该功能在 View 菜单中. 为了避免延误, 你可以在 Quality 中选择 Optimize speed, 或者禁用 GUI 动画.
 
 ** 6. Connect with a smartphone
 
-TeamViewer app is available for iOS, Android and Windows 10 Mobile which can help you take a look at your system anywhere, anytime. This
-lets me access my system and check if some downloads are completed, or even change the music track without reaching out to my system. 
+TeamViewer 应用还支持 iOS, Android 以及 Windows 10 手机,这使地你可以在任何时间任何地方都可以查看你的系统.
+我可以连上系统然后查看下载是否完成,甚至可以更改播放的音乐而无需接触系统. 
 
-I tried taking a control of my system with my Phone and it worked like a charm.
+下图演示了我是如何在手机上控制系统的.
 
 [[https://itsfoss.com/wp-content/uploads/2017/11/Remote-desktop-768x432.png]]
 
 * Final Words on TeamViewer
 
-TeamViewer is a great tool when it comes to getting control of someone’s system for troubleshooting or monitoring your own system with
-your mobile handset. And since it is available for almost every platform, there’s always a way around to help someone by connecting to
-their system. 
+TeamViewer 是个很棒的工具,它可以用来帮助别人排查问题也可以用手机监控自己的系统.
+而且它还支持几乎所有的系统. 
 
-Are you a TeamViewer user? What other tools do you use for remote desktop connection in Linux? Let us know in the comments how it helps you! 
+你是 TeamViewer 用户? 你还有其他远程连接的工具吗? 欢迎留言! 
