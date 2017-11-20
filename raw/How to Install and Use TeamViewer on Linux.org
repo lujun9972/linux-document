@@ -113,17 +113,17 @@ Files & Extras 让你可以截屏或者录制会话. 你可以通过拖拽的方
 
 * Do more with TeamViewer
 
-There are ways to optimize your TeamViewer experience. Let’s see some of them.
+下面这些方法可以优化TeamViewer的使用体验.
 
 ** 1. Using TeamViewer account for easy access
 
-TeamViewer provides an ID and password which can be used to take control of your system. However, signing up for a free user lets you
-store these credentials, and quickly connect to a system without the hassle of typing it every time.
+可以通过ID和密码来控制你的系统. 然而通过注册一个免费用户可以让你存储这些认证, 从而实现快速连接系统而无需每次都输入那么一堆东西.
 
 ** 2. Recording a session
 
-You can always record a TeamViewer session for a later access or for the records. Once you are connected to TeamViewer, navigate to Extras
-in the Toolbar and you will find the option to start, pause and stop recording. Once a recording is done, you are prompted to save it.
+You can always record a TeamViewer session for a later access or for the records. 
+连接上 TeamViewer 后, 进入工具栏中的 Extras,然后就能开始，暂停，停止录制了. 
+录制完成后，TeamViewer会提示你保存它.
 
 ** 3. Multiple Sessions support
 
