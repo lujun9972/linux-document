@@ -14,7 +14,7 @@
 TeamView是跨平台的软件，同时支持 Windows, Mac OS X, Linux, iOS 以及 Android 甚至还支持web浏览器.
 虽然 TeamViewer 是专利软件, 但它可以免费用于非商业用途，而且功能几乎与付费版本一样.
 
-* TeamViewer features
+* TeamViewer的特点
 
 + 远程控制系统
 + 支持视频会议, 群聊, 桌面共享.
@@ -23,7 +23,7 @@ TeamView是跨平台的软件，同时支持 Windows, Mac OS X, Linux, iOS 以�
 + 支持重启系统/服务器.
 + 便利的多屏切换.
 
-* Installing TeamViewer in Linux
+* 在Linux上安装TeamViewer
 
 对于基于Debain或Ubuntu的Linux发行版，TeamViewer 提供了 .deb 二进制文件. 
 对于Fedora和SUSE，它也提供了 .rpm 包.
@@ -55,7 +55,7 @@ TeamView是跨平台的软件，同时支持 Windows, Mac OS X, Linux, iOS 以�
   teamviewer
 #+END_SRC
 
-* How to use TeamViewer on Linux to connect to other systems
+* 连接其他系统
 
 在使用TeamViewer远程连接到其他系统之前，你需要了解一些东西:
 
@@ -69,7 +69,7 @@ TeamView是跨平台的软件，同时支持 Windows, Mac OS X, Linux, iOS 以�
 
 现在让我们看看具体要怎么做:
 
-** Step 1
+** 步骤 1
 
 在主机和目标系统上都启动 TeamViewer. 启动后你将会看到系统ID以及登陆密码. 远程系统也是一样.
 
@@ -78,7 +78,7 @@ TeamView是跨平台的软件，同时支持 Windows, Mac OS X, Linux, iOS 以�
 [[https://itsfoss.com/wp-content/uploads/2017/11/1-1.png]]
 An ID and Password is displaced on the screen
 
-** Step 2
+** 步骤 2
 
 确保主机和目标机器都安装有 TeamViewr后. 你还需要得到目标系统的ID和密码. 
 然后打开TeamViewer在 “Remote Control” 下面ID的位置输入对方ID, 然后点击 “Connect to partner”:
@@ -92,7 +92,7 @@ Enter the ID of the target device
 
 输入正确密码后点击 "Log On", 你就连接上目标系统了.
 
-** Step 3
+** 步骤 3
 
 连接上目标系统后, 你就能完全控制目标系统了. 我在一个Ubuntu系统上面创建了一个远程桌面连接，连接上另一台 Elementary OS 系统，然后在上面运行了一个命令! 
 
@@ -127,8 +127,8 @@ You can always record a TeamViewer session for a later access or for the records
 
 ** 3. Multiple Sessions support
 
-TeamViewer supports multiple sessions simultaneously, you can take control of a second system without being disconnected from the first
-one. Click on the + sign in the top left corner to add another machine. For IT support people, this can be very useful. 
+TeamViewer 同时支持多个会话, 你可以在不断开第一个系统的情况下控制第二个系统.
+点击左上角的+号就可以添加其他机器了. 对于那些从事IT支持的人, 该功能相当有用. 
 
 ** 4. Easy file transfer
 
