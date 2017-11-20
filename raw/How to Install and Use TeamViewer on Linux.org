@@ -1,0 +1,166 @@
+#+TITLE: How to Install and Use TeamViewer on Linux
+#+URL: https://itsfoss.com/teamviewer-linux/
+#+AUTHOR: lujun9972
+#+TAGS: teamviewer remote
+#+DATE: [2017-11-20 一 15:22]
+#+LANGUAGE:  zh-CN
+#+OPTIONS:  H:6 num:nil toc:t \n:nil ::t |:t ^:nil -:nil f:t *:t <:nil
+
+
+[[https://www.teamviewer.com][TeamViewer]] 是一款远程桌面应用，主要用于快速而安全地连接上其他系统. 她允许你远程登陆他人的桌面, 传输文件, 共享屏幕乃至举行视频会议.
+
+它由于简洁性与易用性而风靡于世, 常用于为远程计算机提供技术支持.
+
+TeamView是跨平台的软件，同时支持 Windows, Mac OS X, Linux, iOS 以及 Android 甚至还支持web浏览器.
+虽然 TeamViewer 是专利软件, 但它可以免费用于非商业用途，而且功能几乎与付费版本一样.
+
+* TeamViewer features
+
++ 远程控制系统
++ 支持视频会议, 群聊, 桌面共享.
++ 安全的连接，支持256 bit AES session 编码 以及 2048 bit RSA 密钥交换.
++ Wake-on-LAN feature allows switching on your computer remotely.
++ 支持重启系统/服务器.
++ 便利的多屏切换.
+
+* Installing TeamViewer in Linux
+
+对于基于Debain或Ubuntu的Linux发行版，TeamViewer 提供了 .deb 二进制文件. 
+对于Fedora和SUSE，它也提供了 .rpm 包.
+对于其他Linux发行版则可以使用 tar包来安装.
+
+你可以从下面这个官方下载页面下载 TeamViewer:
+
+[[https://www.teamviewer.com/en/download/linux/][Download TeamViewer]]
+
+我是在Ubuntu上安装 TeamViewer,因此我选择下载 .deb 文件. 双击下载的包就会弹出图形化的安装界面,按照指示一步步下去就行了.
+
+若你遇到有依赖问题, 我建议你试着用 [[https://itsfoss.com/gdebi-default-ubuntu-software-center/][GDebi package installer]] 来安装.
+
+另外, 如果你更喜欢终端操作, 可以进入下载目录然后运行下面命令:
+
+#+BEGIN_SRC shell
+  sudo dpkg -i teamviewer*
+#+END_SRC
+
+如果由于缺少依赖而导致安装失败, 则输入下面命令.
+
+#+BEGIN_SRC shell
+  sudo apt-get install -f
+#+END_SRC
+
+安装好后, 你就可以从应用菜单中打开 TeamViewer 了,或者也可以在控制台运行下面命令:
+
+#+BEGIN_SRC shell
+  teamviewer
+#+END_SRC
+
+* How to use TeamViewer on Linux to connect to other systems
+
+Here are a few things you should know about using TeamViewer for remotely connecting to other systems:
+
++ Both host and target systems should have TeamViewer installed.
++ Host and target can be any supported operating systems. For example, you can use it to connect to a Windows system from your Linux system.
++ By default, each system is given an ID and a 4 digit password that is generated randomly at each start of the application.
++ If you are trying to connect to a remote system, you’ll need to know the ID and the password of the target system.
++ Similarly, if you are giving someone access to your system, you need to provide them the password and ID of your system to the remote system.
++ Both systems must be connected to the internet.
++ You are not required to create an account on TeamViewer to use it.
+
+Now that you know a few things, let’s see how to do it:
+
+** Step 1
+
+Start TeamViewer on both host and target systems. You’ll see the ID and password of your TeamViewer application on your screen. Similar
+info will be displayed on the remote system.
+
+This is important information as it will be required to make the remote desktop connection.
+
+[[https://itsfoss.com/wp-content/uploads/2017/11/1-1.png]]
+An ID and Password is displaced on the screen
+
+** Step 2
+
+For connecting to a system, both the host and target machines should have TeamViewer installed. You will need the unique ID and password
+of the system to which you want to connect to. Open TeamViewer and under the “Remote Control” type in the ID in Partner ID option, and
+click on “Connect to partner”:
+
+[[https://itsfoss.com/wp-content/uploads/2017/11/using-teamviewer-linux.png]]
+Enter the ID of the target device
+
+Quite obviously, it will ask you to enter the password of the target system.
+
+[[https://itsfoss.com/wp-content/uploads/2017/11/using-teamviewer-linux-1.png]]
+
+Once you enter the correct password and hit Log On, you should be immediately connected to the target system.
+
+** Step 3
+
+Once connected, you have the full control of the target system. I have a system running Ubuntu from which I established a remote desktop
+connection to another system running Elementary OS and then I ran a command there! 
+
+[[https://itsfoss.com/wp-content/uploads/2017/11/running-TeamViewer-800x434.jpg]]
+Connected to elementary OS from Ubuntu system
+
+The top bar provides different options for TeamViewer. Under the Actions tab, you can find options to end the session, reboot your device
+or even invite additional participants. 
+
+[[https://itsfoss.com/wp-content/uploads/2017/11/3-768x151.png]]
+
+View tab contains the most useful options. You can select the screen fit, optimize speed and quality and select the screen resolution for
+the target system. 
+
+[[https://itsfoss.com/wp-content/uploads/2017/11/4-768x135.png]]
+
+Files & Extras gives you the option to take a screenshot or record a session. You can share a file between the two system via drag and
+drop or using the file manager. 
+
+[[https://itsfoss.com/wp-content/uploads/2017/11/5.png]]
+
+* Do more with TeamViewer
+
+There are ways to optimize your TeamViewer experience. Let’s see some of them.
+
+** 1. Using TeamViewer account for easy access
+
+TeamViewer provides an ID and password which can be used to take control of your system. However, signing up for a free user lets you
+store these credentials, and quickly connect to a system without the hassle of typing it every time.
+
+** 2. Recording a session
+
+You can always record a TeamViewer session for a later access or for the records. Once you are connected to TeamViewer, navigate to Extras
+in the Toolbar and you will find the option to start, pause and stop recording. Once a recording is done, you are prompted to save it.
+
+** 3. Multiple Sessions support
+
+TeamViewer supports multiple sessions simultaneously, you can take control of a second system without being disconnected from the first
+one. Click on the + sign in the top left corner to add another machine. For IT support people, this can be very useful. 
+
+** 4. Easy file transfer
+
+You can share a file by selecting File Transfer from the TeamViewer toolbar. You can either select the file which you want to share, or
+drag and drop a file using option File box. This is important since you can push an application to the target machine and install it
+without having a physical access.
+
+** 5. Manage Visual Settings
+
+Visual Settings options lets you optimize your connection to the target machine by giving you options to choose the Quality, Scaling,
+Screen resolution. It can be accessed via View option. In case there is a lag, you could select Optimize speed under Quality options, or
+disable GUI animations.
+
+** 6. Connect with a smartphone
+
+TeamViewer app is available for iOS, Android and Windows 10 Mobile which can help you take a look at your system anywhere, anytime. This
+lets me access my system and check if some downloads are completed, or even change the music track without reaching out to my system. 
+
+I tried taking a control of my system with my Phone and it worked like a charm.
+
+[[https://itsfoss.com/wp-content/uploads/2017/11/Remote-desktop-768x432.png]]
+
+* Final Words on TeamViewer
+
+TeamViewer is a great tool when it comes to getting control of someone’s system for troubleshooting or monitoring your own system with
+your mobile handset. And since it is available for almost every platform, there’s always a way around to help someone by connecting to
+their system. 
+
+Are you a TeamViewer user? What other tools do you use for remote desktop connection in Linux? Let us know in the comments how it helps you! 
