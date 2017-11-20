@@ -57,63 +57,57 @@ TeamView是跨平台的软件，同时支持 Windows, Mac OS X, Linux, iOS 以�
 
 * How to use TeamViewer on Linux to connect to other systems
 
-Here are a few things you should know about using TeamViewer for remotely connecting to other systems:
+在使用TeamViewer远程连接到其他系统之前，你需要了解一些东西:
 
-+ Both host and target systems should have TeamViewer installed.
-+ Host and target can be any supported operating systems. For example, you can use it to connect to a Windows system from your Linux system.
-+ By default, each system is given an ID and a 4 digit password that is generated randomly at each start of the application.
-+ If you are trying to connect to a remote system, you’ll need to know the ID and the password of the target system.
-+ Similarly, if you are giving someone access to your system, you need to provide them the password and ID of your system to the remote system.
-+ Both systems must be connected to the internet.
-+ You are not required to create an account on TeamViewer to use it.
++ 主机和目标系统上都需要安装有 TeamViewer.
++ 主机和目标机器可以是任何TeamViewer支持的操作系统. 例如,你可以用它从你的Linux系统连接到其他Windows系统上.
++ 默认情况下, 每个系统都有一个ID，并且应用启动时会给每个系统生成一个随机的4位密码.
++ 若你想连接远程系统，你需要知道目标系统的ID以及密码.
++ 类似的, 若你要让其他人连接到你的系统中, 你需要提供给他你系统的Id和密码.
++ 两个系统都要连接上Internte.
++ 你无需创建TeamViewer用于就能使用它.
 
-Now that you know a few things, let’s see how to do it:
+现在让我们看看具体要怎么做:
 
 ** Step 1
 
-Start TeamViewer on both host and target systems. You’ll see the ID and password of your TeamViewer application on your screen. Similar
-info will be displayed on the remote system.
+在主机和目标系统上都启动 TeamViewer. 启动后你将会看到系统ID以及登陆密码. 远程系统也是一样.
 
-This is important information as it will be required to make the remote desktop connection.
+这写信息很重要，当远程连接时需要这些信息.
 
 [[https://itsfoss.com/wp-content/uploads/2017/11/1-1.png]]
 An ID and Password is displaced on the screen
 
 ** Step 2
 
-For connecting to a system, both the host and target machines should have TeamViewer installed. You will need the unique ID and password
-of the system to which you want to connect to. Open TeamViewer and under the “Remote Control” type in the ID in Partner ID option, and
-click on “Connect to partner”:
+确保主机和目标机器都安装有 TeamViewr后. 你还需要得到目标系统的ID和密码. 
+然后打开TeamViewer在 “Remote Control” 下面ID的位置输入对方ID, 然后点击 “Connect to partner”:
 
 [[https://itsfoss.com/wp-content/uploads/2017/11/using-teamviewer-linux.png]]
 Enter the ID of the target device
 
-Quite obviously, it will ask you to enter the password of the target system.
+当然, TeamViewer还会要你输入目标系统的密码.
 
 [[https://itsfoss.com/wp-content/uploads/2017/11/using-teamviewer-linux-1.png]]
 
-Once you enter the correct password and hit Log On, you should be immediately connected to the target system.
+输入正确密码后点击 "Log On", 你就连接上目标系统了.
 
 ** Step 3
 
-Once connected, you have the full control of the target system. I have a system running Ubuntu from which I established a remote desktop
-connection to another system running Elementary OS and then I ran a command there! 
+连接上目标系统后, 你就能完全控制目标系统了. 我在一个Ubuntu系统上面创建了一个远程桌面连接，连接上另一台 Elementary OS 系统，然后在上面运行了一个命令! 
 
 [[https://itsfoss.com/wp-content/uploads/2017/11/running-TeamViewer-800x434.jpg]]
 Connected to elementary OS from Ubuntu system
 
-The top bar provides different options for TeamViewer. Under the Actions tab, you can find options to end the session, reboot your device
-or even invite additional participants. 
+最上面一栏可以修改TeamViewer配置. 在 Actions 标签页下, 你可以关闭session，重启设备甚至邀请其他参与者. 
 
 [[https://itsfoss.com/wp-content/uploads/2017/11/3-768x151.png]]
 
-View tab contains the most useful options. You can select the screen fit, optimize speed and quality and select the screen resolution for
-the target system. 
+View 标签页中的功能最有用. 你可以选择让屏幕自适应, 还是速度优先还是质量优先,还能选择目标系统的屏幕分辨率. 
 
 [[https://itsfoss.com/wp-content/uploads/2017/11/4-768x135.png]]
 
-Files & Extras gives you the option to take a screenshot or record a session. You can share a file between the two system via drag and
-drop or using the file manager. 
+Files & Extras 让你可以截屏或者录制会话. 你可以通过拖拽的方式或者文件管理器来在系统间分享文件. 
 
 [[https://itsfoss.com/wp-content/uploads/2017/11/5.png]]
 
