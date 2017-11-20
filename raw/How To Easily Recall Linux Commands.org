@@ -1,75 +1,80 @@
-#+TITLE: How To Easily Recall Linux Commands
+#+TITLE: 如何回忆起遗忘的Linux命令
 #+URL: https://www.ostechnix.com/easily-recall-forgotten-linux-commands/
 #+AUTHOR: lujun9972
-#+TAGS: raw
+#+TAGS: apropos history bash
 #+DATE: [2017-11-17 五 09:40]
 #+LANGUAGE:  zh-CN
 #+OPTIONS:  H:6 num:nil toc:t \n:nil ::t |:t ^:nil -:nil f:t *:t <:nil
 
 
-There are thousands of Linux commands, and remembering all of them is absolutely impossible. Also, it is not necessary though. At times,
-my mind goes completely blank and I couldn’t remember a particular command. I keep looking at the Terminal and try to remember the
-command, but can’t. If you are anything like me, I’ve got a good news for you. Thanks to Apropos command and BASH history that helps me to
-easily recall forgotten Linux commands. Apropos is a Linux command that searches the manual page names and descriptions by using a given
-keyword or string. It comes pre-installed in most Linux distributions and usage is very easy.
+Linux有几千个命令, 要想全部记住这些命令是不可能的,也是没有必要的. 有时候,我脑袋会发蒙记不起特定的命令. 而我只能呆呆的看着终端，尝试想起要输入的命令，却最终还是记不起来.
+如果你也跟我一样, 那么你有福了. 借助 =Apropos= 命令和 BASH history 的功能能够帮助我们回想起忘记的Linux命令. 
+Apropos 是一个用指定关键字搜索定位手册页中名字和描述部分的Linux命令. 大多数Linux发行版都预先安装了该命令，而且它的用法也很简单.
 
-The Apropos command – Easily Recall Forgotten Linux Commands
+* Apropos 命令 – 快速回忆起遗忘的Linux命令
 
-Let say you forgot the command to list the contents of a directory. Let us see if apropos can help us in this regard.
+假设你忘了那个命令可以输出目录中的内容了. 让我们看看 apropos 是否能够帮到你.
 
-apropos "list directory"
+#+BEGIN_SRC shell
+  apropos "list directory"
+#+END_SRC
 
-Sample output would be:[[http://www.ostechnix.com/wp-content/uploads/2017/11/apropos.png][apropos]]
+输出为:[[http://www.ostechnix.com/wp-content/uploads/2017/11/apropos.png]]
 
-See? The apropos command is displaying the list if suggested commands that matches for the search string. As you see in the example, we
-can use “dir” command to list a directory contents.
+看到没? apropos 命令列出了一些与搜索字符串匹配的命令. 从中你可以看出, 使用 “dir” 命令可以列出目录内容.
 
-I know it is easy to remember “dir” command, but i used it to demonstrate the purpose of Apropos command. You can use any search string.
-But, some times you need to be more specific when using search strings. For example, the following command will display all commands that
-contains the word “list”.
+我知道记住 “dir” 命令是一件很简单的事情, 我只是用它来演示一下 Apropos 命令而已. 你可以搜索任意的字符串. 但搜索的字符串应该足够精确.
+比如下面的命令会列出所有包含单词 “list” 的命令.
 
-apropos "list"
+#+BEGIN_SRC shell
+  apropos "list"
+#+END_SRC
 
-In such cases, apropos will not help you to find what you’re looking for.
+这种情况下, apropos 对你的搜索根本没有什么帮助.
 
-Let me show you another example. Want to find the Kernel but you forgot the actual command? Here is how you can find it.
+让我们再看看其他例子. 想查询内核但是忘了用哪个命令? 你可以这样做.
 
-apropos "kernel"
+#+BEGIN_SRC shell
+  apropos "kernel"
+#+END_SRC
 
-Or, run it with out quotes.
+也可以不带引号.
 
-apropos "kernel"
+#+BEGIN_SRC shell
+  apropos kernel
+#+END_SRC
 
-[[http://www.ostechnix.com/wp-content/uploads/2017/11/DeepinScreenshot_mate-terminal_20171115190817.png][apropos]]
+[[http://www.ostechnix.com/wp-content/uploads/2017/11/DeepinScreenshot_mate-terminal_20171115190817.png]]
 
-In this case, we can use “uname” command to know the details of Linux Kernel.
+从中可以看出, 可以使用 “uname” 命令来显示Linux内核的详细信息.
 
-Please note that you must use quotes when the search string has more than one word.
+请注意，当搜索字符串中包含不止一个单词时应该用引号引起来.
 
-I forgot the command to access my remote system? What to do? No worries! Use the following command to find out what it is!!
+忘了哪个命令可以连接到远程系统了? 不要紧! 用下面命令查一下就好!!
 
-apropos "remote"
+#+BEGIN_SRC shell
+  apropos "remote"
+#+END_SRC
 
-Be mindful that the Apropos command will display all possible commands that has the search string in their description. So, you might have
-to scroll through the results and pick the command that suits you.
+请注意, Apropos 命令会显示出所有描述中包含搜索字符串的命令. 因此你很可能需要滚动搜索列表才能找出需要的命令.
 
-For more details, refer man pages.
+更多细节, 参见 man pages.
 
-man apropos
+#+BEGIN_SRC shell
+  man apropos
+#+END_SRC
 
-OK, I forgot some lengthy commands that I used few days ago, how to remember them?
+* 忘了几天前输过的一长串命令该怎么办呢?
 
-No problem. I know a few ways to remember the forgotten Linux commands.
+没问题. 我还有方法.
 
-Do a quick reverse search by pressing “CTRL+R” and type the first few letters of the command you’re looking for. You will see the list of
-suggested commands from the bash history. Use UP/DOWN arrow keys to navigate through commands. Once you find out the actual command, press
-TAB or right arrow key to choose that command press ENTER key to execute.
+按下 “CTRL+R” 可以快速向后搜索输入过的命令. 你会看到一系列在bash history出现的命令.
+使用 UP/DOWN 方向键可以切换命令. 当找到想要的那个命令后, 按下 TAB 或者 右方向键可以选中该命令，再按下 ENTER 执行该命令.
 
-Alternatively, you can save or bookmark the important and frequently used commands, so you can use them later without having to search on
-websites or man pages. Refer the following links for more details.
+此外, 你也可以将重要的和常用的命令保存起来或者加上书签, 这样你无需搜索网站或man page就能找回这些命令. 
+详细说明请阅读下面链接.
 
-  * [[https://www.ostechnix.com/save-commands-terminal-use-demand/][Save commands in Terminal and use them on demand]]
-  * [[https://www.ostechnix.com/bookmark-linux-commands-easier-repeated-invocation/][Bookmark the frequently used commands]]
++ [[https://www.ostechnix.com/save-commands-terminal-use-demand/][Save commands in Terminal and use them on demand]]
++ [[https://www.ostechnix.com/bookmark-linux-commands-easier-repeated-invocation/][Bookmark the frequently used commands]]
 
-And, that’s all for now. Hope this helps. If you know any other method to easily recall or remember a command, please feel free to let me
-know in the comment section below. More good stuffs to come. Stay tuned!
+这就是所有内容了. 希望本文对你有所帮助. 如果你有其他好方法请给我们留言. More good stuffs to come. Stay tuned!
