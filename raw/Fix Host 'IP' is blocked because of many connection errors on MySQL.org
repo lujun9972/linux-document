@@ -1,0 +1,130 @@
+#+TITLE: 修复MySQL由于太多连接引发的"Host 'IP' is blocked"的问题
+#+URL: https://www.cyberciti.biz/faq/error-1129-hy000-host-is-blocked-because-of-many-connection-errors/
+#+AUTHOR: lujun9972
+#+TAGS: database MySQL MqriaDB
+#+DATE: [2017-11-16 四 19:16]
+#+LANGUAGE:  zh-CN
+#+OPTIONS:  H:6 num:nil toc:t \n:nil ::t |:t ^:nil -:nil f:t *:t <:nil
+
+
+
+使用下面命令登陆 mysql/mysqld 服务器:
+#+BEGIN_SRC shell
+  $ mysql -u foo -h 172.16.5.100 -p dbnmame
+#+END_SRC
+但却显示如下错误:
+#+BEGIN_EXAMPLE
+  ERROR 1129 (HY000): Host ‘172.16.5.100’ is blocked because of many connection errors; unblock with ‘mysqladmin flush-hosts’
+#+END_EXAMPLE
+在Linux以及类UNIX系统中该如何解决这个问题呢?
+
+允许连接的数量由 MySQL/MariaDB 的系统值 max_connections 决定. 当MySQL用于Web server时，为了改善性能，这个默认值设为151.
+当网站特别繁忙时，或者 [[https://www.cyberciti.biz/faq/how-to-set-up-mariadb-master-slave-replication-with-ssl-on-ubuntu-linux/][MariaDB server in clustered mode]] 或者 [[https://www.cyberciti.biz/faq/howto-install-configure-mariadb-galera-master-cluster-ubuntulinux/][using a Galera master to master DB cluster]] 时，这常常会引起一些问题. 
+如果你需要支持更多的连接, 就应该修改该变量值.
+
+* 如何获取 max_connections 的当前值
+
+输入以下命令:
+#+BEGIN_SRC shell
+  $ mysql -u root -p
+#+END_SRC
+然后输入下面sql语句:
+#+BEGIN_SRC sql
+  mysql> show variables like "max_connections";
+#+END_SRC
+输出为:
+
+#+BEGIN_EXAMPLE
+  +-----------------+--------+
+  | Variable_name   | Value  |
+  +-----------------+--------+
+  | max_connections | 151    |
+  +-----------------+--------+
+  1 row in set (0.00 sec)
+#+END_EXAMPLE
+
+* 如何增加 increase max_connections 的值?
+
+编辑 =/etc/= 目录中的 =my.cnf= 或 =mariadb.conf.d/50-server.cnf=:
+#+BEGIN_SRC shell
+  $ sudo vim /etc/mariadb.conf.d/50-server.cnf
+#+END_SRC
+将下列行加到 =[mysqld]= 章节中(这里我们设置值为 1000. 最大可达 100000):
+#+BEGIN_SRC conf
+  max_connections = 1000
+#+END_SRC
+保存并关闭文件. 然后, [[https://www.cyberciti.biz/faq/ssh-restart-stop-mysql-server-unix-linux-command/][重启 mysqld 服务]]:
+#+BEGIN_SRC shell
+  $ sudo systemctl restart mysql
+#+END_SRC
+若是 CentOS/RHEL/Fedora/Oracle/Scientific Linux, 则运行:
+#+BEGIN_SRC shell
+  $ sudo systemctl restart mysqld
+#+END_SRC
+若为 [[https://www.cyberciti.biz/faq/freebsd-start-stop-restart-mysql-server/][FreeBSD unix, 则运行下面命令来重启系统]]:
+#+BEGIN_SRC shell
+  $ sudo /usr/local/etc/rc.d/mysql-server restart
+#+END_SRC
+使用下面命令来验证新的限制数:
+#+BEGIN_SRC shell
+  $ mysql -u root -p -e 'show variables like "max_connections";'
+#+END_SRC
+[[https://www.cyberciti.biz/media/new/faq/2017/11/mysql-mariadb-max_connections.jpg]]
+Fig.01: How to view mac_connection limits when using MySQL/MariaDB
+
+* 关于 mysqladmin 命令的说明
+
+运行下面bash命令来刷新所有缓存了的主机并删除限制
+#+BEGIN_SRC shell
+  $ mysqladmin flush-hosts
+#+END_SRC
+也可以带上用户名然后输入密码:
+#+BEGIN_SRC shell
+  $ mysqladmin -u root -p flush-hosts
+#+END_SRC
+
+* 关于 “Too many open files” 错误的说明
+
+这个错误说明你需要更改 mysqld 允许使用的文件描述符数量. 运行下面命令可以查看当前的文件描述服限制数:
+#+BEGIN_SRC shell
+  $ mysql -u root -p -e 'show variables like "open_files_limit";'
+#+END_SRC
+输出为:
+
+#+BEGIN_EXAMPLE
+  Enter password: 
+  +------------------+--------+
+  | Variable_name    | Value  |
+  +------------------+--------+
+  | open_files_limit | 500005 |
+  +------------------+--------+
+#+END_EXAMPLE
+
+再次编辑 =my.cnf= 文件:
+#+BEGIN_SRC shell
+  $ sudo vi my.cnf
+#+END_SRC
+或者
+#+BEGIN_SRC shell
+  $ sudo vim /etc/mariadb.conf.d/50-server.cnf
+#+END_SRC
+设置 [mysqld] 章节中的值
+#+BEGIN_SRC conf
+  open_files_limit = 1024000
+#+END_SRC
+保存并关闭文件. 然后像上面那样重启 =mysqld=. 若你使用给予 GNU/Linux systemd 的发行版(比如RHEL/CentOS 7),则创建一个文件:
+#+BEGIN_SRC shell
+  $ sudo vi /etc/systemd/system/mysqld.service
+#+END_SRC
+在文件后添加这么一段内容:
+#+BEGIN_SRC conf
+  [Service]
+  User=mysql
+  Group=mysql
+  LimitNOFILE=1024000
+#+END_SRC
+然后再重启服务:
+#+BEGIN_SRC shell
+  $ sudo systemctl daemon-reload
+  $ sudo systemctl restart mysqld
+#+END_SRC
