@@ -7,6 +7,7 @@
 未分类的内容
 
 + [[https://github.com/lujun9972/linux-document/blob/master/common/How To Easily Recall Linux Commands.org][ 如何回忆起遗忘的Linux命令]]		<2017-11-21>
++ [[https://github.com/lujun9972/linux-document/blob/master/common/Boot Linux ISO From Android Phone.org][ Boot Linux ISO From Android Phone]]		<2017-11-21>
 + [[https://github.com/lujun9972/linux-document/blob/master/common/Fix Host 'IP' is blocked because of many connection errors on MySQL.org][ 修复MySQL由于太多连接引发的"Host 'IP' is blocked"的问题]]		<2017-11-20>
 + [[https://github.com/lujun9972/linux-document/blob/master/common/4 Ways to Watch or Monitor Log Files in Real Time.org][ 实时监控日志文件的4中方法]]		<2017-11-04>
 + [[https://github.com/lujun9972/linux-document/blob/master/common/how to burn iso image to dvd and usb using dd.org][ 如何使用dd将ISO镜像烧录入DVD和USB中]]		<2017-10-30>
@@ -28,7 +29,6 @@ Linux好游戏
 * raw
 未翻译的内容,欢迎大家领取
 
-+ [[https://github.com/lujun9972/linux-document/blob/master/raw/Boot Linux ISO From Android Phone.org][ Boot Linux ISO From Android Phone]]		<2017-11-20>
 + [[https://github.com/lujun9972/linux-document/blob/master/raw/Top 10 Linux tools.org][ Top 10 Linux tools]]		<2017-11-16>
 + [[https://github.com/lujun9972/linux-document/blob/master/raw/Top Ways to Learn Linux Online.org][ Top Ways to Learn Linux Online]]		<2017-11-06>
 * shell
