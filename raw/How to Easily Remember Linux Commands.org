@@ -15,6 +15,8 @@ you’re getting started.
 
 * History
 
+[[https://www.maketecheasier.com/assets/uploads/2017/10/rc-bash-history.jpg]]
+
 The first thing you can use to remember commands that you’ve already used is your own command line history. Most [[https://www.maketecheasier.com/alternative-linux-shells/][Linux shells]], including
 the most common default, Bash, create a history file that lists your past commands. For Bash, you can find it at “/home/<username>
 /.bash_history.”
@@ -31,6 +33,8 @@ following command:
   apropos "list directory"
 #+END_SRC
 
+[[https://www.maketecheasier.com/assets/uploads/2017/10/rc-apropos.jpg]]
+
 There’s a catch, though. It’s very literal. Add an “s” to “directory,” and try again.
 
 #+BEGIN_SRC shell
@@ -46,6 +50,8 @@ There is something else you can do. By using the -a flag, you can add together s
   apropos "match pattern"
 #+END_SRC
 
+[[https://www.maketecheasier.com/assets/uploads/2017/10/rc-apropos-a.jpg]]
+
 You’d think it’d turn up something, like [[https://www.maketecheasier.com/what-is-grep-and-uses/][grep]]? Instead, you get nothing. Again, apropos is being too literal. Now, try separating the
 words and using the -a flag.
 
@@ -59,6 +65,7 @@ apropos is a great tool, but you always need to be aware of its quirks.
 
 * ZSH
 
+[[https://www.maketecheasier.com/assets/uploads/2017/10/rc-zsh.jpg]]
 ZSH isn’t really a tool for remembering commands. It’s actually an alternative shell. You can substitute [[https://www.maketecheasier.com/understanding-the-different-shell-in-linux-zsh-shell/][ZSH]] for Bash and use it as your
 command line shell. ZSH includes an autocorrect feature that catches you if you enter in a command wrong or misspell something. If you
 enable it, it’ll ask you if you meant something close. You can continue to use the command line as you normally would with ZSH, but you
@@ -68,6 +75,8 @@ get an extra safety net and some other really nice features, too. The easiest wa
 
 The last, and probably simplest, option is to use a [[https://www.maketecheasier.com/premium/cheatsheet/linux-command-line/][cheat sheet]]. There are plenty available online like [[https://www.cheatography.com/davechild/cheat-sheets/linux-command-line/][this one]] that you can use to look
 up commands quickly.
+
+[[https://www.maketecheasier.com/assets/uploads/2013/10/linux-commandline-cheatsheet.gif]]
 
 You can actually even find them in image form and set one as your desktop wallpaper for quick reference.
 
