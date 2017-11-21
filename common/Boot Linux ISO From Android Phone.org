@@ -1,0 +1,56 @@
+#+TITLE: Boot Linux ISO From Android Phone
+#+URL: http://www.linuxandubuntu.com/home/boot-linux-iso-from-android-phone
+#+AUTHOR: lujun9972
+#+TAGS: ISO android
+#+DATE: [2017-11-20 一 20:50]
+#+LANGUAGE:  zh-CN
+#+OPTIONS:  H:6 num:nil toc:t \n:nil ::t |:t ^:nil -:nil f:t *:t <:nil
+
+​我们Linux用户总是不肯只局限于使用某一个特定的发行版. 我们总是探索新东西，探索那些令人兴奋的东西. 新的[[http://www.linuxandubuntu.com/home/5-best-linux-desktop-environments-with-pros-cons][桌面环境]], 新的内核或者新的Linux体验. 
+[[http://www.linuxandubuntu.com/uploads/2/1/1/5/21152474/flirt-with-linux-distributions-meme_orig.jpg]]
+这也是为什么我们总是在第一时间试用那些新出现的发行版以及流行发行版的更新版本.
+
+但是有个问题,我们需要为每个发行版都制作一个可启动的U盘. 那么有什么方法能够解决这个问题吗? 答案是 YES!
+
+解决的方法是 ‘不要去制作可启动的U盘’. 没错, 你没有看错. 
+
+有一个名叫 =DriveDroid= ([[http://www.theitstuff.com/root-android-phone][需要root权限]])的 Android 应用，它可以将iso镜像挂载为USB驱动盘从而让你启动进入所选择的发行版.
+然后你就可以测试并且安装这个Linux发行版了.
+
+你需要: 
+
+1 一台root过的 Android 设备 ([[http://www.theitstuff.com/root-android-phone][How to root Android?]]) 
+2 一个Linux发行版的iso镜像
+3 一根USB线
+4 安装好DriveDroid ([[https://play.google.com/store/apps/details?id=com.softwarebakery.drivedroid&hl=en][click here]] to Install) 
+
+​安装好​ DriveDroid 后, 运行该应用，会弹出一个窗口，之间点击skip就行了.
+[[http://www.linuxandubuntu.com/uploads/2/1/1/5/21152474/install-drivedroid-in-android-from-play-store_orig.jpg]]
+然后, 它会要求超级用户(root)权限. 点击授权.
+[[http://www.linuxandubuntu.com/uploads/2/1/1/5/21152474/drivedroid-needs-superuser-permissions_orig.jpg]]
+然后你会看到下面的窗口
+[[http://www.linuxandubuntu.com/uploads/2/1/1/5/21152474/make-android-iso-bootable-drivedroid_orig.jpg]]
+现在打开你的文件管理器，将Linux iso文件拷贝到内部存储的 =Downloads/images= 中. 若该目录不存在则创建它.
+[[http://www.linuxandubuntu.com/uploads/2/1/1/5/21152474/browse-to-linux-distro-iso-in-drivedroid_orig.jpg]]
+现在回到​ =DriveDroid=, 你会看到已经能够列出你的iso文件了. 点击它.
+[[http://www.linuxandubuntu.com/uploads/2/1/1/5/21152474/boot-ubuntu-17-10-from-android_orig.jpg]]
+​这会弹出一个类似下面的窗口. 你最多一次可以挂载两个不同的ISO文件. 现在点击 =Mass Storage 1= 的那个 =Writable USB= 图标.
+[[http://www.linuxandubuntu.com/uploads/2/1/1/5/21152474/drivedroid-permissions_orig.jpg]]
+DriveDroid随后会尝试挂载ISO文件,你可以在通知栏上看到进度.
+[[http://www.linuxandubuntu.com/uploads/2/1/1/5/21152474/host-iso-to-android-device_orig.jpg]]
+挂载完成后(最多10秒),通知栏会出现类似下面的成功信息.
+[[http://www.linuxandubuntu.com/uploads/2/1/1/5/21152474/make-device-bootable-from-android_orig.jpg]]
+现在启动介质已经准备好了. 重启计算机然后按下启动磁盘选择键. 你会发现有新磁盘出现在启动磁盘列表中.
+[[http://www.linuxandubuntu.com/uploads/2/1/1/5/21152474/boot-linux-from-android-device_orig.jpg]]
+这里的 =UEFI: Linux File-Stor Gadget 0318= 就是刚创建的启动盘.
+
+选中它就会启动你的iso镜像. 
+[[http://www.linuxandubuntu.com/uploads/2/1/1/5/21152474/ubuntu-17-10-boot-menu_orig.jpg]]
+BAM! 我们成功了. 
+[[http://www.linuxandubuntu.com/uploads/2/1/1/5/21152474/boot-linux-from-android-phone_orig.jpg]]
+我们成功的从android手机上启动了一个Linux发行版. 我已经用了 DriveDroid 超过10个月了,它棒极了. 
+
+* 结论
+
+你可以用Android设备挂载Linux ISO文件来创建一个启动介质​. 你需要一个有root权限的android设备, USB 线, Drivedroid 应用 以及 一个 Linux iso文件.
+通过android创建的虚拟USB用起来跟实际的USB一样. 这比创建一个实际的安装介质要快速和方便的多.
