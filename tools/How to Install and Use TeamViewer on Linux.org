@@ -1,4 +1,4 @@
-#+TITLE: How to Install and Use TeamViewer on Linux
+#+TITLE: TeamViewer使用指南
 #+URL: https://itsfoss.com/teamviewer-linux/
 #+AUTHOR: lujun9972
 #+TAGS: teamviewer remote
@@ -111,9 +111,9 @@ Files & Extras 让你可以截屏或者录制会话. 你可以通过拖拽的方
 
 [[https://itsfoss.com/wp-content/uploads/2017/11/5.png]]
 
-* Do more with TeamViewer
+* 关于 TeamViewer 的其他说明
 
-下面这些方法可以优化TeamViewer的使用体验.
+下面这些方法可以改善TeamViewer的使用体验.
 
 ** 1. Using TeamViewer account for easy access
 
@@ -149,7 +149,7 @@ TeamViewer 应用还支持 iOS, Android 以及 Windows 10 手机,这使地你可
 
 [[https://itsfoss.com/wp-content/uploads/2017/11/Remote-desktop-768x432.png]]
 
-* Final Words on TeamViewer
+* 最后总结
 
 TeamViewer 是个很棒的工具,它可以用来帮助别人排查问题也可以用手机监控自己的系统.
 而且它还支持几乎所有的系统. 

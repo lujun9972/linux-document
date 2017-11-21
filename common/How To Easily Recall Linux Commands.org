@@ -1,0 +1,80 @@
+#+TITLE: 如何回忆起遗忘的Linux命令
+#+URL: https://www.ostechnix.com/easily-recall-forgotten-linux-commands/
+#+AUTHOR: lujun9972
+#+TAGS: apropos history bash
+#+DATE: [2017-11-17 五 09:40]
+#+LANGUAGE:  zh-CN
+#+OPTIONS:  H:6 num:nil toc:t \n:nil ::t |:t ^:nil -:nil f:t *:t <:nil
+
+
+Linux有几千个命令, 要想全部记住这些命令是不可能的,也是没有必要的. 有时候,我脑袋会发蒙记不起特定的命令. 而我只能呆呆的看着终端，尝试想起要输入的命令，却最终还是记不起来.
+如果你也跟我一样, 那么你有福了. 借助 =Apropos= 命令和 BASH history 的功能能够帮助我们回想起忘记的Linux命令. 
+Apropos 是一个用指定关键字搜索定位手册页中名字和描述部分的Linux命令. 大多数Linux发行版都预先安装了该命令，而且它的用法也很简单.
+
+* Apropos 命令 – 快速回忆起遗忘的Linux命令
+
+假设你忘了那个命令可以输出目录中的内容了. 让我们看看 apropos 是否能够帮到你.
+
+#+BEGIN_SRC shell
+  apropos "list directory"
+#+END_SRC
+
+输出为:[[http://www.ostechnix.com/wp-content/uploads/2017/11/apropos.png]]
+
+看到没? apropos 命令列出了一些与搜索字符串匹配的命令. 从中你可以看出, 使用 “dir” 命令可以列出目录内容.
+
+我知道记住 “dir” 命令是一件很简单的事情, 我只是用它来演示一下 Apropos 命令而已. 你可以搜索任意的字符串. 但搜索的字符串应该足够精确.
+比如下面的命令会列出所有包含单词 “list” 的命令.
+
+#+BEGIN_SRC shell
+  apropos "list"
+#+END_SRC
+
+这种情况下, apropos 对你的搜索根本没有什么帮助.
+
+让我们再看看其他例子. 想查询内核但是忘了用哪个命令? 你可以这样做.
+
+#+BEGIN_SRC shell
+  apropos "kernel"
+#+END_SRC
+
+也可以不带引号.
+
+#+BEGIN_SRC shell
+  apropos kernel
+#+END_SRC
+
+[[http://www.ostechnix.com/wp-content/uploads/2017/11/DeepinScreenshot_mate-terminal_20171115190817.png]]
+
+从中可以看出, 可以使用 “uname” 命令来显示Linux内核的详细信息.
+
+请注意，当搜索字符串中包含不止一个单词时应该用引号引起来.
+
+忘了哪个命令可以连接到远程系统了? 不要紧! 用下面命令查一下就好!!
+
+#+BEGIN_SRC shell
+  apropos "remote"
+#+END_SRC
+
+请注意, Apropos 命令会显示出所有描述中包含搜索字符串的命令. 因此你很可能需要滚动搜索列表才能找出需要的命令.
+
+更多细节, 参见 man pages.
+
+#+BEGIN_SRC shell
+  man apropos
+#+END_SRC
+
+* 忘了几天前输过的一长串命令该怎么办呢?
+
+没问题. 我还有方法.
+
+按下 “CTRL+R” 然后输入命令的前面几个自负，就可以快速向后搜索输入过的命令. 你会看到一系列在bash history出现的命令.
+使用 UP/DOWN 方向键可以切换命令. 当找到想要的那个命令后, 按下 TAB 或者 右方向键可以选中该命令，再按下 ENTER 执行该命令.
+
+此外, 你也可以将重要的和常用的命令保存起来或者加上书签, 这样你无需搜索网站或man page就能找回这些命令. 
+详细说明请阅读下面链接.
+
++ [[https://www.ostechnix.com/save-commands-terminal-use-demand/][Save commands in Terminal and use them on demand]]
++ [[https://www.ostechnix.com/bookmark-linux-commands-easier-repeated-invocation/][Bookmark the frequently used commands]]
+
+这就是所有内容了. 希望本文对你有所帮助. 如果你有其他好方法请给我们留言. More good stuffs to come. Stay tuned!
