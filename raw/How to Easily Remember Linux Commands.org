@@ -1,7 +1,7 @@
 #+TITLE: How to Easily Remember Linux Commands
 #+URL: https://www.maketecheasier.com/remember-linux-commands/
 #+AUTHOR: lujun9972
-#+TAGS: raw
+#+TAGS: history apropos zsh cheatsheet command
 #+DATE: [2017-11-21 二 11:17]
 #+LANGUAGE:  zh-CN
 #+OPTIONS:  H:6 num:nil toc:t \n:nil ::t |:t ^:nil -:nil f:t *:t <:nil
