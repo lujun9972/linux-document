@@ -1,0 +1,72 @@
+#+TITLE: 10 Best Linux Business Apps
+#+URL: https://www.datamation.com/open-source/slideshows/10-best-linux-business-apps.html
+#+AUTHOR: lujun9972
+#+TAGS: raw
+#+DATE: [2017-12-16 六 13:17]
+#+LANGUAGE:  zh-CN
+#+OPTIONS:  H:6 num:nil toc:t \n:nil ::t |:t ^:nil -:nil f:t *:t <:nil
+
+
+These Linux apps will enable you to accomplish a variety of professionals tasks quickly and effectively. 
+
+* Evolution
+
+[[https://wiki.gnome.org/Apps/Evolution][Evolution]] - Even though it’s not the most attractive software in the world, there’s no question that Evolution remains the best personal information manager (PIM) for Linux. Evolution supports various groupware solutions including Microsoft Exchange, plus it offers decent Google account support for those who require it.
+
+* LibreOffice
+
+[[https://www.libreoffice.org/][LibreOffice]] - I’ll be first to admit that Libre Office isn’t for everyone. Some users in the business space have grown dependent on Excel’s ability with huge spreadsheets or the special add-ons only available for Outlooks users. However for many businesses, LibreOffice is actually perfectly acceptable. LibreOffice offers its users access to a powerful word processor, spreadsheet and presentation program.
+
+Between you and me, you can indeed add extended functionality to LibreOffice through extensions. And while they may not be as robust as their proprietary alternatives, there are extensions ranging from clipart to grammar/proofreading available. One of the more impressive extensions I've seen, is useful for anyone looking to create ebooks. The extension in question is called [[https://extensions.libreoffice.org/extensions/writer2epub][Writer2ePub]].
+
+
+* Scribus
+
+[[https://www.scribus.net/][Scribus]] - If you’re looking to get into print publishing of any kind, Scribus is your first stop. Scribus provides its users with the ability to create professional printed documents, newsletters and even Magazines.
+
+Another important feature set with Scribus is the ability to import a color profile that is calibrated for your PC’s monitor. This feature, bundled with Scribus’ solid CMYK support makes this the default desktop publishing application for Linux users in the business place.
+
+
+* GIMP
+
+[[https://www.gimp.org/][GIMP]] - If you can get yourself past the fact that GIMP isn't Photoshop and despite sharing features with the Adobe software, GIMP has strengths of its own. GIMP is a powerful image manipulation program that when fully understood, is very business friendly.
+
+Like other FoSS software, GIMP can also be made to provide extra functionality through the use of extensions. These extensions add everything from limited CMYK support to GIF animation creation.
+
+
+* VirtualBox
+
+[[https://www.virtualbox.org/wiki/Downloads][VirtualBox]] - No matter how you look at it, VirtualBox is by far the easiest Virtual Machine management tool available. Besides being dead simple to use, VirtualBox also offers you USB support, various graphical passthroughs and of course, the extensions ISO for extra functionality.
+
+Seamless mode, seamless mouse control between host/guest OS and shared directories between host/guest OS make VirtualBox a great solution if you need to run Windows or another Linux distro, but prefer to avoid running said OS on bare metal.
+
+
+* TeamViewer
+
+[[https://www.teamviewer.com/en/download/linux/][TeamViewer]] - While there are few usable remote desktop control applications available, I've come to the conclusion that TeamViewer has proven to be the most reliable of the lot. Yes, it's bundled with a WINE wrapper. However once you're past this issue, the fact remains the software is dead simple to use.
+
+Obviously due to in-house security policies, many businesses would prefer you access your workstation remotely using an approved VPN setup. However for those of us who just work from home yet also run a business, TeamViewer is actually a very handy way to access remote files, run programs on your local PC from a remote location and even provide remote tech support.
+
+* Slack
+
+[[https://slack.com/downloads/linux][Slack]] - Known as the most commonly used communication tool for businesses in 2017, Slack also offers a Linux client. The client provides you with multiple workspaces, desktop notifications and comes with the Slack interface its users have come to know and appreciate.
+
+There's really no question that Slack is far superior to Email or other chat based alternatives. Best of all, you can archive and search past conversations and projects. 
+* FreeMind
+
+[[http://freemind.sourceforge.net/wiki/index.php/Main_Page][FreeMind]] - Even though I'm not an advocate for running Java programs on the desktop, I have to give FreeMind a pass on this one issue. Fact is, FreeMind is a solid mind mapping program for Linux users.
+
+As fellow mind mappers realize, creating a concise mind map that anyone can follow requires a program that allows its user to visually illustrate complicated thoughts and patterns. FreeMind does very well in this arena and it's definitely suitable for an active business environment.
+
+* osTicket
+
+[[http://osticket.com/][osTicket]] - If you run a business that supports software help requests, odds are you have a ticketing system. This is especially true in the web server industry. Running osTicket is fairly straight forward with a LAMP stack and a distro you feel comfortable with.
+
+Some of the advanced features found with osTicket include Agent Collision Avoidance, Assign and transfer, and of course a reliable auto-responder. 
+* NextCloud
+
+[[https://nextcloud.com/][NextCloud]] - If you ever wished you could run your own cloud server, locally and with extras that go beyond what you might find with Dropbox - then NextCloud might be right for your business.
+
+NextCloud provides you with storage, document sharing, changes tracking and solid account management. Additionally, you'll also find the calendar and contacts feature make using NextCloud as your primary "data bank" a logical fit.
+
+There’s no question that the [[https://www.datamation.com/open-source/the-best-linux-desktop-environment-1.html][Linux desktop]] can be a highly effective workhorse. Note, as proof of this, the greater coverage in the media of the best business apps for Linux. Keep reading for the best Linux business apps – and please add your own favorite in the Comments section below.
