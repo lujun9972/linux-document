@@ -1,0 +1,76 @@
+#+TITLE: How to View Colored Man Pages in Linux
+#+URL: https://www.tecmint.com/view-colored-man-pages-in-linux/
+#+AUTHOR: lujun9972
+#+TAGS: raw
+#+DATE: [2017-12-21 四 17:10]
+#+LANGUAGE:  zh-CN
+#+OPTIONS:  H:6 num:nil toc:t \n:nil ::t |:t ^:nil -:nil f:t *:t <:nil
+
+In Unix-like operating systems, a man page (in full manual page) is a documentation for a terminal-based program/too/utility (commonly known as a command). It
+contains the name of the command, syntax for using it, a description, options available, author, copyright, related commands etc.
+
+Read Also: [[https://www.tecmint.com/cat-command-output-with-syntax-highlighting-or-color/][ccat – Show ‘cat Command’ Output with Syntax Highlighting or Colorizing]]
+
+You can read the manual page for a Linux command as follows; this will display the man page for the [[https://www.tecmint.com/how-to-check-disk-space-in-linux/][df command]]:
+
+$ man df 
+[[https://www.tecmint.com/wp-content/uploads/2017/12/df-Command-Man-Page.png][df Command Man Page
+df Command Man Page]]
+
+df Command Man Page
+
+By default, the man program normally uses a terminal pager program such as [[https://www.tecmint.com/linux-more-command-and-less-command-examples/][more or less]] to format its output, and the default view is normally in white color for
+every kind of text (bold, underlined etc..).
+
+You can make some tweaks to your ~/.bashrc file to get nicely colored man pages by specifying a color scheme using various LESS_TERMCAP variables.
+
+$ vi ~/.bashrc
+
+Add following color scheme variables.
+
+export LESS_TERMCAP_mb=$'\e[1;32m'
+export LESS_TERMCAP_md=$'\e[1;32m'
+export LESS_TERMCAP_me=$'\e[0m'
+export LESS_TERMCAP_se=$'\e[0m'
+export LESS_TERMCAP_so=$'\e[01;33m'
+export LESS_TERMCAP_ue=$'\e[0m'
+export LESS_TERMCAP_us=$'\e[1;4;31m'
+
+Following are the color codes that we used in the above configuration.
+
+,* 31 – red 
+,* 32 – green 
+,* 33 – yellow 
+
+And here are the meanings of the escape codes used in the above configuration.
+
+,* 0 – reset/normal 
+,* 1 – bold 
+,* 4 – underlined 
+
+You can additionally reset your terminal by typing reset or even start up another shell. Now when you try to view a man page [[https://www.tecmint.com/how-to-check-disk-space-in-linux/][df command]], it should look like this,
+nicer than the default view.
+
+[[https://www.tecmint.com/wp-content/uploads/2017/12/Colored-Man-Page.png][Colored Man Page
+Colored Man Page]]
+
+Colored Man Page
+
+Alternatively, you can use the [[http://www.jedsoft.org/most/][MOST]] paging program, which works on Unix-like operating systems and supports multiple windows and can scroll left and right.
+
+$ sudo apt install most		#Debian/Ubuntu 
+# yum install most		#RHEL/CentOS
+# dnf install most		#Fedora 22+
+
+Next, add the line below in your ~/.bashrc file, then source the file like before and possibly reset your terminal.
+
+export PAGER="most"
+[[https://www.tecmint.com/wp-content/uploads/2017/12/Most-Paging-Program.png][Most Paging Program for Linux
+Most Paging Program for Linux]]
+
+Most Paging Program for Linux
+
+Read Also: [[https://www.tecmint.com/customize-bash-colors-terminal-prompt-linux/][How to Customize Bash Colors and Content in Linux Terminal Prompt]]
+
+In this article, we showed you how to display beautifully colored man pages in Linux. To send us any queries or share any useful Linux shell tips/tricks, use the
+comment section below.
