@@ -1,0 +1,208 @@
+#+TITLE: How to Configure Custom Access and Error Log Formats in Nginx
+#+URL: https://www.tecmint.com/configure-custom-access-and-error-log-formats-in-nginx/
+#+AUTHOR: lujun9972
+#+TAGS: raw
+#+DATE: [2017-12-21 四 18:26]
+#+LANGUAGE:  zh-CN
+#+OPTIONS:  H:6 num:nil toc:t \n:nil ::t |:t ^:nil -:nil f:t *:t <:nil
+
+Nginx HTTP server has a phenomenal logging facility which is highly customizable. In this article, we will explain how to configure you own formats for access and
+error logs for Nginx in Linux.
+
+The aim of this guide is to help you understand how logs are generated, so as to configure custom log formats for purposes of debugging, troubleshooting or
+analysis of what unfolds within your web server as well as web applications (such as tracing requests).
+
+Read Also: [[https://www.tecmint.com/best-linux-log-monitoring-and-management-tools/][4 Good Open Source Log Monitoring and Management Tools for Linux]]
+
+This article is made of three sections which will enlighten you about configuring access/error logs and how to enable conditional logging in Nginx.
+
+Configuring Access Logs in Nginx
+
+Under Nginx, all client requests to the server are recored in the access log in a specified format using the ngx_http_log_module module.
+
+The default log file is log/access.log (usually /var/log/nginx/access_log on Linux systems) and the default format for logging is normally the combined or main
+format (this can vary from one distro to another).
+
+The access_log directive (applicable in the http, server, location, if in location and limit except context) is used to set the log file and the log_format directive
+(applicable under the http context only) is used to set the log format. The log format is described by common variables, and variables that generated only at the
+time when a log is written.
+
+The syntax for configuring a log format is:
+
+log_format format_name 'set_of_variables_to_define_format';
+
+and the syntax for configuring access log is:
+
+access_log /path/to/log_file format_name;		#simplest form 
+OR
+access_log /path/to/log_file [format [buffer=size] [gzip[=level]] [flush=time] [if=condition]];
+
+The following is a excerpt from the default Nginx configuration file /etc/nginx/nginx.conf on CentOS 7.
+
+/etc/nginx/nginx.conf
+http {
+#main log format 
+log_format  main  '$remote_addr - $remote_user [$time_local] "$request" '
+'$status $body_bytes_sent "$http_referer" '
+'"$http_user_agent" "$http_x_forwarded_for"';
+access_log /var/log/nginx/access.log;
+}
+
+This log format yields the following log entry.
+
+127.0.0.1 - dbmanager [20/Nov/2017:18:52:17 +0000] "GET / HTTP/1.1" 401 188 "-" "Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:47.0) Gecko/20100101 Firefox/47.0"
+
+The following is another useful logging format which we use for tracing requests to our web applications using the some of the default variables, it most importantly
+has the request ID and logs client location details (country, country code, region and city).
+
+/etc/nginx/nginx.conf
+log_format  custom '$remote_addr - $remote_user [$time_local] '
+'"$request" $status $body_bytes_sent '
+'"$http_referer" "$http_user_agent" '
+'"$http_x_forwarded_for" $request_id '
+'$geoip_country_name $geoip_country_code '
+'$geoip_region_name $geoip_city ';
+
+You can use it like this:
+
+access_log  /var/log/nginx/access.log custom;
+
+This will produce a log entry which appears like this.
+
+153.78.107.192 - - [21/Nov/2017:08:45:45 +0000] "POST /ngx_pagespeed_beacon?url=https%3A%2F%2Fwww.example.com%2Fads%2Ffresh-oranges-1509260795 HTTP/2.0" 204 0 "https://www.suasell.com/ads/fresh-oranges-1509260795" "Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:47.0) Gecko/20100101 Firefox/47.0" "-" a02b2dea9cf06344a25611c1d7ad72db Uganda UG Kampala Kampala 
+
+You can specify several logs using the access_log directives on the same level, here we are using more than one log file in the http context.
+
+/etc/nginx/nginx.conf
+http{
+##default log format
+log_format  main  '$remote_addr - $remote_user [$time_local] "$request" '
+'$status $body_bytes_sent "$http_referer" '
+'"$http_user_agent" "$http_x_forwarded_for"';
+##request tracing using custom format
+log_format custom '$remote_addr - $remote_user [$time_local] '
+'"$request" $status $body_bytes_sent '
+'"$http_referer" "$http_user_agent" '
+'"$http_x_forwarded_for" $request_id '
+'$geoip_country_name $geoip_country_code '
+'$geoip_region_name $geoip_city ';
+##this uses the default log format
+access_log /var/log/nginx/access.log;
+##this uses the our custom log format
+access_log /var/log/nginx/custom_log custom;
+}
+
+The following are more advanced logging configurations examples, which are useful for log formats that contain compression-related variables and for creating
+compressed log files:
+
+access_log /var/log/nginx/custom_log custom buffer 32k;
+access_log /path/to/log.gz compression  gzip  flush=5m;
+
+Configuring Error Logs in Nginx
+
+In case Nginx experiences any glitches, it records information concerning them in the error log. These issues fall under different severity levels: debug, info,
+notice, warn, error (this is the default level and works globally), crit, alert, or emerg.
+
+The default log file is log/error.log, but it is normally located in /var/log/nginx/ on Linux distributions. The error_log directive is used to specify the log file, and it
+can be used in the main, http, mail, stream, server, location context (in that order).
+
+You should also note that:
+
+,* Configurations in the main context are always inherited by lower levels in the order above. 
+,* and configurations in the lower levels override the configurations inherited from the higher levels. 
+
+You can configure error logging using the following syntax:
+
+error_log /path/to/log_file log_level;
+
+For example:
+
+error_log /var/log/nginx/error_log warn; 
+
+This will instruct Nginx to log all messages of type warn and more severe log level crit, alert, and emerg messages.
+
+In the next example, messages of crit, alert, and emerg levels will be logged.
+
+error_log /var/www/example1.com/log/error_log crit;
+
+Consider the configuration below, here, we have defined error logging on different levels (in the http and server context). In case of an error, the message is written
+to only one error log, the one closest to the level where the error has appeared.
+
+/etc/nginx/nginx.conf
+http {
+log_format compression '$remote_addr - $remote_user [$time_local] '
+'"$request" $status $body_bytes_sent '
+'"$http_referer" "$http_user_agent" "$gzip_ratio"';
+error_log  /var/log/nginx/error_log  crit;
+server {
+listen 80;
+server_name example1.com;
+#this logs errors messages for example1.com only
+error_log  /var/log/nginx/example1.error_log  warn;
+…...
+}
+server {
+listen 80;
+server_name  example2.com;
+#this logs errors messages for example2.com only
+error_log  /var/log/nginx/example1.error_log;
+…….
+}
+}
+
+If you use more than one error_log directives as in the configuration below (same level), the messages are written to all specified logs.
+
+/etc/nginx/nginx.conf
+server {
+listen 80;
+server_name example1.com;
+error_log  /var/www/example1.com/log/error_log  warn;
+error_log  /var/log/nginx/example1.error_log  crit;
+…...
+}
+
+Configuring Conditional Logging in Nginx
+
+In some cases, we may want Nginx to perform conditional logging of messages. Not every message has to be logged by Nginx, therefore we can ignore
+insignificant or less important log entries from our access logs for particular instances.
+
+We can use the ngx_http_map_module module which creates variables whose values depend on values of other variables. The parameters inside a map block
+(which should exist in the http content only) specify a mapping between source and resulting values.
+
+For this kind of setting, a request will not be logged if the condition evaluates to “0” or an empty string. This example excludes requests with HTTP status codes
+2xx and 3xx.
+
+/etc/nginx/nginx.conf
+http{
+map $status $condition {
+~^[23] 0;
+default 1;
+}
+server{
+access_log  /path/to/access.log  custom if=$condition;
+}
+}
+
+Here is another useful example for debugging a web application in a development phase. This will ignore all messages and only log debug information.
+
+/etc/nginx/nginx.conf
+ 
+http{
+map $info  $debuggable { 
+default     0; 
+debug       1; 
+} 
+server{
+……..
+access_log /var/log/nginx/testapp_debug_access_log  debug if=$debuggable; 
+#logs other requests 
+access_log  /var/log/nginx/testapp_access.log  main; 
+…….
+}
+}
+
+You can find out more information, including logging to syslog [[https://www.nginx.com/resources/admin-guide/logging-and-monitoring/][here]].
+
+That’s all for now! In this guide, we explained how to configure custom logging format for access and error logs in Nginx. Use the feedback form below to ask
+questions or share you thoughts about this article.
+
