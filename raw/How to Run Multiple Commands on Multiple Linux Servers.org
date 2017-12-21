@@ -1,0 +1,104 @@
+#+TITLE: How to Run Multiple Commands on Multiple Linux Servers
+#+URL: https://www.tecmint.com/run-multiple-commands-on-multiple-linux-servers/
+#+AUTHOR: lujun9972
+#+TAGS: raw
+#+DATE: [2017-12-21 四 18:19]
+#+LANGUAGE:  zh-CN
+#+OPTIONS:  H:6 num:nil toc:t \n:nil ::t |:t ^:nil -:nil f:t *:t <:nil
+
+If you are managing multiple Linux servers, and you want to run multiple commands on all the Linux servers, but you have no idea about how to do it. There is no
+need to worry, in this simple server management guide, we will show you how to run multiple commands on multiple Linux servers simultaneously.
+
+To achieve, this you can use the [[https://www.tecmint.com/execute-commands-on-multiple-linux-servers-using-pssh/][pssh (parallel ssh) program]], a command line utility for executing ssh in parallel on a number of hosts. With it, you can send input
+to all of the ssh processes, from a shell script.
+
+Requirements
+
+1 [[https://www.tecmint.com/execute-commands-on-multiple-linux-servers-using-pssh/][Install Pssh to Run Commands on Multiple Remote Linux Servers]] 
+2 You must be using [[https://www.tecmint.com/ssh-passwordless-login-using-ssh-keygen-in-5-easy-steps/][SSH passwordless authentication]] for all remote servers. 
+
+Create a Shell Script
+
+Therefore, you need to start by preparing a script which contains the Linux commands you want to execute on the different servers. In this example, we will write a
+script that will collect the following information from multiple servers:
+
+,* Check uptime of servers 
+,* Check who is logged on and what they are doing 
+,* List top 5 running processes according to memory usage. 
+
+First create a script called commands.sh with your favorite editor.
+
+# vi commands.sh
+
+Next, add the following commands to the script as shown.
+
+#!/bin/bash 
+###############################################################################
+#Script Name    : commands.sh                       
+#Description    : execute multiple commands on multiple servers                                                                     
+#Author         : Aaron Kili Kisinga       
+#Email          : [[https://www.tecmint.com/cdn-cgi/l/email-protection][{email protected}]] 
+################################################################################
+echo
+# show system uptime
+uptime
+echo
+# show who is logged on and what they are doing
+who
+echo
+# show top 5 processe by RAM usage 
+ps -eo cmd,pid,ppid,%mem,%cpu --sort=-%mem | head -n 6
+exit 0
+
+Save the file and close it. Then make the script executable as shown.
+
+# chmod +x commands.sh
+
+Create PSSH Hosts File
+
+Next, add the list of servers that you want to run the commands on, in a hosts.txt file, in the format [[[https://www.tecmint.com/cdn-cgi/l/email-protection][{email protected}]]]host[:port] or simply give the server IP
+addresses.
+
+But we suggest you use ssh aliases which can be specified in .ssh/config file as explained in how to [[https://www.tecmint.com/configure-custom-ssh-connection-in-linux/][configure custom ssh connections]] to simplify remote access.
+
+This method is more efficient and reliable, it allows you to specify configuration options (such as host name, identify file, port, username etc..) for each remote
+server.
+
+Following is our sample ssh hosts aliases file a.k.a user specific ssh configuration file.
+
+# vi ~/.ssh/config
+[[https://www.tecmint.com/wp-content/uploads/2017/12/ssh-hosts-aliases-file.png][SSH Hosts Aliases File
+SSH Hosts Aliases File]]
+
+SSH Hosts Aliases File
+
+Next, create a hosts.txt file, here you can simply specify the aliases (names defined using Host keyword in .ssh/config file) as shown.
+
+# vi hosts.txt 
+
+Add the server aliases.
+
+server1
+server2
+server3
+
+Run Commands via a Script on Multiple Linux Servers
+
+Now run the following pssh command by specifying hosts.txt file along with the script that contains multiple commands to run on multiple remote servers.
+
+# pssh -h hosts.txt -P -I<./commands.sh
+
+Meaning of the flags used in the above command:
+
+,* -h – reads the hosts file. 
+,* -P – tells pssh to display output as it arrives. 
+,* -I – reads input and sends to each ssh process. 
+
+[[https://www.tecmint.com/wp-content/uploads/2017/12/run-multiple-commands-on-multiple-servers.png][Run Multiple Commands On Remote Servers
+Run Multiple Commands On Remote Servers]]
+
+Run Multiple Commands On Remote Servers
+
+That’s It! In this article, we showed how to execute multiple commands on multiple servers in Linux. You can share any thoughts relating to this topic via the
+comment section below.
+
