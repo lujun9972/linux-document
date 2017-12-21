@@ -29,6 +29,17 @@ Linux好游戏
 * raw
 未翻译的内容,欢迎大家领取
 
++ [[https://github.com/lujun9972/linux-document/blob/master/raw/Testssl.sh - Testing TLS-SSL Encryption Anywere on Any Port.org][ Testssl.sh - Testing TLS-SSL Encryption Anywere on Any Port]]		<2017-12-21>
++ [[https://github.com/lujun9972/linux-document/blob/master/raw/How to View Colored Man Pages in Linux.org][ How to View Colored Man Pages in Linux]]		<2017-12-21>
++ [[https://github.com/lujun9972/linux-document/blob/master/raw/How to Search DuckDuckGo from the Linux Terminal.org][ How to Search DuckDuckGo from the Linux Terminal]]		<2017-12-21>
++ [[https://github.com/lujun9972/linux-document/blob/master/raw/How to Run Multiple Commands on Multiple Linux Servers.org][ How to Run Multiple Commands on Multiple Linux Servers]]		<2017-12-21>
++ [[https://github.com/lujun9972/linux-document/blob/master/raw/How to Permanently Disable Swap in Linux.org][ How to Permanently Disable Swap in Linux]]		<2017-12-21>
++ [[https://github.com/lujun9972/linux-document/blob/master/raw/How to Check MySQL Database Size in Linux.org][ How to Check MySQL Database Size in Linux]]		<2017-12-21>
++ [[https://github.com/lujun9972/linux-document/blob/master/raw/ccat - Show 'cat Command' Output with Syntax Hightlight.org][ ccat - Show 'cat Command' Output with Syntax Hightlight]]		<2017-12-21>
++ [[https://github.com/lujun9972/linux-document/blob/master/raw/4 Ways to Speed Up SSH Connections in Linux.org][ 4 Ways to Speed Up SSH Connections in Linux]]		<2017-12-21>
++ [[https://github.com/lujun9972/linux-document/blob/master/raw/12 MySQL-MariaDB Security Best Practices for Linux.org][ 12 MySQL-MariaDB Security Best Practices for Linux]]		<2017-12-21>
++ [[https://github.com/lujun9972/linux-document/blob/master/raw/10 Best Linux Business Apps.org][ 10 Best Linux Business Apps]]		<2017-12-16>
++ [[https://github.com/lujun9972/linux-document/blob/master/raw/How to Easily Remember Linux Commands.org][ How to Easily Remember Linux Commands]]		<2017-11-21>
 + [[https://github.com/lujun9972/linux-document/blob/master/raw/Top 10 Linux tools.org][ Top 10 Linux tools]]		<2017-11-16>
 + [[https://github.com/lujun9972/linux-document/blob/master/raw/Top Ways to Learn Linux Online.org][ Top Ways to Learn Linux Online]]		<2017-11-06>
 * shell
@@ -38,6 +49,7 @@ Linux好游戏
 * system
 系统管理相关内容
 
++ [[https://github.com/lujun9972/linux-document/blob/master/system/How To Set or Change Hostname in CentOS 7.org][ 如何设置/更改CentOS7的主机名]]		<2017-12-21>
 + [[https://github.com/lujun9972/linux-document/blob/master/system/5 tricks for using the sudo command.org][ sudo命令的5个小技巧]]		<2017-11-16>
 + [[https://github.com/lujun9972/linux-document/blob/master/system/How to Set Up Easy Remote Desktop Access in linux.org][ 如何设置Linux版的远程桌面连接]]		<2017-11-13>
 + [[https://github.com/lujun9972/linux-document/blob/master/system/How to use cron in Linux.org][ 如何使用Linux中的cron]]		<2017-11-11>
