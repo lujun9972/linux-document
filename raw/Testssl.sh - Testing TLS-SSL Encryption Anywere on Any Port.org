@@ -1,0 +1,100 @@
+#+TITLE: Testssl.sh - Testing TLS-SSL Encryption Anywere on Any Port
+#+URL: https://www.tecmint.com/testssl-sh-test-tls-ssl-encryption-in-linux-commandline/
+#+AUTHOR: lujun9972
+#+TAGS: raw
+#+DATE: [2017-12-21 四 17:14]
+#+LANGUAGE:  zh-CN
+#+OPTIONS:  H:6 num:nil toc:t \n:nil ::t |:t ^:nil -:nil f:t *:t <:nil
+
+
+testssl.sh is a free and open source, feature-rich command line tool used for checking TLS/SSL encryption enabled services for supported ciphers, protocols and
+some cryptographic flaws, on Linux/BSD servers. It can be run on MacOS X and Windows using MSYS2 or [[https://www.tecmint.com/install-cygwin-to-run-linux-commands-on-windows-system/][Cygwin]].
+
+Features of Testssl.sh
+
+,* Easy to install and use; produces clear output. 
+,* Highly flexible, it can be used to check any SSL/TLS enabled and STARTTLS services. 
+,* Perform a general check or single checks. 
+,* Comes with several command line options for various categories of single checks. 
+,* Supports different output types, including colored output. 
+,* Supports SSL Session ID check. 
+,* Supports checking for multiple server certificates. 
+,* Offers absolute privacy, it’s only you who can sees the result, not a third party. 
+,* Supports logging in (flat) JSON + CSV format. 
+,* Supports mass testing in serial (default) or parallel modes. 
+,* Supports presetting of command line options via environment variables, and so much more. 
+
+Important: You should be using bash (which comes preinstalled on almost Linux distributions) and a newer OpenSSL version (1.0) is recommended for effective
+usage.
+
+How to Install and Use Testssl.sh in Linux
+
+You can install testssl.sh by cloning this git repository as shown.
+
+# git clone --depth 1 https://github.com/drwetter/testssl.sh.git
+# cd testssl.sh
+
+After cloning testssl.sh, the general use case is probably just run the following command to run a test against a website.
+
+# ./testssl.sh https://www.google.com/
+[[https://www.tecmint.com/wp-content/uploads/2017/12/Test-SSL-TLS-Encryption.png][Test SSL TLS Encryption
+Test SSL TLS Encryption]]
+
+Test SSL TLS Encryption
+
+To run a check against STARTTLS enabled protocols: ftp, smtp, pop3, imap, xmpp, telnet, ldap, postgres, mysql, use the -t option.
+
+# ./testssl.sh -t smtp https://www.google.com/
+
+By default, all mass tests are done in serial mode, you can enable parallel testing using the --parallel flag.
+
+# ./testssl.sh --parallel https://www.google.com/
+
+If you do not want to use the default system openssl program, use the –openssl flag to specify an alternative.
+
+# ./testssl.sh --parallel --sneaky --openssl /path/to/your/openssl https://www.google.com/
+
+You might want to keep logs for later analysis, testssl.sh has the --log (store log file in the current directory) or --logfile (specify log file location) option for that.
+
+# ./testssl.sh --parallel --sneaky --logging https://www.google.com/
+
+To disable DNS lookup, which can increase test speeds, use the -n flag.
+
+# ./testssl.sh -n --parallel --sneaky --logging https://www.google.com/
+
+Run Single Checks Using testssl.sh
+
+You can also run single checks for protocols, server defaults, server preferences, headers, various types of vulnerabilities plus many other tests. There are a
+number of options provided for this.
+
+For example, the -e flag enables you to check each local cipher remotely. If you want to make the test much faster, use include the --fast flag; this will omit some
+checks, in case you are using openssl for all ciphers, it only displays the first proffered cipher.
+
+# ./testssl.sh -e --fast --parallel https://www.google.com/
+
+The -p option allows for testing TLS/SSL protocols (including SPDY/HTTP2).
+
+# ./testssl.sh -p --parallel --sneaky https://www.google.com/
+
+You can view the server’s default picks and certificate using the -S option.
+
+# ./testssl.sh -S https://www.google.com/
+
+Next, to see the server’s preferred protocol+cipher, use the -P flag.
+
+# ./testssl.sh -P https://www.google.com/
+
+The -U option will help you test all vulnerabilities (if applicable).
+
+# ./testssl.sh -U --sneaky https://www.google.com/
+
+Unfortunately, we can not exploit all the options here, use the the command below to see a list of all options.
+
+# ./testssl.sh --help
+
+Find more at testssl.sh Github repository: [[https://github.com/drwetter/testssl.sh][https://github.com/drwetter/testssl.sh]]
+
+Conclusion
+
+testssl.sh is a useful security tool that every Linux system administrator needs to have and use for testing TSL/SSL enabled services. If you have any questions or
+thoughts to share, use the comment form below. In addition, you can also share with us any similar tools, that you have come across out there.
