@@ -1,4 +1,4 @@
-#+TITLE: How To Set or Change Hostname in CentOS 7
+#+TITLE: 如何设置/更改CentOS7的主机名
 #+URL: https://www.tecmint.com/set-change-hostname-in-centos-7/
 #+AUTHOR: lujun9972
 #+TAGS: raw
@@ -6,81 +6,78 @@
 #+LANGUAGE:  zh-CN
 #+OPTIONS:  H:6 num:nil toc:t \n:nil ::t |:t ^:nil -:nil f:t *:t <:nil
 
-A computer hostname represents a unique name that gets assigned to a computer in a network in order to uniquely identify that computer in that specific
-network. A computer hostname can be set to any name you like, but you should keep in mind the following rules:
+计算机的主机名就是在网络中给计算机分配的一个唯一名字，为的是在网络中唯一标识这台计算机. 计算机主机名可以随你设置, 但应注意以下几点规则:
 
-,* hostnames can contain letters (from a to z). 
-,* hostnames can contain digits (from 0 to 9). 
-,* hostnames can contain only the hyphen character ( – ) as special character. 
-,* hostnames can contains the dot special character ( . ). 
-,* hostnames can contain a combination of all three rules but must start and end with a letter or a number. 
-,* hostnames letters are case-insensitive. 
-,* hostnames must contains between 2 and 63 characters long. 
-,* hostnames should be descriptive (to ease identifying the computer purpose, location, geographical area, etc on the network). 
++ 主机名可以包含字母(从 a 到 z). 
++ 主机名可以包含数字(从 0 到 9). 
++ 主机名中可以包含横杠( – )作为特殊字符. 
++ 主机名中可以包含点号这一特殊字符( . ). 
++ 主机名必须以字母或数字开头和结尾. 
++ 主机名是大小写敏感的. 
++ 主机名长度在2到63个字符之间
++ 主机名应该具有描述性(方便地识别出出计算机在网络中哦该的作用, 位置, 地理区域等). 
 
-In order to display a computer name in CentOS 7 and RHEL 7 systems via console, issue the following command. The -s flag displayed the computer short name
-(hostname only) and the -f flag displays the computer FQDN in the network (only if the computer is a part of a domain or realm and the FQDN is set).
+在 CentOS7 和 RHEL7 系统上可以通过在终端上输入下面命令来显示计算机名称. 其中的 -s 标志会显示计算机的短名称(只显示主机名称) 而 -f 标志会显示计算机在网络中的全限定域名(只有当计算机是域名的一部分并且设置了全限定域名).
 
-# hostname
-# hostname -s
-# hostname -f
-[[https://www.tecmint.com/wp-content/uploads/2017/12/Check-Hostname-in-CentOS-7.png][Check Hostname in CentOS 7
-Check Hostname in CentOS 7]]
+#+BEGIN_SRC shell
+  # hostname
+  # hostname -s
+  # hostname -f
+#+END_SRC
+[[https://www.tecmint.com/wp-content/uploads/2017/12/Check-Hostname-in-CentOS-7.png]]
 
-* Check Hostname in CentOS 7
+你也可以使用 [[https://www.tecmint.com/13-basic-cat-command-examples-in-linux/][cat命令]] 查看 =/etc/hostname= 内容的方式来显示Linux系统主机名.
 
-You can also display a Linux system hostname by inspecting the content of /etc/hostname file using the [[https://www.tecmint.com/13-basic-cat-command-examples-in-linux/][cat command]].
+#+BEGIN_SRC shell
+  # cat /etc/hostname
+#+END_SRC
+[[https://www.tecmint.com/wp-content/uploads/2017/12/Display-CentOS-7-Hostname.png]]
 
-# cat /etc/hostname
-[[https://www.tecmint.com/wp-content/uploads/2017/12/Display-CentOS-7-Hostname.png][Display CentOS 7 Hostname
-Display CentOS 7 Hostname]]
+要更改或者设置 CentOS 7 的主机名, 使用下面的 =hostnamectl= 命令.
 
-* Display CentOS 7 Hostname
+#+BEGIN_SRC shell
+  # hostnamectl set-hostname your-new-hostname
+#+END_SRC
 
-In order to change or set a CentOS 7 machine hostname, use the hostnamectl command as shown in the below command excerpt.
+除了 =hostname= 命令外，你也可以使用 =hostnamectl= 命令来显示Linux主机名.
 
-# hostnamectl set-hostname your-new-hostname
+#+BEGIN_SRC shell
+  # hostnamectl
+#+END_SRC
 
-In addition to hostname command you can also use hostnamectl command to display a Linux machine hostname.
+要使新主机名生效, 需要重启系统, 在CentOS7上可以使用下面命令来重启.
 
-# hostnamectl
+#+BEGIN_SRC shell
+  # init 6
+  # systemctl reboot
+  # shutdown -r
+#+END_SRC
+[[https://www.tecmint.com/wp-content/uploads/2017/12/Set-CentOS-7-Hostname.png]]
 
-In order to apply the new hostname, a system reboot is required, issue one of the below commands in order to reboot a CentOS 7 machine.
+另一个设置CentOS7主机名的方法是手工修改 =/etc/hostname= 文件并输入新主机名. 这种方法同样需要重启系统来应用新主机名.
 
-# init 6
-# systemctl reboot
-# shutdown -r
-[[https://www.tecmint.com/wp-content/uploads/2017/12/Set-CentOS-7-Hostname.png][Set CentOS 7 Hostname
-Set CentOS 7 Hostname]]
+#+BEGIN_SRC shell
+  # vi /etc/hostname
+#+END_SRC
 
-* Set CentOS 7 Hostname
+第三种方法是使用 Linux sysctl 接口. 不过这种方法修改的主机名只是暂时性的.
 
-A second method to setup a CentOS 7 machine hostname is to manually edit the /etc/hostname file and type your new hostname. Also, a system reboot is
-necessary in order to apply the new machine name.
+这种临时性的主机名很特殊，它只由Liux内核初始化和维护,用于作为静态主机名之外的一个备用机器名称，并且会在系统重启后消失.
 
-# vi /etc/hostname
+#+BEGIN_SRC shell
+  # sysctl kernel.hostname
+  # sysctl kernel.hostname=new-hostname
+  # sysctl -w kernel.hostname=new-hostname
+#+END_SRC
 
-A third method that can be used to change a CentOS 7 machine hostname is by using Linux sysctl interface. However, using this method to change machine
-name results in setting-up the machine transient hostname.
+使用下面命令可以显示机器的临时主机名.
 
-The transient hostname is a special hostname initialized and maintained only by the Linux kernel as an auxiliary machine name in addition to he static hostname
-and doesn’t survive reboots.
+#+BEGIN_SRC shell
+  # sysctl kernel.hostname
+  # hostnamectl
+#+END_SRC
+[[https://www.tecmint.com/wp-content/uploads/2017/12/Change-CentOS-7-Hostname.png]]
 
-# sysctl kernel.hostname
-# sysctl kernel.hostname=new-hostname
-# sysctl -w kernel.hostname=new-hostname
+最后, hostnamectl 命令可以通过这些选项来设置不同类型的主机名: =–pretty=, =–static=, 以及 =–transient=.
 
-To display machine transient hostname issue the below commands.
-
-# sysctl kernel.hostname
-# hostnamectl
-[[https://www.tecmint.com/wp-content/uploads/2017/12/Change-CentOS-7-Hostname.png][Change CentOS 7 Hostname
-Change CentOS 7 Hostname]]
-
-* Change CentOS 7 Hostname
-
-Finally, the hostnamectl command can be used to achieve the following hostname setups: –pretty, –static, and –transient.
-
-Although, there are other more specific ways to [[https://www.tecmint.com/set-hostname-permanently-in-linux/][change a Linux machine hostname]], such as issuing nmtui command or manually editing some configuration files
-specific to each Linux distribution (/etc/sysconfig/network-scripts/ifcfg-ethX for CentOS), the above rules are general available regardless of the used Linux
-distribution.
+当然,还有很多其他的方法可以 [[https://www.tecmint.com/set-hostname-permanently-in-linux/][更改Linux主机名]], 比如使用 =nmtui= 命令或者手工编辑某些与Linux发行版相关联的配置文件(比如CentOS的/etc/sysconfig/network-scripts/ifcfg-ethX文件), 但是上面的这些方法则对所有Linux发行版都是有效的.
