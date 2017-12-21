@@ -1,0 +1,56 @@
+#+TITLE: How to Check MySQL Database Size in Linux
+#+URL: https://www.tecmint.com/check-mysql-database-size-in-linux/
+#+AUTHOR: lujun9972
+#+TAGS: raw
+#+DATE: [2017-12-21 四 17:08]
+#+LANGUAGE:  zh-CN
+#+OPTIONS:  H:6 num:nil toc:t \n:nil ::t |:t ^:nil -:nil f:t *:t <:nil
+
+
+In this article, I will show you how to check the size of MySQL/MariaDB databases and tables via the MySQL shell. You will learn how to determine the real size of a
+database file on the disk as well as size of data that it present in a database.
+
+Read Also: [[https://www.tecmint.com/mysqladmin-commands-for-database-administration-in-linux/][20 MySQL (Mysqladmin) Commands for Database Administration in Linux]]
+
+By default MySQL/MariaDB stores all the data in the file system, and the size of data that exists on the databases may differ from the actual size of Mysql data on
+the disk that we will see later on.
+
+In addition, MySQL uses the information_schema virtual database to store information about your databases and other settings. You can query it to gather
+information about size of databases and their tables as shown.
+
+# mysql -u root -p
+MariaDB [(none)]> SELECT table_schema AS "Database Name", 
+ROUND(SUM(data_length + index_length) / 1024 / 1024, 2) AS "Size in (MB)" 
+FROM information_schema.TABLES 
+GROUP BY table_schema; 
+[[https://www.tecmint.com/wp-content/uploads/2017/12/Check-MySQL-Database-Size.png][Check MySQL Database Size
+Check MySQL Database Size]]
+
+Check MySQL Database Size
+
+To find out the size of a single MySQL database called rcubemail (which displays the size of all tables in it) use the following mysql query.
+
+MariaDB [(none)]> SELECT table_name AS "Table Name",
+ROUND(((data_length + index_length) / 1024 / 1024), 2) AS "Size in (MB)"
+FROM information_schema.TABLES
+WHERE table_schema = "rcubemail"
+ORDER BY (data_length + index_length) DESC;
+[[https://www.tecmint.com/wp-content/uploads/2017/12/Check-Size-of-MySQL-Database.png][Check Size of MySQL Database
+Check Size of MySQL Database]]
+
+Check Size of MySQL Database
+
+Finally, to find out the actual size of all MySQL database files on the disk (filesystem), run the [[https://www.tecmint.com/check-linux-disk-usage-of-files-and-directories/][du command]] below.
+
+# du -h /var/lib/mysql
+[[https://www.tecmint.com/wp-content/uploads/2017/12/Check-MySQL-Size-on-Disk.png][Check MySQL Size on Disk
+Check MySQL Size on Disk]]
+
+Check MySQL Size on Disk
+
+You might also like to read these following MySQL related articles.
+
+1 [[https://www.tecmint.com/mysql-performance-monitoring/][4 Useful Commandline Tools to Monitor MySQL Performance in Linux]] 
+2 [[https://www.tecmint.com/mysql-mariadb-security-best-practices-for-linux/][12 MySQL/MariaDB Security Best Practices for Linux]] 
+
+For any queries or additional ideas you want to share regarding this topic, use the feedback form below.
