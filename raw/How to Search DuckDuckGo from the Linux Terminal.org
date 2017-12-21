@@ -1,0 +1,79 @@
+#+TITLE: How to Search DuckDuckGo from the Linux Terminal
+#+URL: https://www.tecminit.com/search-duckduckgo-from-linux-terminal
+#+AUTHOR: lujun9972
+#+TAGS: raw
+#+DATE: [2017-12-21 四 12:53]
+#+LANGUAGE:  zh-CN
+#+OPTIONS:  H:6 num:nil toc:t \n:nil ::t |:t ^:nil -:nil f:t *:t <:nil
+
+
+Like [[https://www.tecmint.com/google-commandline-search-terminal/][Googler]] (Google Site Search from the command-line), ddgr is a command line utility
+that can be used to search for key terms words via DuckDuckGo search engine and a
+[[https://www.tecmint.com/command-line-web-browsers/][command line browser]] on your terminal prompt. 
+
+Before installing ddgr command line search engine in Linux, first assure that the Python
+3.4 and Python requests library needed to handle HTTPS requests are installed on your
+system, by issuing the following commands.
+
+------------------ On CentOS, RHEL & Fedora ------------------ 
+# yum install epel-release
+# yum install python34 python34-requests
+------------------ On Debian & Ubuntu ------------------
+# apt install python3 python3-requests
+
+In order to open ddgr searches you need to install a command line browser, such as elinks,
+links, lynx, w3m or www-browser, in your system. 
+
+Read Also: [[https://www.tecmint.com/command-line-web-browser-download-file-in-linux/][8 Command Line Tools for Browsing Websites]]
+
+In this guide we’ll configure ddgr search engine to open links via lynx text based browser.
+
+# yum insall lynx         [On CentOS, RHEL & Fedora]
+# apt-get install lynx    [On Debian & Ubuntu]
+
+Next, set the BROWSER environment variable system-wide to point to lynx browser, by
+issuing the following commands with root privileges.
+
+# export BROWSER=lynx
+# echo “export BROWSER=lynx” >> /etc/profile
+
+In order to install DuckDuckGo search engine command line utility via official ddgr github
+binary package releases, issue the following commands specific to your own Linux
+distribution.
+
+------------------ On CentOS, RHEL & Fedora ------------------
+# yum install https://github.com/jarun/ddgr/releases/download/v1.1/ddgr-1.1-1.el7.3.centos.x86_64.rpm 
+------------------ On Ubuntu 16.04 ------------------
+# wget https://github.com/jarun/ddgr/releases/download/v1.1/ddgr_1.1-1_ubuntu16.04.amd64.deb
+# dpkg -i ddgr_1.1-1_ubuntu16.04.amd64.deb
+------------------ On Ubuntu 17.10 ------------------
+# wget https://github.com/jarun/ddgr/releases/download/v1.1/ddgr_1.1-1_ubuntu17.10.amd64.deb 
+# dpkg -i ddgr_1.1-1_ubuntu17.10.amd64.deb
+------------------ On Debian 9 ------------------
+# wget https://github.com/jarun/ddgr/releases/download/v1.1/ddgr_1.1-1_debian9.amd64.deb 
+# dpkg -i ddgr_1.1-1_debian9.amd64.deb
+
+You can also install ddgr on Ubuntu using a PPA repository, which is maintained by the
+developer of ddgr project.
+
+$ sudo add-apt-repository ppa:twodopeshaggy/jarun
+$ sudo apt-get update
+$ sudo apt-get install ddgr
+
+How to Search DuckDuckGo from Terminal Using ddgr
+
+Finally, in order to search a specific keyword in ddgr serach engine, issue the command as
+shown in the below example.
+
+# ddgr tecmint
+[[https://www.tecmint.com/wp-content/uploads/2017/12/Search-DuckDuckGo-from-Commandline.png][Search DuckDuckGo from Commandline 
+Search DuckDuckGo from Commandline]]
+
+Search DuckDuckGo from Commandline
+
+To automatically open a specific displayed search result in lynx text-based browser, hit the
+corresponding number key and wait for the webpage to load. Sometimes you need to type
+“a” in lynx browser in order to always accept website cookies and load the website.
+
+That’s all! For other information regarding DuckDuckGo command line search engine
+utility, visit [[https://github.com/jarun/ddgr][ddgr official github]] page. 
