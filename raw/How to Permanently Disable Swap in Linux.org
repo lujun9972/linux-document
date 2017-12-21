@@ -1,0 +1,84 @@
+#+TITLE: How to Permanently Disable Swap in Linux
+#+URL: https://www.tecmint.com/disable-swap-partition-in-centos-ubuntu/
+#+AUTHOR: lujun9972
+#+TAGS: raw
+#+DATE: [2017-12-21 四 16:58]
+#+LANGUAGE:  zh-CN
+#+OPTIONS:  H:6 num:nil toc:t \n:nil ::t |:t ^:nil -:nil f:t *:t <:nil
+
+
+Swapping or swap space represents a physical memory page that lives on top of disk partition or a special disk file used for extending the RAM memory of a system
+when the physical memory fills up.
+
+Using this method of extending RAM resources, inactive memory pages are frequently dumped into the swap area when no RAM is available. However, do to the
+spinning speed of classical hard disks, swap space is way lower in transfer speeds and access time compared to RAM.
+
+On newer machines with fast SSD hard disks, reserving a small partition for swapping can greatly improve access time and speed transfer compared to classical
+HDD, but the speed is still more magnitudes lower than RAM memory. Some suggest that the swap space should be set as twice the amount of machine RAM.
+However, on systems with more than 4 GB or RAM, swap space should be set between 2 or 4 GB.
+
+In case your server has sufficient RAM memory or does not require the use of swap space or the swapping greatly decreases your system performance, you should
+consider disabling the swap area.
+
+Before actually disabling swap space, first you need to visualize your memory load degree and then identify the partition that holds the swap area, by issuing the
+below commands.
+
+# free -h 
+
+Look for Swap space used size. If the used size is 0B or close to 0 bytes, it can be assumed that swap space is not used intensively and can be safety disabled.
+
+[[https://www.tecmint.com/wp-content/uploads/2017/12/Check-Swap-Space.png]]
+
+Check Swap Space
+
+Next, issue following blkid command, look for TYPE=”swap” line in order to identify the swap partition, as shown in the below screenshot.
+
+# blkid 
+[[https://www.tecmint.com/wp-content/uploads/2017/12/Check-Swap-Partition-Type.png][Check Swap Partition Type
+Check Swap Partition Type]]
+
+Check Swap Partition Type
+
+Again, issue the following lsblk command to search and identify the [SWAP] partition as shown in the below screenshot.
+
+# lsblk
+[[https://www.tecmint.com/wp-content/uploads/2017/12/Search-Confirm-Swap-Partition.png][Search Confirm Swap Partition
+Search Confirm Swap Partition]]
+
+Search Confirm Swap Partition
+
+After you’ve identified the swap partition or file, execute the below command to deactivate the swap area.
+
+# swapoff /dev/mapper/centos-swap  
+
+Or disable all swaps from /proc/swaps
+
+# swapoff -a 
+
+Run [[https://www.tecmint.com/check-memory-usage-in-linux/][free command]] in order to check if the swap area has been disabled.
+
+# free -h
+[[https://www.tecmint.com/wp-content/uploads/2017/12/Disable-Swap-Partition.png][Disable Swap Partition
+Disable Swap Partition]]
+
+Disable Swap Partition
+
+In order to permanently disable swap space in Linux, open /etc/fstab file, search for the swap line and comment the entire line by adding a # (hashtag) sign in
+front of the line, as shown in the below screenshot.
+
+# vi /etc/fstab
+[[https://www.tecmint.com/wp-content/uploads/2017/12/Disable-Swap-Partition-Permanently.png][Disable Swap Partition Permanently
+Disable Swap Partition Permanently]]
+
+Disable Swap Partition Permanently
+
+Afterwards, reboot the system in order to apply the new swap setting or issuing mount -a command in some cases might do the trick.
+
+# mount -a
+
+After system reboot, issuing the commands presented in the beginning of this tutorial should reflect that the swap area has been completely and permanently
+disabled in your system.
+
+# free -h
+# blkid 
+# lsblk 
