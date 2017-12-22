@@ -1,76 +1,71 @@
-#+TITLE: How to View Colored Man Pages in Linux
+#+TITLE: 给你一个五彩缤纷的Man Page
 #+URL: https://www.tecmint.com/view-colored-man-pages-in-linux/
 #+AUTHOR: lujun9972
-#+TAGS: raw
+#+TAGS: man common
 #+DATE: [2017-12-21 四 17:10]
 #+LANGUAGE:  zh-CN
 #+OPTIONS:  H:6 num:nil toc:t \n:nil ::t |:t ^:nil -:nil f:t *:t <:nil
 
-In Unix-like operating systems, a man page (in full manual page) is a documentation for a terminal-based program/too/utility (commonly known as a command). It
-contains the name of the command, syntax for using it, a description, options available, author, copyright, related commands etc.
+在类Unix操作系统中, man page (全称manual page) 指的是为终端程序/工具提供的文档(一般统称命令). 其中包含有命令的名词，使用的语法，命令描述，参数变量说明，作者，版权，相关命令等内容.
 
 Read Also: [[https://www.tecmint.com/cat-command-output-with-syntax-highlighting-or-color/][ccat – Show ‘cat Command’ Output with Syntax Highlighting or Colorizing]]
 
-You can read the manual page for a Linux command as follows; this will display the man page for the [[https://www.tecmint.com/how-to-check-disk-space-in-linux/][df command]]:
+你可以使用下面命令来查看manual page; 下面这条命令就会显示 [[https://www.tecmint.com/how-to-check-disk-space-in-linux/][df命令]] 的man页:
 
-$ man df 
-[[https://www.tecmint.com/wp-content/uploads/2017/12/df-Command-Man-Page.png][df Command Man Page
-df Command Man Page]]
+#+BEGIN_SRC shell
+  $ man df 
+#+END_SRC
+[[https://www.tecmint.com/wp-content/uploads/2017/12/df-Command-Man-Page.png]]
 
-df Command Man Page
+默认情况下, man 程序会使用诸如 [[https://www.tecmint.com/linux-more-command-and-less-command-examples/][more 或 less]] 这样的终端分页程序来格式化其输出, 而对于各种文本(粗体，下划线等也是一样)一般都是用白色来显示的.
 
-By default, the man program normally uses a terminal pager program such as [[https://www.tecmint.com/linux-more-command-and-less-command-examples/][more or less]] to format its output, and the default view is normally in white color for
-every kind of text (bold, underlined etc..).
+你可以在 =~/.bashrc= 文件中通过设置各种 =LESS_TERMCAP= 变量来设置染色方案从而使得man page更好看.
 
-You can make some tweaks to your ~/.bashrc file to get nicely colored man pages by specifying a color scheme using various LESS_TERMCAP variables.
+#+BEGIN_SRC shell
+  $ vi ~/.bashrc
+#+END_SRC
 
-$ vi ~/.bashrc
+将下面这些变量加进去.
 
-Add following color scheme variables.
+#+BEGIN_SRC shell
+  export LESS_TERMCAP_mb=$'\e[1;32m'
+  export LESS_TERMCAP_md=$'\e[1;32m'
+  export LESS_TERMCAP_me=$'\e[0m'
+  export LESS_TERMCAP_se=$'\e[0m'
+  export LESS_TERMCAP_so=$'\e[01;33m'
+  export LESS_TERMCAP_ue=$'\e[0m'
+  export LESS_TERMCAP_us=$'\e[1;4;31m'
+#+END_SRC
 
-export LESS_TERMCAP_mb=$'\e[1;32m'
-export LESS_TERMCAP_md=$'\e[1;32m'
-export LESS_TERMCAP_me=$'\e[0m'
-export LESS_TERMCAP_se=$'\e[0m'
-export LESS_TERMCAP_so=$'\e[01;33m'
-export LESS_TERMCAP_ue=$'\e[0m'
-export LESS_TERMCAP_us=$'\e[1;4;31m'
+上面配置中颜色代码的意义如下:
 
-Following are the color codes that we used in the above configuration.
++ 31 – red 
++ 32 – green 
++ 33 – yellow 
 
-,* 31 – red 
-,* 32 – green 
-,* 33 – yellow 
+上面配置中转义代码的意义如下:
 
-And here are the meanings of the escape codes used in the above configuration.
++ 0 – reset/normal 
++ 1 – bold 
++ 4 – underlined 
 
-,* 0 – reset/normal 
-,* 1 – bold 
-,* 4 – underlined 
+随后你可以通过输入 =reset= 来重置你的终端，或者直接开启一个新shell. 现在查看 [[https://www.tecmint.com/how-to-check-disk-space-in-linux/][df命令]] 的man page, 显示如下, 要比默认的显示好看的多.
 
-You can additionally reset your terminal by typing reset or even start up another shell. Now when you try to view a man page [[https://www.tecmint.com/how-to-check-disk-space-in-linux/][df command]], it should look like this,
-nicer than the default view.
+[[https://www.tecmint.com/wp-content/uploads/2017/12/Colored-Man-Page.png]]
 
-[[https://www.tecmint.com/wp-content/uploads/2017/12/Colored-Man-Page.png][Colored Man Page
-Colored Man Page]]
+除此之外, 你也可以使用 [[http://www.jedsoft.org/most/][MOST]] 这个分页程序, 它运行在类Unix操作系统上而且支持多窗口显示，还能从左到右滚动窗口内容.
 
-Colored Man Page
+#+BEGIN_SRC shell
+  $ sudo apt install most		#Debian/Ubuntu 
+  # yum install most		#RHEL/CentOS
+  # dnf install most		#Fedora 22+
+#+END_SRC
 
-Alternatively, you can use the [[http://www.jedsoft.org/most/][MOST]] paging program, which works on Unix-like operating systems and supports multiple windows and can scroll left and right.
+下一步, 将下面行加入 =~/.bashrc= 文件中, 然后像前面所说那样加载该文件并重置终端.
 
-$ sudo apt install most		#Debian/Ubuntu 
-# yum install most		#RHEL/CentOS
-# dnf install most		#Fedora 22+
-
-Next, add the line below in your ~/.bashrc file, then source the file like before and possibly reset your terminal.
-
-export PAGER="most"
-[[https://www.tecmint.com/wp-content/uploads/2017/12/Most-Paging-Program.png][Most Paging Program for Linux
-Most Paging Program for Linux]]
-
-Most Paging Program for Linux
+#+BEGIN_SRC shell
+  export PAGER="most"
+#+END_SRC
+[[https://www.tecmint.com/wp-content/uploads/2017/12/Most-Paging-Program.png]]
 
 Read Also: [[https://www.tecmint.com/customize-bash-colors-terminal-prompt-linux/][How to Customize Bash Colors and Content in Linux Terminal Prompt]]
-
-In this article, we showed you how to display beautifully colored man pages in Linux. To send us any queries or share any useful Linux shell tips/tricks, use the
-comment section below.
