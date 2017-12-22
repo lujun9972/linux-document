@@ -1,86 +1,80 @@
-#+TITLE: ccat - Show 'cat Command' Output with Syntax Hightlight
+#+TITLE: ccat - 对'cat 命令'的输出进行语法高亮
 #+URL: https://www.tecmint.com/cat-command-output-with-syntax-highlighting-or-color/
 #+AUTHOR: lujun9972
-#+TAGS: raw
+#+TAGS: cat common
 #+DATE: [2017-12-21 四 17:12]
 #+LANGUAGE:  zh-CN
 #+OPTIONS:  H:6 num:nil toc:t \n:nil ::t |:t ^:nil -:nil f:t *:t <:nil
 
-ccat is command line similar to [[https://www.tecmint.com/13-basic-cat-command-examples-in-linux/][cat command]] in Linux that displays the content of a file with syntax highlighting for the following programming languages:
-Javascript, Java, Go, Ruby, C, Python and Json.
+ccat 跟 [[https://www.tecmint.com/13-basic-cat-command-examples-in-linux/][cat命令]] 很类似，但是它在显示文件内容时还会针对下面这些编程语言进行语法高亮: Javascript, Java, Go, Ruby, C, Python and Json.
 
-To install ccat utility in your Linux distribution, first assure that the [[https://www.tecmint.com/10-wget-command-examples-in-linux/][wget utility]] is present in your system. If the [[https://www.tecmint.com/10-wget-command-examples-in-linux/][wget command]] line is not installed in the system,
-issue the below command to install it:
+要安装ccat, 首先要确保已经安装了[[https://www.tecmint.com/10-wget-command-examples-in-linux/][wget工具]]. 如果[[https://www.tecmint.com/10-wget-command-examples-in-linux/][wget命令]]尚未安装，那么使用下面命令来安装它:
 
-# yum install wget        [On CentOS/RHEL/Fedora]
-# apt-get install wget    [On Debian and Ubuntu]
+#+BEGIN_SRC shell
+  # yum install wget        [On CentOS/RHEL/Fedora]
+  # apt-get install wget    [On Debian and Ubuntu]
+#+END_SRC
 
-In order to install the latest version of ccat command line via the latest compiled binaries, first download the compressed tarball by issuing the below command.
-The binary and source code releases archives can be found at the official [[https://github.com/jingweno/ccat/releases][ccat github webpage]].
+要安装最新版的ccat命令,首先通过下面命令来下载压缩包. 二进制与源代码的发布包可以在官方[[https://github.com/jingweno/ccat/releases][ccat github页面]]上找到.
 
--------------- On 64-Bit -------------- 
-# wget https://github.com/jingweno/ccat/releases/download/v1.1.0/linux-amd64-1.1.0.tar.gz 
--------------- On 32-Bit -------------- 
-# wget https://github.com/jingweno/ccat/releases/download/v1.1.0/linux-386-1.1.0.tar.gz 
+#+BEGIN_SRC shell
+  -------------- On 64-Bit --------------
+  # wget https://github.com/jingweno/ccat/releases/download/v1.1.0/linux-amd64-1.1.0.tar.gz
+  -------------- On 32-Bit --------------
+  # wget https://github.com/jingweno/ccat/releases/download/v1.1.0/linux-386-1.1.0.tar.gz
+#+END_SRC
 
-After archive download completes, list the current working directory to show the files, extract the ccat tarball (the linux-amd64-1.x.x Tarball file) and copy the
-ccat executable binary from the extracted tarball into a Linux executable system path, such as /usr/local/bin/ path, by issuing the below commands.
+下载完了之后, 先列一下当前工作目录有哪些文件, 然后解压这个 ccat tar包(类似 linux-amd64-1.x.x 这样的名字) 并使用下面命令来将 ccat 可执行文件从解压的tar包中拷出来放到存放Linux可执行文件的系统目录中,比如 =/usr/local/bin/= 目录.
 
-# ls
-# tar xfz linux-amd64-1.1.0.tar.gz 
-# ls linux-amd64-1.1.0
-# cp linux-amd64-1.1.0/ccat /usr/local/bin/
-# ls -al /usr/local/bin/
-[[https://www.tecmint.com/wp-content/uploads/2017/12/ccat-Command-Executable-Files.png][ccat Command Executable Files
-ccat Command Executable Files]]
+#+BEGIN_SRC shell
+  # ls
+  # tar xfz linux-amd64-1.1.0.tar.gz 
+  # ls linux-amd64-1.1.0
+  # cp linux-amd64-1.1.0/ccat /usr/local/bin/
+  # ls -al /usr/local/bin/
+#+END_SRC
+[[https://www.tecmint.com/wp-content/uploads/2017/12/ccat-Command-Executable-Files.png]]
 
-ccat Command Executable Files
+若由于某些原因导致可执行文件系统目录中的 ccat 文件没有设置可执行位, 那么使用下面命令为所有用户设置可执行权限.
 
-If for some reasons the ccat file from your executable system path has no executable bit set, issue the below command to set executable permissions for all system
-users.
+#+BEGIN_SRC shell
+  # chmod +x /usr/local/bin/ccat
+#+END_SRC
 
-# chmod +x /usr/local/bin/ccat
+使用下面命令来试着用ccat工具来现实一下系统配置文件. 文件中的内容应该会根据编程语言语法进行高亮.
 
-In order to test ccat utility capabilities against a system configuration file, issue the below commands. The content of the displayed files should be highlighted
-according to file programming language sytnax, as illustrated in the below command examples.
+#+BEGIN_SRC shell
+  # ccat /etc/sysconfig/network-scripts/ifcfg-ens33 
+  # ccat /etc/fstab 
+#+END_SRC
+[[https://www.tecmint.com/wp-content/uploads/2017/12/ccat-Command-Usage.png]]
 
-# ccat /etc/sysconfig/network-scripts/ifcfg-ens33 
-# ccat /etc/fstab 
-[[https://www.tecmint.com/wp-content/uploads/2017/12/ccat-Command-Usage.png][ccat Command Usage
-ccat Command Usage]]
+要在全系统范围内使用ccat命令替代[[https://www.tecmint.com/13-basic-cat-command-examples-in-linux/][cat command]], 在系统的 =bashrc= 文件中为ccat添加一个别名, 然后登出后再次登陆以使配置生效.
 
-ccat Command Usage
+#+BEGIN_SRC shell
+  -------------- On CentOS, RHEL & Fedora -------------- 
+  # echo "alias cat='/usr/local/bin/ccat'" >> /etc/bashrc 
+  # exit
+  -------------- On Debiab & Ubuntu -------------- 
+  # echo "alias cat='/usr/local/bin/ccat'" >> /etc/profile
+  # exit
+#+END_SRC
 
-In order to replace [[https://www.tecmint.com/13-basic-cat-command-examples-in-linux/][cat command]] with ccat command system wide, add a bash alias for ccat in system barshrc file, log out from the system and log in back again
-to apply the configuration.
+最后, 运行cat命令来查看配置文件以确认ccat别名是否已经替代了cat命令. 现在输出文件的内容应该语法高亮了.
 
--------------- On CentOS, RHEL & Fedora -------------- 
-# echo "alias cat='/usr/local/bin/ccat'" >> /etc/bashrc 
-# exit
--------------- On Debiab & Ubuntu -------------- 
-# echo "alias cat='/usr/local/bin/ccat'" >> /etc/profile
-# exit
+#+BEGIN_SRC shell
+  # cat .bashrc
+#+END_SRC
+[[https://www.tecmint.com/wp-content/uploads/2017/12/Replace-cat-Command-with-ccat.png]]
 
-Finally, run cat command against an arbitrary configuration file to test if ccat alias has replaced cat command, as shown in the below example. The output file
-syntax should be highlighted now.
+ccat 还能用来整合多个文件并以HTML格式显示内容, 比如下面这个例子.
 
-# cat .bashrc
-[[https://www.tecmint.com/wp-content/uploads/2017/12/Replace-cat-Command-with-ccat.png][Replace cat Command with ccat
-Replace cat Command with ccat]]
+#+BEGIN_SRC shell
+  # ccat --html /etc/fstab /etc/sysconfig/network-scripts/ifcfg-ens33> /var/www/html/ccat.html
+#+END_SRC
 
-Replace cat Command with ccat
+不过, 你需要在系统上安装一个类似 Apache HTTP server 或 Nginx 这样的web服务器才能查看HTML文件的内容.
 
-ccat utility can also be used to concatenate multiple files and display the output in HTML format, as illustrated in the below example.
+[[https://www.tecmint.com/wp-content/uploads/2017/12/Display-File-Content-in-HTML.png]]
 
-# ccat --html /etc/fstab /etc/sysconfig/network-scripts/ifcfg-ens33> /var/www/html/ccat.html
-
-However, you will need a web server installed in your system, such as Apache HTTP server or Nginx, to display the content of the HTML file, as illustrated in the
-below screenshot.
-
-[[https://www.tecmint.com/wp-content/uploads/2017/12/Display-File-Content-in-HTML.png][Display File Content in HTML
-Display File Content in HTML]]
-
-Display File Content in HTML
-
-For other custom configurations and command options visit [[https://github.com/jingweno/ccat][ccat official github]] page.
-
+详细的配置和命令选项可以查看 [[https://github.com/jingweno/ccat][ccat官方github页面]].
