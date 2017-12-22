@@ -1,0 +1,176 @@
+#+TITLE: How to Check Integrity of Fil and Directory Using "AIDE" in Linux
+#+URL: https://www.tecmint.com/check-integrity-of-file-and-directory-using-aide-in-linux/
+#+AUTHOR: lujun9972
+#+TAGS: raw
+#+DATE: [2017-12-21 四 18:22]
+#+LANGUAGE:  zh-CN
+#+OPTIONS:  H:6 num:nil toc:t \n:nil ::t |:t ^:nil -:nil f:t *:t <:nil
+
+In our mega guide to [[https://www.tecmint.com/security-and-hardening-centos-7-guide/][hardening and securing CentOS 7]], under the section “protect system internally”, one of the useful security tools we listed for internal
+system protection against viruses, rootkits, malware, and detection of unauthorized activities is AIDE.
+
+AIDE (Advanced Intrusion Detection Environment) is a small yet powerful, free open source intrusion detection tool, that uses predefined rules to check file
+and directory integrity in Unix-like operating systems such as Linux. It is an independent static binary for simplified client/server monitoring configurations.
+
+It is feature-rich: uses plain text configuration files and database making it easy to use; supports several message digest algorithms such as but not limited to
+md5, sha1, rmd160, tiger; supports common file attributes; also supports powerful regular expressions to selectively include or exclude files and directories to be
+scanned.
+
+Also it can be compiled with exceptional support for Gzip compression, Posix ACL, SELinux, XAttrs and Extended file system attributes.
+
+Aide works by creating a database (which is simply a snapshot of selected parts of the file system), from the regular expression rules defined in the configuration
+file(s). Once this database is initialized, you can verify the integrity of the system files against it. This guide will show how to install and use aide in Linux.
+
+How to Install AIDE in Linux
+
+Aide is packaged in official repositories of mainstream Linux distributions, to install it run the command for your distribution using a package manager.
+
+# apt install aide 	   [On Debian/Ubuntu]
+# yum install aide	   [On RHEL/CentOS] 	
+# dnf install aide	   [On Fedora 22+]
+# zypper install aide	   [On openSUSE]
+# emerge aide 	           [On Gentoo]
+
+After installing it, the main configuration file is /etc/aide.conf. To view the installed version as well as compile time parameters, run the command below on your
+terminal:
+
+# aide -v
+
+Sample Output
+
+Aide 0.14
+Compiled with the following options:
+WITH_MMAP
+WITH_POSIX_ACL
+WITH_SELINUX
+WITH_PRELINK
+WITH_XATTR
+WITH_LSTAT64
+WITH_READDIR64
+WITH_ZLIB
+WITH_GCRYPT
+WITH_AUDIT
+CONFIG_FILE = "/etc/aide.conf"
+
+You can open the configuration using your favorite editor.
+
+# vi /etc/aide.conf
+
+It has directives that define the database location, report location, default rules, the directories/files to be included in the database.
+
+Understanding Default Aide Rules
+
+[[https://www.tecmint.com/wp-content/uploads/2017/11/AIDE-Default-Rules.png][AIDE Default Rules
+AIDE Default Rules]]
+
+AIDE Default Rules
+
+Using the above default rules, you can define new custom rules in the aide.conf file for example.
+
+PERMS = p+u+g+acl+selinux+xattrs
+
+The PERMS rule is used for access control only, it will detect any changes to file or directories based on file/directory permissions, user, group, access control
+permissions, SELinux context and file attributes.
+
+This will only check file content and file type.
+
+CONTENT = sha256+ftype
+
+This is an extended version of the previous rule, it checks extended content, file type and access.
+
+CONTENT_EX = sha256+ftype+p+u+g+n+acl+selinux+xattrs
+
+The DATAONLY rule below will help detect any changes in data inside all files/directory.
+
+DATAONLY =  p+n+u+g+s+acl+selinux+xattrs+sha256
+[[https://www.tecmint.com/wp-content/uploads/2017/11/Configure-Aide-Rules.png][Configure Aide Rules
+Configure Aide Rules]]
+
+Configure Aide Rules
+
+Defining Rules to Watch Files and Directories
+
+Once you have defined rules, you can specify the file and directories to watch. Considering the PERMS rule above, this definition will check permissions for all files in
+root directory.
+
+/root/\..*  PERMS
+
+This will check all files in the /root directory for any changes.
+
+/root/   CONTENT_EX
+
+To help you detect any changes in data inside all files/directory under /etc/, use this.
+
+/etc/   DATAONLY 
+[[https://www.tecmint.com/wp-content/uploads/2017/11/Configure-Aide-Rules-for-Filesystem.png][Configure Aide Rules for Filesystem
+Configure Aide Rules for Filesystem]]
+
+Configure Aide Rules for Filesystem
+
+Using AIDE to Check File and Directory Integrity in Linux
+
+Start by constructing a database against the checks that will be performed using --init flag. This is expected to be done before your system is connected to a
+network.
+
+The command below will create a database that contains all of the files that you selected in your configuration file.
+
+# aide --init
+[[https://www.tecmint.com/wp-content/uploads/2017/11/Initialize-Aide-Database.png][Initialize Aide Database
+Initialize Aide Database]]
+
+Initialize Aide Database
+
+Then rename the database to /var/lib/aide/aide.db.gz before proceeding, using this command.
+
+# mv /var/lib/aide/aide.db.new.gz /var/lib/aide/aide.db.gz
+
+It is recommended to move the database to a secure location possibly in a read-only media or on another machines, but ensure that you update the configuration
+file to read it from there.
+
+After the database is created, you can now check the integrity of the files and directories using the --check flag.
+
+# aide --check
+
+It will read the snapshot in the database and compares it to the files/directories found you system disk. If it finds changes in places that you might not expect, it
+generates a report which you can then review.
+
+[[https://www.tecmint.com/wp-content/uploads/2017/11/Run-File-Integrity-Check.png][Run File Integrity Check
+Run File Integrity Check]]
+
+Run File Integrity Check
+
+Since no changes have been made to the file system, you will only get an output similar to the one above. Now try to create some files in the file system, in areas
+defined in the configuration file.
+
+# vi /etc/script.sh
+# touch all.txt
+
+Then run a check once more, which should report the files added above. The output of this command depends on the parts of the file system you configured for
+checking, it can be lengthy overtime.
+
+# aide --check
+[[https://www.tecmint.com/wp-content/uploads/2017/11/Check-File-System-Changes.png][Check File System Changes
+Check File System Changes]]
+
+Check File System Changes
+
+You need to run aide checks regularly, and in case of any changes to already selected files or addition of new file definitions in the configuration file, always update
+the database using the --update option:
+
+# aide --update
+
+After running a database update, to use the new database for future scans, always rename it to /var/lib/aide/aide.db.gz:
+
+# mv /var/lib/aide/aide.db.new.gz  /var/lib/aide/aide.db.gz
+
+That’s all for now! But take note of these important points:
+
+,* One characteristic of most intrusion detection systems AIDE inclusive, is that they will not provide solutions to most security loop holes on a system. They
+ however, assist in easing the the intrusion response process by helping system administrators examine any changes to system files/directories. So you should
+ always be vigilant and keep updating your current security measures. 
+,* It it highly recommended to keep the newly created database, the configuration file and the AIDE binary in a secure location such as read-only media (possible if
+ you install from source). 
+,* For additional security, consider signing the configuration and/or database. 
+
+For additional information and configurations, see its man page or check out the AIDE Homepage: [[http://aide.sourceforge.net/][http://aide.sourceforge.net/]]
+

@@ -1,0 +1,49 @@
+#+TITLE: InsecRes - A Tool to Find Insecure Resources on HTTPS Sites
+#+URL: https://www.tecmint.com/insecres-finds-insecure-resources-on-https-sites/
+#+AUTHOR: lujun9972
+#+TAGS: raw
+#+DATE: [2017-12-21 四 18:27]
+#+LANGUAGE:  zh-CN
+#+OPTIONS:  H:6 num:nil toc:t \n:nil ::t |:t ^:nil -:nil f:t *:t <:nil
+
+
+After switching your site to HTTPS, you probably want to test if resources such as images, slides, embedded videos and others, are correctly pointed to HTTPS
+protocol or displaying warnings about the insecure content on the pages. After some research I found a useful tool for this purpose, called insecuRes.
+
+InsecuRes is a small, free and open source command line based tool for finding insecure resources on HTTPS sites, written in Go programming language. It utilizes
+the power of “multi-threading” (goroutines) to crawl and parse site pages.
+
+Read Also: [[https://www.tecmint.com/redirect-http-to-https-on-apache/][How to Redirect HTTP to HTTPS on Apache]]
+
+It crawls all your website pages in parallel, scans and catches: IMG, IFRAME, OBJECT, AUDIO, VIDEO, SOURCE and TRACK resources with full HTTP (insecure) urls. To
+prevent blacklisting by web server, it employs a random delay between requests. Additionally, you can redirect its output to a CSV file for later analysis.
+
+Requirements
+
+1 [[https://www.tecmint.com/install-go-in-linux/][Install Go Programming Language in Linux]] 
+
+Install InsecuRes in Linux Systems
+
+Once Go Programming Language installed on the system, run the command below on the terminal to get insecres.
+
+$ go get github.com/kkomelin/insecres
+
+Once you have downloaded and installed insecres, run the command below to scan your site for insecure resources. If it shows no output, that probably means
+there are no insecure resources on your site.
+
+$ $GOPATH/bin/insecres https://example.com
+
+To save the output in a CSV file for later examination, use the -f flag.
+
+$ $GOPATH/bin/insecres -f="/path/to/scan_report.csv" https://example.com
+
+Display usage guide.
+
+$ $GOPATH/bin/insecres -h
+
+Some of the features to be added include displayiny result counters and comparing performance of simple regex parsing and tokenized parsing.
+
+InsecRes Github repository: [[https://github.com/kkomelin/insecres][https://github.com/kkomelin/insecres]]
+
+In this article, we showed you how to find insecure resources on HTTPS sites, using a simple command line tool called insecres. You can ask questions or share
+your thoughts via the comment section below. If you know of any similar tools out there, do share information about them as well.
