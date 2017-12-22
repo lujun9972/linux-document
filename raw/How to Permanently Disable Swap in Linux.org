@@ -1,84 +1,82 @@
-#+TITLE: How to Permanently Disable Swap in Linux
+#+TITLE: 如何永久禁用Linux交换空间
 #+URL: https://www.tecmint.com/disable-swap-partition-in-centos-ubuntu/
 #+AUTHOR: lujun9972
-#+TAGS: raw
+#+TAGS: system swap
 #+DATE: [2017-12-21 四 16:58]
 #+LANGUAGE:  zh-CN
 #+OPTIONS:  H:6 num:nil toc:t \n:nil ::t |:t ^:nil -:nil f:t *:t <:nil
 
 
-Swapping or swap space represents a physical memory page that lives on top of disk partition or a special disk file used for extending the RAM memory of a system
-when the physical memory fills up.
+交换或者说交换空间指的是存放在磁盘分区上的物理内存页,也可以理解为当物理内存耗尽时用来扩展系统RAM内存的一种特殊的磁盘文件.
 
-Using this method of extending RAM resources, inactive memory pages are frequently dumped into the swap area when no RAM is available. However, do to the
-spinning speed of classical hard disks, swap space is way lower in transfer speeds and access time compared to RAM.
+使用这种扩展RAM资源的方法, 当没有RAM可用时需要不活动的内存页频繁地导到交换空间去. 然而, 受限于普通硬盘的低速度, 交换空间的传输和访问速度要比RAM慢的多.
 
-On newer machines with fast SSD hard disks, reserving a small partition for swapping can greatly improve access time and speed transfer compared to classical
-HDD, but the speed is still more magnitudes lower than RAM memory. Some suggest that the swap space should be set as twice the amount of machine RAM.
-However, on systems with more than 4 GB or RAM, swap space should be set between 2 or 4 GB.
+在一款搭配了SSD硬盘的新机器上保留一部分分区作为交换相对来说要比普通的HDD快的多，但与RAM比起来还是慢了很多. 有些人会建议交换空间的大小应该设置为机器内存的两倍大小. 然而在达到或者超过4GB内存的系统上，交换空间的大小设成2到4GB就够了.
 
-In case your server has sufficient RAM memory or does not require the use of swap space or the swapping greatly decreases your system performance, you should
-consider disabling the swap area.
+若你的服务器上内存充足无需使用交换空间或者交换会极大地拖慢系统的性能, 那么你就应该考虑禁用交换空间了.
 
-Before actually disabling swap space, first you need to visualize your memory load degree and then identify the partition that holds the swap area, by issuing the
-below commands.
+在开始真正禁用交换空间之前, 首先你需要查看一下内存的负载情况,然后查看交换空间存储在哪个分区上, 输入下面命令.
 
-# free -h 
+#+BEGIN_SRC shell
+  # free -h 
+#+END_SRC
 
-Look for Swap space used size. If the used size is 0B or close to 0 bytes, it can be assumed that swap space is not used intensively and can be safety disabled.
+查看交换分区使用了多少空间. 若使用的空间为0B或者接近0字节, 则可以认为交换空间使用不那么频繁，可以安全地禁用掉.
 
 [[https://www.tecmint.com/wp-content/uploads/2017/12/Check-Swap-Space.png]]
 
-Check Swap Space
+再然后, 输入下面的 =blkid= 命令, 注意 ~TYPE=”swap”~ 这一行表示的是交换分区, 显示结果如下.
 
-Next, issue following blkid command, look for TYPE=”swap” line in order to identify the swap partition, as shown in the below screenshot.
+#+BEGIN_SRC shell
+  # blkid 
+#+END_SRC
+[[https://www.tecmint.com/wp-content/uploads/2017/12/Check-Swap-Partition-Type.png]]
 
-# blkid 
-[[https://www.tecmint.com/wp-content/uploads/2017/12/Check-Swap-Partition-Type.png][Check Swap Partition Type
-Check Swap Partition Type]]
+再用下面的 =lsblk= 命令搜索并确认交换分区([SWAP]).
 
-Check Swap Partition Type
+#+BEGIN_SRC shell
+  # lsblk
+#+END_SRC
+[[https://www.tecmint.com/wp-content/uploads/2017/12/Search-Confirm-Swap-Partition.png]]
 
-Again, issue the following lsblk command to search and identify the [SWAP] partition as shown in the below screenshot.
+确认了交换分区/文件后, 执行下面命令来禁用交换空间.
 
-# lsblk
-[[https://www.tecmint.com/wp-content/uploads/2017/12/Search-Confirm-Swap-Partition.png][Search Confirm Swap Partition
-Search Confirm Swap Partition]]
+#+BEGIN_SRC shell
+  # swapoff /dev/mapper/centos-swap  
+#+END_SRC
 
-Search Confirm Swap Partition
+或者禁用 =/proc/swaps= 中的所有交换空间
 
-After you’ve identified the swap partition or file, execute the below command to deactivate the swap area.
+#+BEGIN_SRC shell
+  # swapoff -a 
+#+END_SRC
 
-# swapoff /dev/mapper/centos-swap  
+运行 [[https://www.tecmint.com/check-memory-usage-in-linux/][free命令]] 确认交换空间被禁用了.
 
-Or disable all swaps from /proc/swaps
+#+BEGIN_SRC shell
+  # free -h
+#+END_SRC
 
-# swapoff -a 
+[[https://www.tecmint.com/wp-content/uploads/2017/12/Disable-Swap-Partition.png]]
 
-Run [[https://www.tecmint.com/check-memory-usage-in-linux/][free command]] in order to check if the swap area has been disabled.
+为了永久禁用交换空间, 打开 =/etc/fstab= 文件, 搜索 swap 行并在前面增加 # (井号) 来注释掉整个行, 如下图所示.
 
-# free -h
-[[https://www.tecmint.com/wp-content/uploads/2017/12/Disable-Swap-Partition.png][Disable Swap Partition
-Disable Swap Partition]]
+#+BEGIN_SRC shell
+  # vi /etc/fstab
+#+END_SRC
 
-Disable Swap Partition
+[[https://www.tecmint.com/wp-content/uploads/2017/12/Disable-Swap-Partition-Permanently.png]]
 
-In order to permanently disable swap space in Linux, open /etc/fstab file, search for the swap line and comment the entire line by adding a # (hashtag) sign in
-front of the line, as shown in the below screenshot.
+之后, 重启系统以便使新的交换设置生效，或者直接执行 =mount -a= 命令也行.
 
-# vi /etc/fstab
-[[https://www.tecmint.com/wp-content/uploads/2017/12/Disable-Swap-Partition-Permanently.png][Disable Swap Partition Permanently
-Disable Swap Partition Permanently]]
+#+BEGIN_SRC shell
+  # mount -a
+#+END_SRC
 
-Disable Swap Partition Permanently
+系统重启后, 输入上面提到e的那些命令来看交换空间是否已经永久地被禁用了.
 
-Afterwards, reboot the system in order to apply the new swap setting or issuing mount -a command in some cases might do the trick.
-
-# mount -a
-
-After system reboot, issuing the commands presented in the beginning of this tutorial should reflect that the swap area has been completely and permanently
-disabled in your system.
-
-# free -h
-# blkid 
-# lsblk 
+#+BEGIN_SRC shell
+  # free -h
+  # blkid 
+  # lsblk 
+#+END_SRC
