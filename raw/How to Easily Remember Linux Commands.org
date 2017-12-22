@@ -18,8 +18,7 @@ you’re getting started.
 [[https://www.maketecheasier.com/assets/uploads/2017/10/rc-bash-history.jpg]]
 
 The first thing you can use to remember commands that you’ve already used is your own command line history. Most [[https://www.maketecheasier.com/alternative-linux-shells/][Linux shells]], including
-the most common default, Bash, create a history file that lists your past commands. For Bash, you can find it at “/home/<username>
-/.bash_history.”
+the most common default, Bash, create a history file that lists your past commands. For Bash, you can find it at “/home/<username>/.bash_history.”
 
 It’s a plain text file, so you can open it in any text editor and loop back through or even search.
 
@@ -52,8 +51,7 @@ There is something else you can do. By using the -a flag, you can add together s
 
 [[https://www.maketecheasier.com/assets/uploads/2017/10/rc-apropos-a.jpg]]
 
-You’d think it’d turn up something, like [[https://www.maketecheasier.com/what-is-grep-and-uses/][grep]]? Instead, you get nothing. Again, apropos is being too literal. Now, try separating the
-words and using the -a flag.
+You’d think it’d turn up something, like [[https://www.maketecheasier.com/what-is-grep-and-uses/][grep]]? Instead, you get nothing. Again, apropos is being too literal. Now, try separating the words and using the -a flag.
 
 #+BEGIN_SRC shell
   apropos "match" -a "pattern"
