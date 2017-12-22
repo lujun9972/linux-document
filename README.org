@@ -6,6 +6,7 @@
 * common
 未分类的内容
 
++ [[https://github.com/lujun9972/linux-document/blob/master/common/How to View Colored Man Pages in Linux.org][ 给你一个五彩缤纷的Man Page]]		<2017-12-22>
 + [[https://github.com/lujun9972/linux-document/blob/master/common/ccat - Show 'cat Command' Output with Syntax Hightlight.org][ ccat - 对'cat 命令'的输出进行语法高亮]]		<2017-12-22>
 + [[https://github.com/lujun9972/linux-document/blob/master/common/How To Easily Recall Linux Commands.org][ 如何回忆起遗忘的Linux命令]]		<2017-11-21>
 + [[https://github.com/lujun9972/linux-document/blob/master/common/Boot Linux ISO From Android Phone.org][ Boot Linux ISO From Android Phone]]		<2017-11-21>
@@ -30,9 +31,10 @@ Linux好游戏
 * raw
 未翻译的内容,欢迎大家领取
 
++ [[https://github.com/lujun9972/linux-document/blob/master/raw/InsecRes - A Tool to Find Insecure Resources on HTTPS Sites.org][ InsecRes - A Tool to Find Insecure Resources on HTTPS Sites]]		<2017-12-22>
 + [[https://github.com/lujun9972/linux-document/blob/master/raw/How to Easily Remember Linux Commands.org][ How to Easily Remember Linux Commands]]		<2017-12-22>
++ [[https://github.com/lujun9972/linux-document/blob/master/raw/How to Check Integrity of Fil and Directory Using "AIDE" in Linux.org][ How to Check Integrity of Fil and Directory Using "AIDE" in Linux]]		<2017-12-22>
 + [[https://github.com/lujun9972/linux-document/blob/master/raw/Testssl.sh - Testing TLS-SSL Encryption Anywere on Any Port.org][ Testssl.sh - Testing TLS-SSL Encryption Anywere on Any Port]]		<2017-12-21>
-+ [[https://github.com/lujun9972/linux-document/blob/master/raw/How to View Colored Man Pages in Linux.org][ How to View Colored Man Pages in Linux]]		<2017-12-21>
 + [[https://github.com/lujun9972/linux-document/blob/master/raw/How to Search DuckDuckGo from the Linux Terminal.org][ How to Search DuckDuckGo from the Linux Terminal]]		<2017-12-21>
 + [[https://github.com/lujun9972/linux-document/blob/master/raw/How to Run Multiple Commands on Multiple Linux Servers.org][ How to Run Multiple Commands on Multiple Linux Servers]]		<2017-12-21>
 + [[https://github.com/lujun9972/linux-document/blob/master/raw/How to Permanently Disable Swap in Linux.org][ How to Permanently Disable Swap in Linux]]		<2017-12-21>
