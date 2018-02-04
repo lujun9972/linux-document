@@ -49,7 +49,7 @@ Packup GitHub 仓库内容就会克隆到你的U盘或外置硬盘的一个名�
   cd packup/
 #+END_SRC
 
-运行下面命令来悲愤所有本地可用的package以及package索引到U盘中.
+运行下面命令来备份所有本地可用的package以及package索引到U盘中.
 
 #+BEGIN_SRC shell
   ./backup.js;
@@ -65,9 +65,9 @@ Packup GitHub 仓库内容就会克隆到你的U盘或外置硬盘的一个名�
 
 在拔出U盘之前，请一定记得运行上面这条命令.
 
-现在可以拔出U盘了，然后开始操作离线那台系统.
+现在可以拔出U盘了，然后开始操作离线的系统.
 
-* 离线系统草操作步骤
+* 离线系统操作步骤
 
 插入U盘，并进入 “Packup” 目录. 这里我把U盘挂载到 /mnt 中.
 
